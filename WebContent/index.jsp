@@ -26,6 +26,22 @@
 </head>
 <body>
 
+
+<div id="login_form">
+ <form name="contact" method="post" action="TODO: ACTION GOES HERE">
+   <fieldset>
+     <label for="username" id="username_label">Username:</label>
+     <input type="text" name="username" id="username" size="30" value="" class="text-input" /></br>
+
+     <label for="email" id="email_label">Password:</label>
+     <input type="text" name="password" id="password" size="30" value="" class="text-input" /></br>
+   	<br />
+     <input type="submit" name="login" class="button" id="login_btn" value="Log In" />
+   </fieldset>
+ </form>
+
+
+
 <% 
 	if(request.getParameter("email")==null){ //first page
 		//draw form login form here
