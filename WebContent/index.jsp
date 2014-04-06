@@ -28,18 +28,18 @@
 
 
 <div id="login_form">
- <form name="contact" method="post" action="TODO: ACTION GOES HERE">
+ <form name="contact" method="post" action="index.jps">
    <fieldset>
      <label for="username" id="username_label">Username:</label>
      <input type="text" name="username" id="username" size="30" value="" class="text-input" /></br>
 
      <label for="password" id="password_label">Password:</label>
-     <input type="text" name="password" id="password" size="30" value="" class="text-input" /></br>
+     <input type="password" name="password" id="password" size="30" value="" class="text-input" /></br>
    	<br />
      <input type="submit" name="login" class="button" id="login_btn" value="Log In" />
    </fieldset>
  </form>
-</div>
+ </div>
 
 
 <% 
