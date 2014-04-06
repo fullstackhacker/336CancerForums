@@ -33,13 +33,13 @@
      <label for="username" id="username_label">Username:</label>
      <input type="text" name="username" id="username" size="30" value="" class="text-input" /></br>
 
-     <label for="email" id="email_label">Password:</label>
+     <label for="password" id="password_label">Password:</label>
      <input type="text" name="password" id="password" size="30" value="" class="text-input" /></br>
    	<br />
      <input type="submit" name="login" class="button" id="login_btn" value="Log In" />
    </fieldset>
  </form>
-
+</div>
 
 
 <% 
