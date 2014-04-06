@@ -64,8 +64,7 @@
  		
 			//not sure what these things do 
 			Context cunt = new InitialContext(); 
-			DataSource powerSource = (DataSource) cunt.lookup("java:comp/env/jdbc/test"); // don't think that string is the right thing to put in 
-			
+			DataSource powerSource = (DataSource) cunt.lookup("java:comp/env/jdbc/test"); // this is this right thing - it refers to Context.xml			
 			conn = powerSource.getConnection(); //gets the connnection
 			query = conn.createStatement(); // create the querier thingy
 			query.executeQuery("INSERT INTO users VALUES ('" + email + "', 0, '" + name + "', '" + password + "', '');");
