@@ -6,6 +6,11 @@
 <%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %>
 
+<%! private String email  = "";  //user's login email%>
+<%! private String password = ""; //user's loginn password%>
+<%! private String emailError = ""; //error on the user's email%>
+<%! private String passwordError = ""; //error on the user's password %>
+
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -21,6 +26,49 @@
 </head>
 <body>
 
-
+<% 
+	if(request.getParameter("email")==null){ //first page
+		//draw form login form here
+	}
+	else{ //user submitted form 
+		this.email = request.getParameter("email"); 
+		this.password = request.getParameter("password"); 
+		
+		//check if the inputs are valids
+		boolean valid = true; 
+		
+		//validate the email
+		if(this.email == null || this.email.isEmpty() || !this.email.contains("@") || !this.email.contains(".com")){
+			this.emailError = "Email is invalid.";
+			valid = false; 
+		}
+		//validate the password
+		if(this.password == null || this.password.isEmpty()){ 
+			this.passwordError = "Password is emtpy.";
+		}
+		
+		if(valid){ //the login input is valid, so try logging in. 
+			java.sql.Connection conn; //connection to the database
+			Statement query; //query to insert the new person into the database
+ 		
+			//not sure what these things do 
+			Context cunt = new InitialContext(); 
+			DataSource powerSource = (DataSource) cunt.lookup("java:comp/env/jdbc/test"); // this is this right thing - it refers to Context.xml			
+			
+			conn = powerSource.getConnection(); //gets the connnection
+			query = conn.createStatement(); // create the querier thingy
+			
+			ResultSet talkingBack = query.executeQuery("SELECT password FROM users WHERE users.email = '" + this.email + "';");				
+			String testP = talkingBack.getString(1); //password to test against
+			
+			if(!this.password.equals(testP)){ //password is not valid
+				//get out of the "valid" if statment... how though? 
+			}
+			
+			//password is valid = gotta do the redirect here 
+		}
+		//redraw the form attaching the errors, doesn't need to be in an else because ^^ will login in the user 
+	}
+%>
 </body>
 </html>

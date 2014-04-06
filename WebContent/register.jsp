@@ -67,9 +67,16 @@
 			DataSource powerSource = (DataSource) cunt.lookup("java:comp/env/jdbc/test"); // this is this right thing - it refers to Context.xml			
 			conn = powerSource.getConnection(); //gets the connnection
 			query = conn.createStatement(); // create the querier thingy
-			query.executeQuery("INSERT INTO users VALUES ('" + email + "', 0, '" + name + "', '" + password + "', '');");
+			query.executeQuery("INSERT INTO users VALUES ('" + this.email + "', 0, '" + this.name + "', '" + this.password + "', '');");
+			
+			if(isDoctor){ //the user is applying to be a doctor 
+				query.executeQuery("INSERT INTO doctor VALUES ('', '0', " + this.email + "');");  //insert doctor table
+			}
+			else{ //the user is a filthy casual 
+				query.executeQuery("INSERT INTO casual VALUES ('', " + this.email + "');"); //insert into filthy casual table
+			}
 		}
-		else{ //else redraw the form
+		else{ //else redraw the form showing the errors
 			
 		}
 	}
