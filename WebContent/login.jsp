@@ -61,7 +61,7 @@
 		}
 		
 		ResultSet adminTest = query.executeQuery("SELECT * FROM admin WHERE admin.email = '" + this.email + "';"); 
-		if(adminTest.next()){ //user is an admin - assumes there is only one returned value
+		if(adminTest.next()){ //user is an admin - assumes there is only one returned value 	
 			out.println("user is an email"); 
 			return; 
 		}
