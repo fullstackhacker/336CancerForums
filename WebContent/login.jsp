@@ -27,49 +27,51 @@
 <body>
 
 <% 
-	if(request.getParameter("email")==null){ //first page
-		//draw form login form here
+	this.email = request.getParameter("email"); //get the user's email 
+	this.password = request.getParameter("password");  //get the user's password
+	
+	//connecting to the database
+	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/csuser"; //connection string 
+	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
+	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
+	Statement query = conn.createStatement(); //create the thing that will query the db
+	
+	ResultSet talkingBack = query.executeQuery("SELECT password FROM users WHERE users.email = '" + this.email + "';");				
+	String testP = talkingBack.getString("password"); //password to test against
+	
+	
+	if(this.password.equals(testP)){
+		//find out if user is a doctor or casual 
+		ResultSet casualTest = query.executeQuery("SELECT * FROM casual WHERE casual.email = '" + this.email + "';");
+		if(casualTest.next()){ //user is a casual - assumes there is only one returned value
+			out.println("user is a casual"); 
+			return; 
+		}
+		
+		ResultSet doctorTest = query.executeQuery("SELECT * FROM doctor WHERE doctor.email = '" + this.email + "';");
+		if(doctorTest.next()){ //user is a doctor - assumes there is only one returned value 
+			out.println("user is a doctor"); 
+			return; 
+		}
+
+		ResultSet modTest = query.executeQuery("SELECT * FROM moderator WHERE moderator.email = '" + this.email + "';");
+		if(modTest.next()){ //user is an moderator - assumes there is only one returned value
+			out.println("user is a moderator");
+			return; 
+		}
+		
+		ResultSet adminTest = query.executeQuery("SELECT * FROM admin WHERE admin.email = '" + this.email + "';"); 
+		if(adminTest.next()){ //user is an admin - assumes there is only one returned value 	
+			out.println("user is an email"); 
+			return; 
+		}
+		
+		
 	}
-	else{ //user submitted form 
-		out.println("got here.");
-		this.email = request.getParameter("email"); 
-		this.password = request.getParameter("password"); 
-		
-		//check if the inputs are valids
-		boolean valid = true; 
-		
-		//validate the email
-		if(this.email == null || this.email.isEmpty() || !this.email.contains("@") || !this.email.contains(".com")){
-			this.emailError = "Email is invalid.";
-			valid = false; 
-		}
-		//validate the password
-		if(this.password == null || this.password.isEmpty()){ 
-			this.passwordError = "Password is emtpy.";
-		}
-		
-		if(valid){ //the login input is valid, so try logging in. 
-			java.sql.Connection conn; //connection to the database
-			Statement query; //query to insert the new person into the database
- 		
-			//not sure what these things do 
-			Context cunt = new InitialContext(); 
-			DataSource powerSource = (DataSource) cunt.lookup("java:comp/env/jdbc/test"); // this is this right thing - it refers to Context.xml			
-			
-			conn = powerSource.getConnection(); //gets the connnection
-			query = conn.createStatement(); // create the querier thingy
-			
-			ResultSet talkingBack = query.executeQuery("SELECT password FROM users WHERE users.email = '" + this.email + "';");				
-			String testP = talkingBack.getString(1); //password to test against
-			
-			if(!this.password.equals(testP)){ //password is not valid
-				//get out of the "valid" if statment... how though? 
-			}
-			
-			//password is valid = gotta do the redirect here 
-		}
-		//redraw the form attaching the errors, doesn't need to be in an else because ^^ will login in the user 
+	else{ //return the user back to the login page
+		String loginpage = new String("index.html");
+		response.setHeader("Location", loginpage); 
 	}
-%>
+%> 
 </body>
 </html>
