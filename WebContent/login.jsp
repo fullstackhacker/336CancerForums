@@ -36,9 +36,15 @@
 	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 	Statement query = conn.createStatement(); //create the thing that will query the db
 	
-	ResultSet talkingBack = query.executeQuery("SELECT password FROM users WHERE users.email = '" + this.email + "';");				
-	String testP = talkingBack.getString("password"); //password to test against
+	ResultSet talkingBack = query.executeQuery("SELECT password FROM users WHERE users.email = '" + this.email + "';"); //querying the dbase
+	if(!talkingBack.next()){
+		String login = "index.html";
+		response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", login);
+		return; 
+	}
 	
+	String testP = talkingBack.getString("password"); //password to test against
 	
 	if(this.password.equals(testP)){
 		//find out if user is a doctor or casual 
