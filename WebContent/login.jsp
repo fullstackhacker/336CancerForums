@@ -27,8 +27,8 @@
 <body>
 
 <% 
-	this.email = request.getParameter("email"); //get the user's email 
-	this.password = request.getParameter("password");  //get the user's password
+	this.email = (String)session.getAttribute("email"); //get the user's email 
+	this.password = (String)session.getAttribute("password");  //get the user's password
 	
 	//connecting to the database
 	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/csuser"; //connection string 
@@ -36,48 +36,65 @@
 	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 	Statement query = conn.createStatement(); //create the thing that will query the db
 	
-	ResultSet talkingBack = query.executeQuery("SELECT password FROM users WHERE users.email = '" + this.email + "';"); //querying the dbase
-	if(!talkingBack.next()){
-		String login = "index.html";
-		response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-		response.setHeader("Location", login);
+	ResultSet talkingBack = query.executeQuery("SELECT * FROM users WHERE users.email = '" + this.email + "';"); //query to the db
+	
+	if(!talkingBack.next()){ //could not find the user in the database
+		String backwego = "index.jsp"; 
+		session.setAttribute("emailError", "Invalid email address"); 
+		session.setAttribute("passwordError", null);
+		response.sendRedirect("index.jsp"); 
 		return; 
 	}
 	
-	String testP = talkingBack.getString("password"); //password to test against
+	String testP = null;
+	try{
+		testP = talkingBack.getString("password"); //password to test against
+	}
+	catch(Exception e){
+		session.setAttribute("emailError", "Invalid email address"); 
+		session.setAttribute("passwordError", "Invalid password");
+		response.sendRedirect("index.jsp"); 
+	}
 	
 	if(this.password.equals(testP)){
 		//find out if user is a doctor or casual 
-		ResultSet casualTest = query.executeQuery("SELECT * FROM casual WHERE casual.email = '" + this.email + "';");
+		ResultSet casualTest = query.executeQuery("SELECT * FROM casual WHERE casual.userEmail = '" + this.email + "';");
 		if(casualTest.next()){ //user is a casual - assumes there is only one returned value
 			out.println("user is a casual"); 
 			return; 
 		}
 		
-		ResultSet doctorTest = query.executeQuery("SELECT * FROM doctor WHERE doctor.email = '" + this.email + "';");
+		ResultSet doctorTest = query.executeQuery("SELECT * FROM doctor WHERE doctor.userEmail = '" + this.email + "';");
 		if(doctorTest.next()){ //user is a doctor - assumes there is only one returned value 
 			out.println("user is a doctor"); 
 			return; 
 		}
 
-		ResultSet modTest = query.executeQuery("SELECT * FROM moderator WHERE moderator.email = '" + this.email + "';");
+		ResultSet modTest = query.executeQuery("SELECT * FROM moderator WHERE moderator.userEmail = '" + this.email + "';");
 		if(modTest.next()){ //user is an moderator - assumes there is only one returned value
 			out.println("user is a moderator");
 			return; 
 		}
 		
-		ResultSet adminTest = query.executeQuery("SELECT * FROM admin WHERE admin.email = '" + this.email + "';"); 
+		ResultSet adminTest = query.executeQuery("SELECT * FROM admin WHERE admin.userEmail = '" + this.email + "';"); 
 		if(adminTest.next()){ //user is an admin - assumes there is only one returned value 	
 			out.println("user is an email"); 
 			return; 
 		}
 		
+		out.println("user is user"); 		
 		
 	}
 	else{ //return the user back to the login page
-		String loginpage = new String("index.html");
-		response.setHeader("Location", loginpage); 
+		String loginpage = new String("index.jsp");
+		session.setAttribute("emailError", null);
+		session.setAttribute("passwordError", "Invalid password"); 
+		response.sendRedirect("index.jsp");  
+		return;
+		//response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
+		//response.setHeader("Location", loginpage); 
 	}
+
 %> 
 </body>
 </html>
