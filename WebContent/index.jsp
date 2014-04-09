@@ -35,6 +35,8 @@ if(request.getParameter("email")!=null && request.getParameter("password") != nu
      <input type="submit" name="login" class="button" id="login_btn" value="Log In" />
    </fieldset>
  </form>
- </div>
+</div>
+
+<a href="registerform.jsp">REGISTER HERE</a>
 </body>
 </html>

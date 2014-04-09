@@ -28,60 +28,21 @@
 </head>
 <body>	
 <%
-	if(request.getParameter("username")==null){
-		//form should be outputted here
-	}
-	else{
-		//process response 
-		this.name = request.getParameter("username"); 
-		this.email = request.getParameter("email"); 
-		this.password = request.getParameter("password"); 
-		String passwordR = request.getParameter("rpassword"); //retype the password
-		boolean isDoctor = request.getParameter("usertype").equals(DOCTOR); 
-		
-		//validate the response
-		boolean valid = true;
-		
-		//validate the name
-		if(this.name == null || this.name.isEmpty()){
-			valid = false; 
-			this.nameError = "Name is invalid.";
-		}
-		//validate the email
-		if(this.email == null || this.email.isEmpty() || !this.email.contains("@") || !this.email.contains(".com")){
-			this.emailError = "Email is invalid.";
-			valid = false; 
-		}
-		//validate the password 
-		if(this.password == null || this.password.isEmpty() || passwordR == null || passwordR.isEmpty() || this.password.equals(passwordR)){
-			this.passwordError = "The password you entered is invalid OR the passwords do not match"; 
-			valid = false; 
-		}
-		
-		if(valid){	//if valid continue to input the user data into the database
-			java.sql.Connection conn; //connection to the database
-			Statement query; //query to insert the new person into the database
- 		
-			//not sure what these things do 
-			Context cunt = new InitialContext(); 
-			DataSource powerSource = (DataSource) cunt.lookup("java:comp/env/jdbc/test"); // this is this right thing - it refers to Context.xml			
-			conn = powerSource.getConnection(); //gets the connnection
-			query = conn.createStatement(); // create the querier thingy
-			query.executeQuery("INSERT INTO users VALUES ('" + this.email + "', 0, '" + this.name + "', '" + this.password + "', '');");
-			
-			if(isDoctor){ //the user is applying to be a doctor 
-				query.executeQuery("INSERT INTO doctor VALUES ('', '0', " + this.email + "');");  //insert doctor table
-			}
-			else{ //the user is a filthy casual 
-				query.executeQuery("INSERT INTO casual VALUES ('', " + this.email + "');"); //insert into filthy casual table
-			}
-		}
-		else{ //else redraw the form showing the errors
-			
-		}
-	}
+	//attrs
+	this.email = (String)session.getAttribute("email"); 
+	this.name =(String) session.getAttribute("username"); 
+	this.password = (String)session.getAttribute("password"); 
+	
 
-
+	//connecting to the database
+	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/csuser"; //connection string 
+	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
+	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
+	Statement query = conn.createStatement(); //create the thing that will query the db
+	
+	query.executeUpdate("INSERT INTO users VALUES ('" + this.email + "', 0, '" + this.name + "', '" + this.password + "', 0);");
+	
+	out.println("REGISTERED SUCCESFULLY -->REDIRECT GOES HERE");
 %>
 </body>
 </html>
