@@ -31,12 +31,12 @@
 	this.password = (String)session.getAttribute("password");  //get the user's password
 	
 	//connecting to the database
-	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/csuser"; //connection string 
+	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
 	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
 	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 	Statement query = conn.createStatement(); //create the thing that will query the db
 	
-	ResultSet talkingBack = query.executeQuery("SELECT * FROM users WHERE users.email = '" + this.email + "';"); //query to the db
+	ResultSet talkingBack = query.executeQuery("SELECT * FROM user WHERE users.email = '" + this.email + "';"); //query to the db
 	
 	if(!talkingBack.next()){ //could not find the user in the database
 		String backwego = "index.jsp"; 
@@ -57,28 +57,29 @@
 	}
 	
 	if(this.password.equals(testP)){
+		int userId = talkingBack.getInt("userId"); 
 		//find out if user is a doctor or casual 
-		ResultSet casualTest = query.executeQuery("SELECT * FROM casual WHERE casual.userEmail = '" + this.email + "';");
+		ResultSet casualTest = query.executeQuery("SELECT * FROM casual WHERE casual.userId = '" + userId + "';");
 		if(casualTest.next()){ //user is a casual - assumes there is only one returned value
 			out.println("user is a casual"); 
 			return; 
 		}
 		
-		ResultSet doctorTest = query.executeQuery("SELECT * FROM doctor WHERE doctor.userEmail = '" + this.email + "';");
+		ResultSet doctorTest = query.executeQuery("SELECT * FROM doctor WHERE doctor.userEmail = '" + userId + "';");
 		if(doctorTest.next()){ //user is a doctor - assumes there is only one returned value 
 			out.println("user is a doctor"); 
 			return; 
 		}
 
-		ResultSet modTest = query.executeQuery("SELECT * FROM moderator WHERE moderator.userEmail = '" + this.email + "';");
+		ResultSet modTest = query.executeQuery("SELECT * FROM moderator WHERE moderator.userEmail = '" + userId + "';");
 		if(modTest.next()){ //user is an moderator - assumes there is only one returned value
-			out.println("user is a moderator");
+			response.sendRedirect("moderator.jsp"); 
 			return; 
 		}
 		
-		ResultSet adminTest = query.executeQuery("SELECT * FROM admin WHERE admin.userEmail = '" + this.email + "';"); 
+		ResultSet adminTest = query.executeQuery("SELECT * FROM admin WHERE admin.userId = '" + userId + "';"); 
 		if(adminTest.next()){ //user is an admin - assumes there is only one returned value 	
-			out.println("user is an email"); 
+			response.sendRedirect("admin.jsp");  
 			return; 
 		}
 		

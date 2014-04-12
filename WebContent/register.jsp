@@ -27,7 +27,7 @@
 <title></title>
 </head>
 <body>	
-<%
+<% 
 	//attrs
 	this.email = (String)session.getAttribute("email"); 
 	this.name =(String) session.getAttribute("username"); 
@@ -35,12 +35,12 @@
 	
 
 	//connecting to the database
-	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/csuser"; //connection string 
+	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
 	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
 	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 	Statement query = conn.createStatement(); //create the thing that will query the db
 	
-	query.executeUpdate("INSERT INTO users VALUES ('" + this.email + "', 0, '" + this.name + "', '" + this.password + "', 0);");
+	query.executeUpdate("INSERT INTO user VALUES ('" + this.email + "', 0, '" + this.name + "', '" + this.password + "', 0);");
 	
 	out.println("REGISTERED SUCCESFULLY -->REDIRECT GOES HERE");
 %>
