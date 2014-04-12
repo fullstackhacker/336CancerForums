@@ -27,7 +27,7 @@ if(request.getParameter("email")!=null && request.getParameter("password") != nu
 <div id="login_form">
  <form name="login" method="post" onsubmit="return validateForm()" action="index.jsp">
    <fieldset>
-     <input type="text" name="email" id="username" size="30" placeholder="Username" class="text-input" /><%= emailError %> 
+     <input type="text" name="email" id="username" size="30" placeholder="Email" class="text-input" /><%= emailError %> 
      </br>
      <input type="password" name="password" id="password" size="30" placeholder="Password" class="text-input" /><%= passwordError %>
      </br>
