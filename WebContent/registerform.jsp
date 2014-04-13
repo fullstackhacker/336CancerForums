@@ -65,6 +65,22 @@ if(request.getParameter("confirm password") != null && (request.getParameter("co
 	this.cpasswordError = "Passwords must match";
 }
 
+if(request.getParameter("firstname") != null && request.getParameter("firstname").isEmpty()){ 
+	valid = false; 
+	this.fnameError = "First Name cannot be empty";
+}
+else if(request.getParameter("firstname") != null && !request.getParameter("firstname").isEmpty()){
+	this.fname = request.getParameter("firstname"); 
+}
+
+if(request.getParameter("lastname") != null && request.getParameter("lastname").isEmpty()){ 
+	valid = false; 
+	this.lnameError = "Last Name cannot be empty";
+}
+else if(request.getParameter("lastname") != null && !request.getParameter("lastname").isEmpty()){
+	this.lname = request.getParameter("lastname"); 
+}
+
 if(!(request.getParameter("type") != null && (request.getParameter("type").equals("doc") || request.getParameter("type").equals("casual")))){
 	out.println("set face cause type was not doc or casual" + request.getParameter("type"));
 	valid = false; 
@@ -81,6 +97,8 @@ if(valid){
 	session.setAttribute("username", request.getParameter("username")); 
 	session.setAttribute("email", request.getParameter("email")); 
 	session.setAttribute("password", request.getParameter("password")); 
+	session.setAttribute("firstname", request.getParameter("firstname")); 
+	session.setAttribute("lastname", request.getParameter("lastname")); 
 	if(request.getParameter("type").equals("doc")){ //user wants to register as a doctor
 		session.setAttribute("isDoc", "yes"); 
 	}
