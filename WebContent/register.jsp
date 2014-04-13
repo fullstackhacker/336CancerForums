@@ -8,10 +8,11 @@
 
 <%! private final static String DOCTOR = "Doctor"; %>
 <%! private String email = ""; //user's email %> 
-<%! private String name = ""; //user's name %>
+<%! private String username = ""; //user's name %>
 <%! private String password = ""; //user's password %>
-<%! private String fname = ""; %>
-<%! private String lname = ""; %>
+<%! private String fname = ""; //user's firstname %>
+<%! private String lname = ""; //user's lastname %>
+<%! private boolean isDoc = false; %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -28,11 +29,12 @@
 <% 
 	//attrs
 	this.email = (String)session.getAttribute("email"); 
-	this.name =(String) session.getAttribute("username"); 
+	this.username =(String) session.getAttribute("username"); 
 	this.password = (String)session.getAttribute("password"); 
 	this.fname = (String)session.getAttribute("firstname"); 
 	this.lname = (String)session.getAttribute("lastname"); 
-
+	this.isDoc = ((String)session.getAttribute("isDoc")).equals("doc"); 
+	
 	//connecting to the database
 	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
 	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
@@ -40,7 +42,26 @@
 	Statement query = conn.createStatement(); //create the thing that will query the db
 	
 	//userdatabase: userid, firstname, lastname, email, 0, password, userName
+	String queryString = "INSERT INTO user VALUES(0, '" + this.fname +"','" + this.lname + "','" + this.email + "', 0, '" + this.password + "','" + this.username + "')";
 	
+	query.executeUpdate(queryString); //insert into the database
+	
+	queryString = "SELECT * FROM user WHERE user.username = '" + this.username + "'";
+	ResultSet dot = query.executeQuery(queryString); //get the user's log into the table
+	if(!dot.next()){ 
+		//server error -> gtfo 
+		return; 
+	}
+	int userId = dot.getInt("userId"); 
+	
+	if(isDoc){ //insert into doctor table 
+		queryString = "INSERT INTO doctor VALUES(0,'" + userId + "',\"0\");";
+		query.executeUpdate(queryString); 
+	}
+	else { //insert into casual table 
+		queryString = "INSERT INTO casual VALUES(0, " + userId + ");";
+		query.executeUpdate(queryString); 
+	}
 	out.println("REGISTERED SUCCESFULLY -->REDIRECT GOES HERE");
 %>
 </body>

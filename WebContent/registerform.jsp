@@ -125,6 +125,7 @@ if(valid){
      <input type="text" name="firstname" size="30" <%if(this.fname.equals("")) out.print("placeholder=\"First Name\""); else out.print("value=\"" + this.fname + "\""); %> class="text-input"><p class="error"><%= this.fnameError %></p>
      <br/>
      <input type="text" name="lastname" size="30" <%if(this.lname.equals("")) out.print("placeholder=\"Lastname\""); else out.println("value=\"" + this.lname + "\""); %> class="text-input"><p class="error"><%= this.lnameError %></p>
+     <br/>
      <input type="email" name="email" size="30"  <% if(this.email.equals("")) out.print("placeholder=\"Email\""); else out.print("value=\"" + this.email + "\""); %> class="text-input"><p class="error"><%= this.emailError %></p>
      <br/>
      <br/>

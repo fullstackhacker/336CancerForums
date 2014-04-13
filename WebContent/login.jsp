@@ -6,6 +6,7 @@
 <%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %>
 
+<%! private String username = ""; %>
 <%! private String email  = "";  //user's login email%>
 <%! private String password = ""; //user's loginn password%>
 <%! private String emailError = ""; //error on the user's email%>
@@ -27,7 +28,7 @@
 <body>
 
 <% 
-	this.email = (String)session.getAttribute("email"); //get the user's email 
+	this.username = (String)session.getAttribute("username"); //get the user's username 
 	this.password = (String)session.getAttribute("password");  //get the user's password
 	
 	//connecting to the database
@@ -36,11 +37,11 @@
 	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 	Statement query = conn.createStatement(); //create the thing that will query the db
 	
-	ResultSet talkingBack = query.executeQuery("SELECT * FROM user WHERE users.email = '" + this.email + "';"); //query to the db
+	ResultSet talkingBack = query.executeQuery("SELECT * FROM user WHERE user.username = '" + this.username + "';"); //query to the db
 	
 	if(!talkingBack.next()){ //could not find the user in the database
 		String backwego = "index.jsp"; 
-		session.setAttribute("emailError", "Invalid email address"); 
+		session.setAttribute("emailError", "Invalid username"); 
 		session.setAttribute("passwordError", null);
 		response.sendRedirect("index.jsp"); 
 		return; 
@@ -51,13 +52,21 @@
 		testP = talkingBack.getString("password"); //password to test against
 	}
 	catch(Exception e){
-		session.setAttribute("emailError", "Invalid email address"); 
+		session.setAttribute("emailError", "Invalid username"); 
 		session.setAttribute("passwordError", "Invalid password");
 		response.sendRedirect("index.jsp"); 
 	}
 	
 	if(this.password.equals(testP)){
 		int userId = talkingBack.getInt("userId"); 
+	
+		//since users can be moderators and either a casual or a doctor gotta figure out the redirect on this
+		ResultSet modTest = query.executeQuery("SELECT * FROM moderator WHERE moderator.userId = '" + userId + "';");
+		if(modTest.next()){ //user is an moderator - assumes there is only one returned value
+			//response.sendRedirect("moderator.jsp"); 
+			//return; 
+		}
+		
 		//find out if user is a doctor or casual 
 		ResultSet casualTest = query.executeQuery("SELECT * FROM casual WHERE casual.userId = '" + userId + "';");
 		if(casualTest.next()){ //user is a casual - assumes there is only one returned value
@@ -65,17 +74,13 @@
 			return; 
 		}
 		
-		ResultSet doctorTest = query.executeQuery("SELECT * FROM doctor WHERE doctor.userEmail = '" + userId + "';");
+		ResultSet doctorTest = query.executeQuery("SELECT * FROM doctor WHERE doctor.userId = '" + userId + "';");
 		if(doctorTest.next()){ //user is a doctor - assumes there is only one returned value 
 			out.println("user is a doctor"); 
 			return; 
 		}
 
-		ResultSet modTest = query.executeQuery("SELECT * FROM moderator WHERE moderator.userEmail = '" + userId + "';");
-		if(modTest.next()){ //user is an moderator - assumes there is only one returned value
-			response.sendRedirect("moderator.jsp"); 
-			return; 
-		}
+
 		
 		ResultSet adminTest = query.executeQuery("SELECT * FROM admin WHERE admin.userId = '" + userId + "';"); 
 		if(adminTest.next()){ //user is an admin - assumes there is only one returned value 	
