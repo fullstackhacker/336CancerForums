@@ -12,7 +12,7 @@
 
 <% 
 if(request.getParameter("submit") != null && request.getParameter("submit").equals("Add Selected Casuals to Moderators")){ //adding casuals to moderators 
-	response.sendRedirect("index.jsp");
+	//response.sendRedirect("index.jsp");
 	String[] casuals = request.getParameterValues("currentCasuals");
 	int x; //counting how many casuals we have to upgrade
 	for(x=0; x<casuals.length; x++){
@@ -60,7 +60,7 @@ Statement query = conn.createStatement(); //create the thing that will query the
 <h1>Admin Console</h1>
 
 <section id = "casuals"> 
-<form name = "casualtomod" action="admin.jsp">
+<form name = "casualtomod" action="admin.jsp" method="post">
 <select id="current_casuals" name="currentCasuals" size="25" multiple>
 <%
 //get all casuals
