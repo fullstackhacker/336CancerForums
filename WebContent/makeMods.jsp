@@ -8,12 +8,7 @@
 </head>
 <body>
 <%
-int upgrades = Integer.parseInt((String)session.getAttribute("numUp"));
-//"tomod"+x
 
-for(int x=0; x<upgrades; x++){
-	out.println("upgrade: " + session.getAttribute("tomod"+x));
-}
 
 
 %>
