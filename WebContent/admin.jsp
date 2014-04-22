@@ -10,6 +10,39 @@
 <%! private String cdtom = ""; //casual/doctor to make into a mod %>
 <%! private String mtocd = ""; //mod to make into a casual/doctor %>
 
+<% 
+if(request.getParameter("submit") != null && request.getParameter("submit").equals("Add Selected Casuals to Moderators")){ //adding casuals to moderators 
+	//response.sendRedirect("index.jsp");
+	String[] casuals = request.getParameterValues("currentCasuals");
+	int x; //counting how many casuals we have to upgrade
+	for(x=0; x<casuals.length; x++){
+		session.setAttribute("tomod"+x, casuals[x]); 
+	}
+	session.setAttribute("numUp", Integer.toString(x)); 
+	response.sendRedirect("makeMods.jsp"); 
+
+}
+if(request.getParameter("submit") != null && request.getParameter("submit").equals("Add Selected Doctors to Moderators")){ //adding doctors to moderators 
+	String[] doctors = request.getParameterValues("currentDoctors"); 
+	int x; //counting how many doctors we have to upgrade
+	for(x=0; x<doctors.length; x++){
+		session.setAttribute("tomod"+x, doctors[x]); 
+	}
+	session.setAttribute("numUp", Integer.toString(x)); 
+	response.sendRedirect("makeMods.jsp");
+}
+
+if(request.getParameter("submit") != null && request.getParameter("submit").equals("Remove Selected from Moderatoring Staff")){ //removed selected moderators
+	String[] mods = request.getParameterValues("currentModerators"); 
+	int x; //counting how many mods to remove
+	for(x=0; x<mods.length; x++){
+		session.setAttribute("mod"+x, mods[x]); 
+	}
+	session.setAttribute("numdown", Integer.toString(x)); 
+	response.sendRedirect("downMods.jsp"); 
+}
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
