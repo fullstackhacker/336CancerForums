@@ -105,7 +105,9 @@ if(valid){
 	else{
 		session.setAttribute("isDoc", "no"); 
 	}
+	session.invalidate(); 
 	response.sendRedirect("register.jsp");
+	
 }
 
 // user database attributes: first name, last name, email, updownVote(NULL), password, userName

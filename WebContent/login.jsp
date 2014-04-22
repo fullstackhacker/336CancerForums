@@ -70,7 +70,8 @@
 		//find out if user is a doctor or casual 
 		ResultSet casualTest = query.executeQuery("SELECT * FROM casual WHERE casual.userId = '" + userId + "';");
 		if(casualTest.next()){ //user is a casual - assumes there is only one returned value
-			out.println("user is a casual"); 
+			session.setAttribute("userId", userId); 
+			response.sendRedirect("index.jsp"); 
 			return; 
 		}
 		
@@ -96,6 +97,7 @@
 		session.setAttribute("emailError", null);
 		session.setAttribute("passwordError", "Invalid password"); 
 		response.sendRedirect("index.jsp");  
+		session.invalidate(); 
 		return;
 		//response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
 		//response.setHeader("Location", loginpage); 
