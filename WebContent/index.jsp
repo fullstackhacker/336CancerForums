@@ -3,6 +3,7 @@
     
 <%@ page import="java.io.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.util.Date" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %>
@@ -117,6 +118,7 @@ String username = (String)session.getAttribute("username");
 String firstname = (String)session.getAttribute("firstname"); 
 String lastname = (String)session.getAttribute("lastname"); 
 String email = (String)session.getAttribute("email");
+boolean isDoc = ((String)session.getAttribute("isDoc")).equals("yes"); 
 Integer votes = (Integer)session.getAttribute("votes");
 
 //connecting to the database
@@ -138,9 +140,45 @@ Statement query = conn.createStatement(); //create the thing that will query the
 
 <div id="lung_threads" class="threadbox"> 
 <%
-String topicIdcall = "SELECT topic"
-//fill via db call
+//get the topic id
+String topicIdcall = "SELECT topicId FROM topic WHERE topic.name = \"lung\";";
+ResultSet topicSet = query.executeQuery(topicIdcall); 
+int topicId = -1; //make sure that we get an id 
+if(topicSet.next()) topicId = topicSet.getInt("topicId"); 
+else return; //error
+if(topicId == -1) return; //error
+
+//get the threads in the topic
+String threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+ResultSet threadSet = query.executeQuery(threadCall); 
+while(threadSet.next()){ 
+	//get thread title
+	String threadtitle = threadSet.getString("title");
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authoerId;";
+	ResultSet authorname = query.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("username"); 
+	
+	//get thread creatation date
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
+	String dateString = date.toString(); 
+	
+	//get thread votes
+	int threadvotes = -1; 
+	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//print out the thread in its own div box 
+	out.println("div id=\"" + threadtitle + "\" class=\"thread\" href=\"thread.jsp\">");
+	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
+	out.println("<p class=\"author\">" + author + "</p>");  
+	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
+	out.println("<p class=\"votes\">" + threadvotes + "</p>");
+	out.println("</div>");
+}
 %>
+
 </div>
 
 <div id="stomach_threads" class="threadbox">
@@ -161,7 +199,15 @@ String topicIdcall = "SELECT topic"
 
 <div id="other_threads" class="threadbox"></div>
 
+<!--  create thread  -->
+<form  name="createthread" action="createthread.jsp" method="post">
+<input name="cthread_name" type="text" size="20" placeholder="Thread Name">
+<br/>
+<textarea form="createthread" rows="20" cols="30"> 
 
+</textarea>
+</form>
 
+</form>
 </body>
 </html>

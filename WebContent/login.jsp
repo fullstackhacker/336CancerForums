@@ -75,6 +75,7 @@
 			session.setAttribute("lastname", talkingBack.getString("lastName")); 
 			session.setAttribute("email", talkingBack.getString("email")); 
 			session.setAttribute("votes", talkingBack.getInt("updownVote"));
+			session.setAttribute("isDoc", "no");
 			session.removeAttribute("password"); 
 			response.sendRedirect("index.jsp"); 
 			return; 
@@ -82,6 +83,7 @@
 		
 		ResultSet doctorTest = query.executeQuery("SELECT * FROM doctor WHERE doctor.userId = '" + userId + "';");
 		if(doctorTest.next()){ //user is a doctor - assumes there is only one returned value 
+			session.setAttribute("isDoc", "yes"); 
 			out.println("user is a doctor"); 
 			return; 
 		}
