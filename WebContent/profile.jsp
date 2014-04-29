@@ -23,7 +23,7 @@
  <form name="profile method="post" onsubmit="return validateForm()" action="profile.jsp">
    <fieldset>
      <label type="text" name="register">Create a New Account</label><br><br/>
-     <input type="text" name="username" id="username" size="30" <% if(this.username.equals("")) out.print("placeholder=\"Desired Username\""); else out.print("value=\"" + this.username + "\""); %> class="text-input" /><p class="error"><%= this.usernameError %></p>
+     <input type="text" name="username" id="username" size="30" <% %> class="text-input" /><p class="error"><%= this.usernameError %></p>
      <br/>
      <input type="password" name="password" id="password" size="30" placeholder="New Password" class="text-input" /><p class="error"><%= this.passwordError %></p>
      <br/>
