@@ -4,7 +4,29 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.sql.*" %>
-<%@ page import="javax.naming.*" %>    
+<%@ page import="javax.naming.*" %> 
+
+
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+
+<%
+	//connecting to the database
+	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
+	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
+	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
+	Statement query = conn.createStatement(); //create the thing that will query the db
+
+%>
+
+<%
+String username = (String)session.getAttribute("username"); //get the user's username 
+boolean IsDoc = (String)session.getAttribute("IsDoc"); //true or false if the user is a doctor 
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,17 +45,17 @@
  <form name="profile method="post" onsubmit="return validateForm()" action="profile.jsp">
    <fieldset>
      <label type="text" name="register">Create a New Account</label><br><br/>
-     <input type="text" name="username" id="username" size="30" <% %> class="text-input" /><p class="error"><%= this.usernameError %></p>
+     <input type="text" name="username" id="username" size="30" <% %> class="text-input" />
      <br/>
-     <input type="password" name="password" id="password" size="30" placeholder="New Password" class="text-input" /><p class="error"><%= this.passwordError %></p>
+     <input type="password" name="password" id="password" size="30" placeholder="New Password" class="text-input" />
      <br/>
-     <input type="password" name="confirm password" id="password" size="30" placeholder="Confirm New Password" class="text-input" /><p class="error"><%= this.cpasswordError %></p>
+     <input type="password" name="confirm password" id="password" size="30" placeholder="Confirm New Password" class="text-input" />
      <br/>
-     <input type="text" name="firstname" size="30" <%if(this.fname.equals("")) out.print("placeholder=\"First Name\""); else out.print("value=\"" + this.fname + "\""); %> class="text-input"><p class="error"><%= this.fnameError %></p>
+     <input type="text" name="firstname" size="30" <%out.print("placeholder="this.firstname")%> class="text-input">
      <br/>
-     <input type="text" name="lastname" size="30" <%if(this.lname.equals("")) out.print("placeholder=\"Lastname\""); else out.println("value=\"" + this.lname + "\""); %> class="text-input"><p class="error"><%= this.lnameError %></p>
+     <input type="text" name="lastname" size="30" <%if(this.lname.equals("")) out.print("placeholder=\"Lastname\""); %> class="text-input">
      <br/>
-     <input type="email" name="email" size="30"  <% if(this.email.equals("")) out.print("placeholder=\"Email\""); else out.print("value=\"" + this.email + "\""); %> class="text-input"><p class="error"><%= this.emailError %></p>
+     <input type="email" name="email" size="30"  <% if(this.email.equals("")) out.print("placeholder=\"Email\""); %> class="text-input">
      <br/>
      <br/>
      <label type="text" name="areyoua">I am a:</label><p class="error" ><%= "  " + this.usertypeError %></p></br>
