@@ -16,7 +16,7 @@ else passwordError = (String)session.getAttribute("passwordError");
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style rel="stylesheet" type="text/css" href="global.css"></style>
 <style rel="stylesheet" type="text/css" href="home.css"></style>
-<title>336 is Cancer | Home</title>
+<title>336 Beats Cancer | Log In</title>
 </head>
 <body>
 <%

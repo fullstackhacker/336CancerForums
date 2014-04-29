@@ -71,6 +71,11 @@
 		ResultSet casualTest = query.executeQuery("SELECT * FROM casual WHERE casual.userId = '" + userId + "';");
 		if(casualTest.next()){ //user is a casual - assumes there is only one returned value
 			session.setAttribute("userId", userId); 
+			session.setAttribute("firstname", talkingBack.getString("firstName")); 
+			session.setAttribute("lastname", talkingBack.getString("lastName")); 
+			session.setAttribute("email", talkingBack.getString("email")); 
+			session.setAttribute("votes", talkingBack.getInt("updownVote"));
+			session.removeAttribute("password"); 
 			response.sendRedirect("index.jsp"); 
 			return; 
 		}
