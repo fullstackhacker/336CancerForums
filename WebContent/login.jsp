@@ -24,7 +24,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Cancer Forums</title>
-<
 </head>
 <body>
 
@@ -98,7 +97,6 @@
 		session.setAttribute("emailError", null);
 		session.setAttribute("passwordError", "Invalid password"); 
 		response.sendRedirect("index.jsp");  
-		session.invalidate(); 
 		return;
 		//response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
 		//response.setHeader("Location", loginpage); 

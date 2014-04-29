@@ -30,6 +30,7 @@ if(request.getParameter("username")==null){
 	out.println("set false cause user name was null"); 
 	valid = false;
 }
+else {
 
 if(request.getParameter("username") != null && request.getParameter("username").isEmpty()){ 
 	out.println("set false cause username was not null and empty"); 
@@ -81,34 +82,34 @@ else if(request.getParameter("lastname") != null && !request.getParameter("lastn
 	this.lname = request.getParameter("lastname"); 
 }
 
-if(!(request.getParameter("type") != null && (request.getParameter("type").equals("doc") || request.getParameter("type").equals("casual")))){
-	out.println("set face cause type was not doc or casual" + request.getParameter("type"));
-	valid = false; 
-	this.usertypeError = "Must pick a user type";
-}
-
-if((request.getParameter("username") != null || request.getParameter("email") != null || request.getParameter("password") != null || request.getParameter("confirm password") != null) && (request.getParameter("type") == null)){
-	out.println("set false cause type was not picked and other stuff was filled in "); 
-	valid = false; 
-	this.usertypeError = "Must pick a user type"; 
-}
-
-if(valid){
-	session.setAttribute("username", request.getParameter("username")); 
-	session.setAttribute("email", request.getParameter("email")); 
-	session.setAttribute("password", request.getParameter("password")); 
-	session.setAttribute("firstname", request.getParameter("firstname")); 
-	session.setAttribute("lastname", request.getParameter("lastname")); 
-	if(request.getParameter("type").equals("doc")){ //user wants to register as a doctor
-		session.setAttribute("isDoc", "yes"); 
+	if(!(request.getParameter("type") != null && (request.getParameter("type").equals("doc") || request.getParameter("type").equals("casual")))){
+		out.println("set face cause type was not doc or casual" + request.getParameter("type"));
+		valid = false; 
+		this.usertypeError = "Must pick a user type";
 	}
-	else{
-		session.setAttribute("isDoc", "no"); 
+
+	if((request.getParameter("username") != null || request.getParameter("email") != null || request.getParameter("password") != null || request.getParameter("confirm password") != null) && (request.getParameter("type") == null)){
+		out.println("set false cause type was not picked and other stuff was filled in "); 
+		valid = false; 
+		this.usertypeError = "Must pick a user type"; 
 	}
-	session.invalidate(); 
-	response.sendRedirect("register.jsp");
+}
+	if(valid){
+		session.setAttribute("username", request.getParameter("username")); 
+		session.setAttribute("email", request.getParameter("email")); 
+		session.setAttribute("password", request.getParameter("password")); 
+		session.setAttribute("firstname", request.getParameter("firstname")); 
+		session.setAttribute("lastname", request.getParameter("lastname")); 
+		if(request.getParameter("type").equals("doc")){ //user wants to register as a doctor
+			session.setAttribute("isDoc", "yes"); 
+		}
+		else{
+			session.setAttribute("isDoc", "no"); 
+		} 
+		response.sendRedirect("register.jsp");
 	
-}
+	}
+
 
 // user database attributes: first name, last name, email, updownVote(NULL), password, userName
 

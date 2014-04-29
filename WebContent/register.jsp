@@ -33,7 +33,7 @@
 	this.password = (String)session.getAttribute("password"); 
 	this.fname = (String)session.getAttribute("firstname"); 
 	this.lname = (String)session.getAttribute("lastname"); 
-	this.isDoc = ((String)session.getAttribute("isDoc")).equals("doc"); 
+	this.isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("doc"); 
 	
 	//connecting to the database
 	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
