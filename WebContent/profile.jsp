@@ -27,8 +27,7 @@
 String username = (String)session.getAttribute("username"); //get the user's username
 String email = (String)session.getAttribute("email"); //get the user's email
 String first = (String)session.getAttribute("firstname"); //get the user's firstname
-
-boolean IsDoc = (String)session.getAttribute("IsDoc").equals("yes"); //true or false if the user is a doctor 
+boolean IsDoc = ((String)session.getAttribute("IsDoc")).equals("yes"); //true or false if the user is a doctor 
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
