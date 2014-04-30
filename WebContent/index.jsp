@@ -110,6 +110,8 @@ $(document).ready(function(){
 if(session.getAttribute("userId")==null){ //user is not logged in 
 	response.sendRedirect("loginform.jsp"); 
 }
+
+out.println(session.getAttribute("userId"));  
 //user is logged in 
 
 //user attributes
@@ -118,7 +120,7 @@ String username = (String)session.getAttribute("username");
 String firstname = (String)session.getAttribute("firstname"); 
 String lastname = (String)session.getAttribute("lastname"); 
 String email = (String)session.getAttribute("email");
-boolean isDoc = ((String)session.getAttribute("isDoc")).equals("yes"); 
+boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
 Integer votes = (Integer)session.getAttribute("votes");
 
 //connecting to the database
@@ -203,11 +205,20 @@ while(threadSet.next()){
 <form  name="createthread" action="createthread.jsp" method="post">
 <input name="cthread_name" type="text" size="20" placeholder="Thread Name">
 <br/>
-<textarea form="createthread" rows="20" cols="30"> 
-
+<textarea name="cthread_content" form="createthread" rows="20" cols="30"> 
+Thread Description
 </textarea>
+<br/>
+<select name="topic"> 
+	<option name="lung" value="lung">Lung</option>
+	<option name="stomach" value="stomach">Stomach</option>
+	<option name="prostate" value="prostate">Prostate</option>
+	<option name="bowel" value="bowel">Bowel</option>
+	<option name="breast" value="breast">Breast</option>
+</select>
+<br/>
+<input type="submit" value="Create Thread">
 </form>
 
-</form>
 </body>
 </html>
