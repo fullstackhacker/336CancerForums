@@ -139,6 +139,7 @@ Statement query = conn.createStatement(); //create the thing that will query the
 
 <h1>Cancer Ends Here</h1>
 
+
  <jsp:include page="header.jsp" flush="true" />
 
 <div id="lung_threads" class="threadbox"> 
@@ -148,8 +149,8 @@ String topicIdcall = "SELECT topicId FROM topic WHERE topic.name = \"lung\";";
 ResultSet topicSet = query.executeQuery(topicIdcall); 
 int topicId = -1; //make sure that we get an id 
 if(topicSet.next()) topicId = topicSet.getInt("topicId"); 
-else return; //error
-if(topicId == -1) return; //error
+else out.println("There are no topics yet."); //error
+
 
 //get the threads in the topic
 String threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
@@ -203,7 +204,8 @@ while(threadSet.next()){
 <div id="other_threads" class="threadbox"></div>
 
 <!--  create thread  -->
-<form  name="createthread" action="createthread.jsp" method="post">
+
+<form name="createthread" action="createthread.jsp" method="post">
 <input name="cthread_name" type="text" size="20" placeholder="Thread Name">
 <br/>
 <textarea name="cthread_content" form="createthread" rows="20" cols="30"> 
