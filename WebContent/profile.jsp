@@ -24,8 +24,11 @@
 %>
 
 <%
-String username = (String)session.getAttribute("username"); //get the user's username 
-boolean IsDoc = (String)session.getAttribute("IsDoc"); //true or false if the user is a doctor 
+String username = (String)session.getAttribute("username"); //get the user's username
+String email = (String)session.getAttribute("email"); //get the user's email
+String first = (String)session.getAttribute("firstname"); //get the user's firstname
+
+boolean IsDoc = (String)session.getAttribute("IsDoc").equals("yes"); //true or false if the user is a doctor 
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -44,24 +47,28 @@ boolean IsDoc = (String)session.getAttribute("IsDoc"); //true or false if the us
 <div id="profile">
  <form name="profile method="post" onsubmit="return validateForm()" action="profile.jsp">
    <fieldset>
-     <label type="text" name="register">Create a New Account</label><br><br/>
-     <input type="text" name="username" id="username" size="30" <% %> class="text-input" />
+     <label type="text" name="register">User Profile Information</label><br><br/>
+     <label type="text" name="username">Username:</label>
+     <input type="text" name="username" size="30" <%out.print("placeholder=username")%> class="text-input" />
      <br/>
-     <input type="password" name="password" id="password" size="30" placeholder="New Password" class="text-input" />
+     <label type="text" name="first">First Name:</label>
+     <input type="text" name="firstname" size="30" <%out.print("placeholder=first")%> class="text-input">
+     <br/>
+     <label type="text" name="last">Last Name:</label>
+     <input type="text" name="lastname" size="30" <%out.print("placeholder=last")%> class="text-input">
+     <br/>
+     <label type="text" name="email">Email:</label>
+     <input type="email" name="email" size="30"  <%out.print("placeholder=email")%> class="text-input">
+     <br/>
+     <br/>
+     <label type="text" name="areyoua">You are a:</label></br>
+     <input type="radio" name="type" value="doc" <%if (IsDoc) out.print("checked="checked"")%> /> Doctor </br>
+	 <input type="radio" name="type" value="casual" <%if (!IsDoc) out.print("checked="checked"")%>/> Casual </br> 
+	 <br />
+	 <input type="password" name="password" id="password" size="30" placeholder="New Password" class="text-input" />
      <br/>
      <input type="password" name="confirm password" id="password" size="30" placeholder="Confirm New Password" class="text-input" />
      <br/>
-     <input type="text" name="firstname" size="30" <%out.print("placeholder="this.firstname")%> class="text-input">
-     <br/>
-     <input type="text" name="lastname" size="30" <%if(this.lname.equals("")) out.print("placeholder=\"Lastname\""); %> class="text-input">
-     <br/>
-     <input type="email" name="email" size="30"  <% if(this.email.equals("")) out.print("placeholder=\"Email\""); %> class="text-input">
-     <br/>
-     <br/>
-     <label type="text" name="areyoua">I am a:</label><p class="error" ><%= "  " + this.usertypeError %></p></br>
-     <input type="radio" name="type" value="doc" /> Doctor </br>
-	 <input type="radio" name="type" value="casual" /> Casual </br> 
-	 <br />
      <input type="submit" name="Update" class="button" id="update_btn" value="Save Changes" />
    </fieldset>
  </form>
