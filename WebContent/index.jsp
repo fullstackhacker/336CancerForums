@@ -161,7 +161,7 @@ while(threadSet.next()){
 	
 	//get thread author
 	String author = ""; 
-	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authoerId;";
+	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
 	ResultSet authorname = query.executeQuery(getAuthorState); 
 	if(authorname.next()) author = authorname.getString("username"); 
 	
