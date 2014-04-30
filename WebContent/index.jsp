@@ -139,6 +139,8 @@ Statement query = conn.createStatement(); //create the thing that will query the
 
 <h1>Cancer Ends Here</h1>
 
+<jsp:include page="header.jsp" flush="true" />
+
 <div id="lung_threads" class="threadbox"> 
 <%
 //get the topic id
