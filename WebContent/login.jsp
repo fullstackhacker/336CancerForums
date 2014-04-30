@@ -58,8 +58,17 @@
 	}
 	
 	if(this.password.equals(testP)){
+		//userId compare simplicity
 		int userId = talkingBack.getInt("userId"); 
-	
+
+		//user attributes to add to the session 
+		session.setAttribute("userId", userId); 
+		session.setAttribute("firstname", talkingBack.getString("firstName")); 
+		session.setAttribute("lastname", talkingBack.getString("lastName")); 
+		session.setAttribute("email", talkingBack.getString("email")); 
+		session.setAttribute("votes", talkingBack.getInt("updownVote"));
+		session.removeAttribute("password"); 
+		
 		//since users can be moderators and either a casual or a doctor gotta figure out the redirect on this
 		ResultSet modTest = query.executeQuery("SELECT * FROM moderator WHERE moderator.userId = '" + userId + "';");
 		if(modTest.next()){ //user is an moderator - assumes there is only one returned value
@@ -70,13 +79,7 @@
 		//find out if user is a doctor or casual 
 		ResultSet casualTest = query.executeQuery("SELECT * FROM casual WHERE casual.userId = '" + userId + "';");
 		if(casualTest.next()){ //user is a casual - assumes there is only one returned value
-			session.setAttribute("userId", userId); 
-			session.setAttribute("firstname", talkingBack.getString("firstName")); 
-			session.setAttribute("lastname", talkingBack.getString("lastName")); 
-			session.setAttribute("email", talkingBack.getString("email")); 
-			session.setAttribute("votes", talkingBack.getInt("updownVote"));
 			session.setAttribute("isDoc", "no");
-			session.removeAttribute("password"); 
 			response.sendRedirect("index.jsp"); 
 			return; 
 		}

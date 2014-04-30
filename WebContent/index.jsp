@@ -110,8 +110,7 @@ $(document).ready(function(){
 if(session.getAttribute("userId")==null){ //user is not logged in 
 	response.sendRedirect("loginform.jsp"); 
 }
-
-out.println(session.getAttribute("userId"));  
+ 
 //user is logged in 
 
 //user attributes
