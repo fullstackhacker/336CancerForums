@@ -174,12 +174,14 @@ while(threadSet.next()){
 	threadvotes = threadSet.getInt("updownVotes"); 	
 	
 	//print out the thread in its own div box 
-	out.println("div id=\"" + threadtitle + "\" class=\"thread\" href=\"thread.jsp\">");
+	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
 	out.println("<p class=\"author\">" + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
 	out.println("<p class=\"votes\">" + threadvotes + "</p>");
-	out.println("</div>");
+	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"submit\" value=\"View Thread\" />");
+	out.println("</form>");
 }
 %>
 
