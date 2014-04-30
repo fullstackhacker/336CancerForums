@@ -53,6 +53,9 @@ catch(Exception e){ //couldn't add the thread cause something was wrong with you
 	response.sendRedirect("index.jsp");
 }
 
+//see if the only the thread will be created as doctor only
+String doconly = request.getParameter("doconly") != null && request.getParameter("doconly").equals("on") ? "0" : "1"; 
+
 //add post to the thread
 
 //have to get the threadId now
@@ -62,11 +65,11 @@ int threadId = -1;
 if(threadIdSet.next()) threadId = threadIdSet.getInt("threadId");
 else{ 
 	out.println("something went wrong --> REDIRECTING");
-	Thread.sleep(2000);
+	Thread.sleep(2000); //so that we can see the error before we redirect
 	response.sendRedirect("index.jsp"); 
 }
 //post: postid, threadId, content, datetimeCreated, updownVotes, authorId
-String addPost = "INSERT INTO thread VALUES (0, + " + threadId + ", \"" + firstpost + "\"," + ts + ", 0, " + (Integer)session.getAttribute("userId") + ");";
+String addPost = "INSERT INTO thread VALUES (0, + " + threadId + ", \"" + firstpost + "\"," + ts + ", 0, " + (Integer)session.getAttribute("userId") + ", \"" + doconly + "\"" +");";
 try{ 
 	query.executeUpdate(addPost); 
 }

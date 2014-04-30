@@ -112,7 +112,7 @@ if(session.getAttribute("userId")==null){ //user is not logged in
 }
 
 if(request.getParameter("threadtitle") != null){ //user wants to view this thread 
-	session.setAttribute("currentThread", request.getParameter("threadtitle")); 
+	session.setAttribute("currentThread", request.getParameter("threadtitle"));
 	response.sendRedirect("thread.jsp"); 
 }
  
@@ -136,6 +136,11 @@ Statement query = conn.createStatement(); //create the thing that will query the
 
 %>
 
+<% 
+//check if the user has an unread messages
+
+
+%>
 <div id="userbox">
 	<button type="button" onclick="window.location='profile.jsp'"><%= username %></button>
 	<button type="button" onclick="window.location='messages.jsp'">Messages</button>
@@ -161,6 +166,10 @@ else out.println("There are no topics yet."); //error
 String threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
 ResultSet threadSet = query.executeQuery(threadCall); 
 while(threadSet.next()){ 
+	if(!isDoc && threadSet.getString("doconly").equals("0")){
+		continue; 
+	}
+	
 	//get thread title
 	String threadtitle = threadSet.getString("title");
 	
@@ -226,6 +235,11 @@ Thread Description
 	<option name="bowel" value="bowel">Bowel</option>
 	<option name="breast" value="breast">Breast</option>
 </select>
+<%
+if(isDoc){  
+	out.println("<input type=\"checkbox\" name=\"doconly\" value=\"doconly\">Doctor Thread Only?"); 
+}
+%>
 <br/>
 <input type="submit" value="Create Thread">
 </form>
