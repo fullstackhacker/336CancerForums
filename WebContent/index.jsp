@@ -17,89 +17,99 @@
 <script src="jquery-2.1.0.min.js"></script>
 <script> 
 $(document).ready(function(){
-	$("lung").click(function(){
-		$("lung").fadeTo("fast", 1.0); 
-		$("breast").fadeTo("fast", 0.3);
-		$("prostate").fadeTo("fast", 0.3); 
-		$("bowel").fadeTo("fast", 0.3); 
-		$("stomach").fadeTo("fast", 0.3); 
-		$("other").fadeTo("fast", 0.3); 
-		$("lung_threads").show(); 
-		$("breast_threads").hide(); 
-		$("bowel_threads").hide(); 
-		$("prostate_threads").hide(); 
-		$("stomach_threads").hide(); 
-		$("other_threads").hide();
+	$("#breast_threads").hide(); 
+	$("#bowel_threads").hide(); 
+	$("#prostate_threads").hide(); 
+	$("#stomach_threads").hide(); 
+	$("#other_threads").hide(); 
+	$("#breast").fadeTo("fast", 0.3);
+	$("#prostate").fadeTo("fast", 0.3); 
+	$("#bowel").fadeTo("fast", 0.3); 
+	$("#stomach").fadeTo("fast", 0.3); 
+	$("#other").fadeTo("fast", 0.3);
+	$("#lung").click(function(){
+		$("#lung").fadeTo("fast", 1.0); 
+		$("#breast").fadeTo("fast", 0.3);
+		$("#prostate").fadeTo("fast", 0.3); 
+		$("#bowel").fadeTo("fast", 0.3); 
+		$("#stomach").fadeTo("fast", 0.3); 
+		$("#other").fadeTo("fast", 0.3); 
+		$("#lung_threads").show(); 
+		$("#breast_threads").hide(); 
+		$("#bowel_threads").hide(); 
+		$("#prostate_threads").hide(); 
+		$("#stomach_threads").hide(); 
+		$("#other_threads").hide();
 	});
-	$("breast").click(function(){
-		$("breast").fadeTo("fast", 1.0); 
-		$("lung").fadeTo("fast", 0.3);
-		$("prostate").fadeTo("fast", 0.3); 
-		$("bowel").fadeTo("fast", 0.3); 
-		$("stomach").fadeTo("fast", 0.3); 
-		$("other").fadeTo("fast", 0.3); 
-		$("breast_threads").show(); 
-		$("lung_threads").hide(); 
-		$("bowel_threads").hide(); 
-		$("prostate_threads").hide(); 
-		$("stomach_threads").hide(); 
-		$("other_threads").hide();
+	$("#breast").click(function(){
+		$("#breast").fadeTo("fast", 1.0); 
+		$("#lung").fadeTo("fast", 0.3);
+		$("#prostate").fadeTo("fast", 0.3); 
+		$("#bowel").fadeTo("fast", 0.3); 
+		$("#stomach").fadeTo("fast", 0.3); 
+		$("#other").fadeTo("fast", 0.3); 
+		$("#breast_threads").show(); 
+		$("#lung_threads").hide(); 
+		$("#bowel_threads").hide(); 
+		$("#prostate_threads").hide(); 
+		$("#stomach_threads").hide(); 
+		$("#other_threads").hide();
 	}); 
-	$("prostate").click(function(){
-		$("prostate").fadeTo("fast", 1.0); 
-		$("breast").fadeTo("fast", 0.3);
-		$("lung").fadeTo("fast", 0.3); 
-		$("bowel").fadeTo("fast", 0.3); 
-		$("stomach").fadeTo("fast", 0.3); 
-		$("other").fadeTo("fast", 0.3); 
-		$("prostate_threads").show(); 
-		$("breast_threads").hide(); 
-		$("lung_threads").hide(); 
-		$("bowel_threads").hide(); 
-		$("stomach_threads").hide(); 
-		$("other_threads").hide();
+	$("#prostate").click(function(){
+		$("#prostate").fadeTo("fast", 1.0); 
+		$("#breast").fadeTo("fast", 0.3);
+		$("#lung").fadeTo("fast", 0.3); 
+		$("#bowel").fadeTo("fast", 0.3); 
+		$("#stomach").fadeTo("fast", 0.3); 
+		$("#other").fadeTo("fast", 0.3); 
+		$("#prostate_threads").show(); 
+		$("#breast_threads").hide(); 
+		$("#lung_threads").hide(); 
+		$("#bowel_threads").hide(); 
+		$("#stomach_threads").hide(); 
+		$("#other_threads").hide();
 	}); 
-	$("bowel").click(function(){
-		$("bowel").fadeTo("fast", 1.0); 
-		$("breast").fadeTo("fast", 0.3);
-		$("prostate").fadeTo("fast", 0.3); 
-		$("lung").fadeTo("fast", 0.3); 
-		$("stomach").fadeTo("fast", 0.3); 
-		$("other").fadeTo("fast", 0.3); 
-		$("bowel_threads").show(); 
-		$("breast_threads").hide(); 
-		$("prostate_threads").hide(); 
-		$("lung_threads").hide();
-		$("stomach_threads").hide(); 
-		$("other_threads").hide();
+	$("#bowel").click(function(){
+		$("#bowel").fadeTo("fast", 1.0); 
+		$("#breast").fadeTo("fast", 0.3);
+		$("#prostate").fadeTo("fast", 0.3); 
+		$("#lung").fadeTo("fast", 0.3); 
+		$("#stomach").fadeTo("fast", 0.3); 
+		$("#other").fadeTo("fast", 0.3); 
+		$("#bowel_threads").show(); 
+		$("#breast_threads").hide(); 
+		$("#prostate_threads").hide(); 
+		$("#lung_threads").hide();
+		$("#stomach_threads").hide(); 
+		$("#other_threads").hide();
 	}); 
-	$("stomach").click(function(){
-		$("stomach").fadeTo("fast", 1.0); 
-		$("breast").fadeTo("fast", 0.3);
-		$("prostate").fadeTo("fast", 0.3); 
-		$("bowel").fadeTo("fast", 0.3); 
-		$("lung").fadeTo("fast", 0.3); 
-		$("other").fadeTo("fast", 0.3); 
-		$("stomach_threads").show(); 
-		$("breast_threads").hide(); 
-		$("prostate_threads").hide(); 
-		$("bowel_threads").hide(); 
-		$("lung_threads").hide(); 
-		$("other_threads").hide();
+	$("#stomach").click(function(){
+		$("#stomach").fadeTo("fast", 1.0); 
+		$("#breast").fadeTo("fast", 0.3);
+		$("#prostate").fadeTo("fast", 0.3); 
+		$("#bowel").fadeTo("fast", 0.3); 
+		$("#lung").fadeTo("fast", 0.3); 
+		$("#other").fadeTo("fast", 0.3); 
+		$("#stomach_threads").show(); 
+		$("#breast_threads").hide(); 
+		$("#prostate_threads").hide(); 
+		$("#bowel_threads").hide(); 
+		$("#lung_threads").hide(); 
+		$("#other_threads").hide();
 	}); 
-	$("other").click(function(){
-		$("other").fadeTo("fast", 1.0); 
-		$("breast").fadeTo("fast", 0.3);
-		$("prostate").fadeTo("fast", 0.3); 
-		$("bowel").fadeTo("fast", 0.3); 
-		$("stomach").fadeTo("fast", 0.3); 
-		$("lung").fadeTo("fast", 0.3); 
-		$("other_threads").show(); 
-		$("breast_threads").hide(); 
-		$("bowel_threads").hide();
-		$("prostate_threads").hide(); 
-		$("stomach_threads").hide(); 
-		$("lung_threads").hide();
+	$("#other").click(function(){
+		$("#other").fadeTo("fast", 1.0); 
+		$("#breast").fadeTo("fast", 0.3);
+		$("#prostate").fadeTo("fast", 0.3); 
+		$("#bowel").fadeTo("fast", 0.3); 
+		$("#stomach").fadeTo("fast", 0.3); 
+		$("#lung").fadeTo("fast", 0.3); 
+		$("#other_threads").show(); 
+		$("#breast_threads").hide(); 
+		$("#bowel_threads").hide();
+		$("#prostate_threads").hide(); 
+		$("#stomach_threads").hide(); 
+		$("#lung_threads").hide();
 	});
 }); 
 
@@ -158,13 +168,126 @@ Statement query = conn.createStatement(); //create the thing that will query the
 String topicIdcall = "SELECT topicId FROM topic WHERE topic.name = \"lung\";";
 ResultSet topicSet = query.executeQuery(topicIdcall); 
 int topicId = -1; //make sure that we get an id 
-if(topicSet.next()) topicId = topicSet.getInt("topicId"); 
-else out.println("There are no topics yet."); //error
+topicSet.next(); 
+topicId = topicSet.getInt("topicId");
+if(topicId == -1) out.println("Lung There are no topics yet."); //error
 
 
 //get the threads in the topic
 String threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
 ResultSet threadSet = query.executeQuery(threadCall); 
+
+boolean oneThread = false; //tells us if there is at least one thread in the topic
+while(threadSet.next()){ 
+	if(!isDoc && threadSet.getString("doconly").equals("0")){
+		continue; 
+	}
+	
+	oneThread = true;
+	
+	//get thread title
+	String threadtitle = threadSet.getString("title");
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+	ResultSet authorname = query.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("username"); 
+	
+	//get thread creatation date
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
+	String dateString = date.toString(); 
+	
+	//get thread votes
+	int threadvotes = -1; 
+	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//print out the thread in its own div box 
+	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
+	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
+	out.println("<p class=\"author\">" + author + "</p>");  
+	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
+	out.println("<p class=\"votes\">" + threadvotes + "</p>");
+	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"submit\" value=\"View Thread\" />");
+	out.println("</form>");
+}
+
+if(!oneThread) out.println("There are no lung cancer threads yet!");
+
+%>
+
+</div>
+
+<div id="stomach_threads" class="threadbox">
+<%
+//get the topic id
+topicIdcall = "SELECT topicId FROM topic WHERE topic.name = \"stomach\";";
+topicSet = query.executeQuery(topicIdcall); 
+topicId = -1; //make sure that we get an id 
+if(topicSet.next()) topicId = topicSet.getInt("topicId"); 
+else out.println("stomach There are no topics yet."); //error
+
+
+//get the threads in the topic
+threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+threadSet = query.executeQuery(threadCall); 
+
+oneThread = false; 
+while(threadSet.next()){ 
+	if(!isDoc && threadSet.getString("doconly").equals("0")){
+		continue; 
+	}
+	
+	oneThread = true;  
+	
+	//get thread title
+	String threadtitle = threadSet.getString("title");
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+	ResultSet authorname = query.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("username"); 
+	
+	//get thread creatation date
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
+	String dateString = date.toString(); 
+	
+	//get thread votes
+	int threadvotes = -1; 
+	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//print out the thread in its own div box 
+	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
+	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
+	out.println("<p class=\"author\">" + author + "</p>");  
+	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
+	out.println("<p class=\"votes\">" + threadvotes + "</p>");
+	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"submit\" value=\"View Thread\" />");
+	out.println("</form>");
+}
+
+if(!oneThread) out.println("There are no stomach cancer threads yet!");
+%>
+</div>
+
+<div id="prostate_threads" class="threadbox">
+<%
+//get the topic id
+topicIdcall = "SELECT topicId FROM topic WHERE topic.name = \"prostate\";";
+topicSet = query.executeQuery(topicIdcall); 
+topicId = -1; //make sure that we get an id 
+if(topicSet.next()) topicId = topicSet.getInt("topicId"); 
+else out.println("prostate There are no topics yet."); //error
+
+
+//get the threads in the topic
+threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+threadSet = query.executeQuery(threadCall); 
+
+oneThread = false; 
 while(threadSet.next()){ 
 	if(!isDoc && threadSet.getString("doconly").equals("0")){
 		continue; 
@@ -197,27 +320,168 @@ while(threadSet.next()){
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
 }
-%>
 
+if(!oneThread) out.println("There are no prostate cancer threads yet!");
+
+%>
 </div>
 
-<div id="stomach_threads" class="threadbox">
+<div id="bowel_threads" class="threadbox">
 <%
-//fill in 
+//get the topic id
+topicIdcall = "SELECT topicId FROM topic WHERE topic.name = \"bowel\";";
+topicSet = query.executeQuery(topicIdcall); 
+topicId = -1; //make sure that we get an id 
+if(topicSet.next()) topicId = topicSet.getInt("topicId"); 
+else out.println("bowel There are no topics yet."); //error
+
+
+//get the threads in the topic
+threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+threadSet = query.executeQuery(threadCall); 
+
+oneThread = false; 
+while(threadSet.next()){ 
+	if(!isDoc && threadSet.getString("doconly").equals("0")){
+		continue; 
+	}
+	
+	oneThread = true; 
+	
+	//get thread title
+	String threadtitle = threadSet.getString("title");
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+	ResultSet authorname = query.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("username"); 
+	
+	//get thread creatation date
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
+	String dateString = date.toString(); 
+	
+	//get thread votes
+	int threadvotes = -1; 
+	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//print out the thread in its own div box 
+	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
+	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
+	out.println("<p class=\"author\">" + author + "</p>");  
+	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
+	out.println("<p class=\"votes\">" + threadvotes + "</p>");
+	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"submit\" value=\"View Thread\" />");
+	out.println("</form>");
+}
+
+if(!oneThread) out.println("There are no bowel cancer threads yet!");
 %>
 </div>
 
-<div id="prostate_threads" class="threadbox">
+<div id="breast_threads" class="threadbox">
 <%
-//fill in
+///get the topic id
+topicIdcall = "SELECT topicId FROM topic WHERE topic.name = \"breast\";";
+topicSet = query.executeQuery(topicIdcall); 
+topicId = -1; //make sure that we get an id 
+if(topicSet.next()) topicId = topicSet.getInt("topicId"); 
+else out.println("breast There are no topics yet."); //error
+
+
+//get the threads in the topic
+threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+threadSet = query.executeQuery(threadCall); 
+oneThread = false; 
+while(threadSet.next()){ 
+	if(!isDoc && threadSet.getString("doconly").equals("0")){
+		continue; 
+	}
+	
+	oneThread = true; 
+	
+	//get thread title
+	String threadtitle = threadSet.getString("title");
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+	ResultSet authorname = query.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("username"); 
+	
+	//get thread creatation date
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
+	String dateString = date.toString(); 
+	
+	//get thread votes
+	int threadvotes = -1; 
+	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//print out the thread in its own div box 
+	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
+	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
+	out.println("<p class=\"author\">" + author + "</p>");  
+	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
+	out.println("<p class=\"votes\">" + threadvotes + "</p>");
+	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"submit\" value=\"View Thread\" />");
+	out.println("</form>");
+}
+
+if(!oneThread) out.println("There are no breast cancer threads yet!");
 %>
 </div>
 
-<div id="bowel_threads" class="threadbox"></div>
 
-<div id="breast_threads" class="threadbox"></div>
+<div id="other_threads" class="threadbox">
+<%
+//get the topic id
+topicIdcall = "SELECT topicId FROM topic WHERE topic.name = \"other\";";
+topicSet = query.executeQuery(topicIdcall); 
+topicId = -1; //make sure that we get an id 
+if(topicSet.next()) topicId = topicSet.getInt("topicId"); 
+else out.println(" other There are no topics yet."); //error
 
-<div id="other_threads" class="threadbox"></div>
+
+//get the threads in the topic
+threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+threadSet = query.executeQuery(threadCall); 
+while(threadSet.next()){ 
+	if(!isDoc && threadSet.getString("doconly").equals("0")){
+		continue; 
+	}
+	
+	//get thread title
+	String threadtitle = threadSet.getString("title");
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+	ResultSet authorname = query.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("username"); 
+	
+	//get thread creatation date
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
+	String dateString = date.toString(); 
+	
+	//get thread votes
+	int threadvotes = -1; 
+	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//print out the thread in its own div box 
+	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
+	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
+	out.println("<p class=\"author\">" + author + "</p>");  
+	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
+	out.println("<p class=\"votes\">" + threadvotes + "</p>");
+	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"submit\" value=\"View Thread\" />");
+	out.println("</form>");
+}
+if(!oneThread) out.println("There are no other cancer threads yet!");
+%>
+</div>
 
 <!--  create thread  -->
 
