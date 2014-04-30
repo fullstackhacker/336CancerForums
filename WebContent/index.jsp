@@ -110,6 +110,11 @@ $(document).ready(function(){
 if(session.getAttribute("userId")==null){ //user is not logged in 
 	response.sendRedirect("loginform.jsp"); 
 }
+
+if(request.getParameter("threadtitle") != null){ //user wants to view this thread 
+	session.setAttribute("currentThread", request.getParameter("threadtitle")); 
+	response.sendRedirect("thread.jsp"); 
+}
  
 //user is logged in 
 
@@ -174,7 +179,7 @@ while(threadSet.next()){
 	threadvotes = threadSet.getInt("updownVotes"); 	
 	
 	//print out the thread in its own div box 
-	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
+	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
 	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
 	out.println("<p class=\"author\">" + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	

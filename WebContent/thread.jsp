@@ -8,7 +8,7 @@
 <%@ page import="javax.naming.*" %>
 
 <%
-String threadtitle = request.getParameter("threadtitle"); 
+String threadtitle = (String)session.getAttribute("threadtitle"); 
 
 //connecting to the database
 String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
@@ -73,6 +73,7 @@ Reply to thread:
 <textarea name="cpcontent" form="createpost" row="30" cols="20"> 
 Post a reply
 </textarea>
+<input class="hidden" name="theadId" value="<%= threadId %>">
 </form>
 
 </body>
