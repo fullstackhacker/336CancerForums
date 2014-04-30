@@ -134,12 +134,12 @@ Statement query = conn.createStatement(); //create the thing that will query the
 <div id="userbox">
 	<button type="button" onclick="window.location='profile.jsp'"><%= username %></button>
 	<button type="button" onclick="window.location='messages.jsp'">Messages</button>
-	<button type="button" onclick="window.location='logout.jps'">Logout</button>
+	<button type="button" onclick="window.location='logout.jsp'">Logout</button>
 </div>
 
 <h1>Cancer Ends Here</h1>
 
-<jsp:include page="header.jsp" flush="true" />
+ <jsp:include page="header.jsp" flush="true" />
 
 <div id="lung_threads" class="threadbox"> 
 <%
