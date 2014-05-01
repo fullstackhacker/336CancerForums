@@ -13,6 +13,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>336 Beats Cancer | Home</title>
+<!-- stylesheets -->
+<link rel="stylesheet" type="text/css" href="global.css">
 <!-- jquery script -->
 <script src="jquery-2.1.0.min.js"></script>
 <script> 
@@ -217,6 +219,20 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
+	
+	//up vote form 
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Up Vote\" />"); 
+	out.println("</form>");
+	
+	//down vote form
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"downvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
+	out.println("</form>");
 	out.println("<hr/>");
 }
 
@@ -270,13 +286,28 @@ while(threadSet.next()){
 	
 	//print out the thread in its own div box 
 	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
-	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
-	out.println("<p class=\"author\">" + author + "</p>");  
+	out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
+	out.println("<p class=\"author\"> Author: " + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
-	out.println("<p class=\"votes\">" + threadvotes + "</p>");
+	out.println("<p class=\"votes\"> Votes: " + threadvotes + "</p>");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
+	
+	//up vote form 
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Up Vote\" />"); 
+	out.println("</form>");
+	
+	//down vote form
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"downvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
+	out.println("</form>");
+	out.println("<hr/>");
 }
 
 if(!oneThread) out.println("There are no stomach cancer threads yet!");
@@ -327,13 +358,28 @@ while(threadSet.next()){
 	
 	//print out the thread in its own div box 
 	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
-	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
-	out.println("<p class=\"author\">" + author + "</p>");  
+	out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
+	out.println("<p class=\"author\"> Author: " + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
-	out.println("<p class=\"votes\">" + threadvotes + "</p>");
+	out.println("<p class=\"votes\"> Votes: " + threadvotes + "</p>");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
+	
+	//up vote form 
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Up Vote\" />"); 
+	out.println("</form>");
+	
+	//down vote form
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"downvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
+	out.println("</form>");
+	out.println("<hr/>");
 }
 
 if(!oneThread) out.println("There are no prostate cancer threads yet!");
@@ -385,13 +431,28 @@ while(threadSet.next()){
 	
 	//print out the thread in its own div box 
 	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
-	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
-	out.println("<p class=\"author\">" + author + "</p>");  
+	out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
+	out.println("<p class=\"author\"> Author: " + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
-	out.println("<p class=\"votes\">" + threadvotes + "</p>");
+	out.println("<p class=\"votes\"> Votes: " + threadvotes + "</p>");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
+	
+	//up vote form 
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Up Vote\" />"); 
+	out.println("</form>");
+	
+	//down vote form
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"downvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
+	out.println("</form>");
+	out.println("<hr/>");
 }
 
 if(!oneThread) out.println("There are no bowel cancer threads yet!");
@@ -441,13 +502,28 @@ while(threadSet.next()){
 	
 	//print out the thread in its own div box 
 	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
-	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
-	out.println("<p class=\"author\">" + author + "</p>");  
+	out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
+	out.println("<p class=\"author\"> Author: " + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
-	out.println("<p class=\"votes\">" + threadvotes + "</p>");
+	out.println("<p class=\"votes\"> Votes: " + threadvotes + "</p>");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
+	
+	//up vote form 
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Up Vote\" />"); 
+	out.println("</form>");
+	
+	//down vote form
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"downvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
+	out.println("</form>");
+	out.println("<hr/>");
 }
 
 if(!oneThread) out.println("There are no breast cancer threads yet!");
@@ -497,24 +573,39 @@ while(threadSet.next()){
 	
 	//print out the thread in its own div box 
 	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
-	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
-	out.println("<p class=\"author\">" + author + "</p>");  
+	out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
+	out.println("<p class=\"author\"> Author: " + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
-	out.println("<p class=\"votes\">" + threadvotes + "</p>");
+	out.println("<p class=\"votes\"> Votes: " + threadvotes + "</p>");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
+	
+	//up vote form 
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Up Vote\" />"); 
+	out.println("</form>");
+	
+	//down vote form
+	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"downvote.jsp\" method=\"post\" >");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
+	out.println("</form>");
+	out.println("<hr/>");
 }
 if(!oneThread) out.println("There are no other cancer threads yet!");
 %>
 </div>
 
 <!--  create thread  -->
-
+<h2>Create New </h2>
 <form id="createthread" name="createthread" action="createthread.jsp" method="post">
 <input name="cthread_name" type="text" size="20" placeholder="Thread Name">
 <br/>
-<textarea name="cthread_content" form="createthread" rows="20" cols="30">Thread Description
+<textarea name="cthread_content" form="createthread" placeholder="Thread Description" rows="20" cols="30">
 </textarea>
 <br/>
 <select name="topic"> 

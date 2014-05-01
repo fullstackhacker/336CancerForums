@@ -32,6 +32,7 @@ Statement query2 = conn.createStatement();
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><%= "Cancer Forums | " + threadtitle %></title>
+<link rel="stylesheet" type="text/css" href="global.css">
 </head>
 <body>
 <h1><%= threadtitle %></h1>
@@ -68,17 +69,17 @@ while(posts.next()){
 	out.println("<p class=\"votes\"> Votes:" + votes + "</p>");
 	
 	//upvoting form 
-	out.println("<form id=\"" + postId + "\" name=\"" + postId + "\" action=\"upvote.jsp\" method=\"post\""); 
-	out.println("<input class=\"hidden\" type=\"text\" name=\"postId\" value=\"" + postId + "\" />"); 
-	out.println("<input class=\"hidden\" type=\"text\" name=\"type\" value=\"post\""); 
-	out.println("<input type\"submit\" value=\"Up\" />"); 
+	out.println("<form id=\"" + postId + "\" name=\"" + postId + "\" action=\"upvote.jsp\" method=\"post\" >"); 
+	out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + postId + "\" />"); 
+	out.println("<input class=\"hidden\" type=\"text\" name=\"type\" value=\"post\" />"); 
+	out.println("<input type=\"submit\" value=\"Up Vote\" />"); 
 	out.println("</form>"); 
 	
 	//down voting form 
-	out.println("<form id=\"" + postId + "\" name=\"" + postId + "\" action=\"downvote.jsp\" method=\"post\""); 
-	out.println("<input class=\"hidden\" type=\"text\" name=\"postId\" value=\"" + postId + "\" />"); 
-	out.println("<input class=\"hidden\" type=\"text\" name=\"type\" value=\"post\""); 
-	out.println("<input type\"submit\" value=\"Up\" />"); 
+	out.println("<form id=\"" + postId + "\" name=\"" + postId + "\" action=\"downvote.jsp\" method=\"post\" >"); 
+	out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + postId + "\" />"); 
+	out.println("<input class=\"hidden\" type=\"text\" name=\"type\" value=\"post\" />"); 
+	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 	out.println("</form>");
 	
 	out.println("</div>");

@@ -14,8 +14,8 @@ else passwordError = (String)session.getAttribute("passwordError");
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style rel="stylesheet" type="text/css" href="global.css"></style>
-<style rel="stylesheet" type="text/css" href="home.css"></style>
+<link rel="stylesheet" type="text/css" href="global.css">
+<link rel="stylesheet" type="text/css" href="home.css">
 <title>336 Beats Cancer | Log In</title>
 </head>
 <body>
@@ -42,21 +42,6 @@ if(request.getParameter("username")!=null && request.getParameter("password") !=
  </form>
 </div>
 <a href="registerform.jsp">REGISTER HERE</a>
-
-<nav> 
-<div class="topic" > 
-topic1
-</div>
-<div class="topic">
-topic2
-</div>
-<div class="topic">
-topic3
-</div>
-<div class="topic">
-Other
-</div>
-</nav>
 
 </body>
 </html>
