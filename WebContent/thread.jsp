@@ -8,7 +8,16 @@
 <%@ page import="javax.naming.*" %>
 
 <%
-String threadtitle = request.getParameter("title"); 
+String threadtitle = "";
+if(request.getParameter("title") != null) {
+	threadtitle = request.getParameter("title"); // this is really infact the threadId!!
+	session.setAttribute("currentThread", threadtitle); 
+}
+else{ 
+	threadtitle = (String)session.getAttribute("currentThread");
+}
+ 
+
 
 //connecting to the database
 String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
@@ -57,8 +66,23 @@ while(posts.next()){
 	out.println("<p class=\"author\">" + author + "</p>"); 
 	out.println("<p class=\"date\">" + date.toString() + "</p>");
 	out.println("<p class=\"votes\">" + votes + "</p>"); 
-	out.println("</div>"); 
+	out.println("</div>");
+	out.println("<hr/>"); //something to separate the lines temporarily
 }
+
 %>
+<h2>Reply to thread:</h2>
+<form id="createpost" name="createpost" method="post" action="createpost.jsp">
+<textarea form="createpost" name="cthread_content" placeholder="Reply..." cols='50' row="20"></textarea>
+<br/>
+<input class="hidden" name="threadId" value="<%= threadId %>" />
+<br/>
+<input type="submit" value="Add Post" />
+</form> 
+
+
+
+
+<button type="button" onclick="window.location.href='index.jsp'">Back</button>
 </body>
 </html>

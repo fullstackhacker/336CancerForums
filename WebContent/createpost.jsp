@@ -24,24 +24,25 @@ Statement query = conn.createStatement(); //create the thing that will query the
 <body>
 <%
 //get details from the request
-String content = request.getParameter("cpcontent");
+String content = request.getParameter("cthread_content");
 int threadId = Integer.parseInt(request.getParameter("threadId")); 
 Integer authorId = (Integer)session.getAttribute("userId"); 
 
 //timestamp
 Timestamp ts = new Timestamp(System.currentTimeMillis()); 
 
-//insert string postId, threadId, content, datetimeCreated, updownvotes, authorId
-String makepost = "INSERT INTO post VALUES (0, " + threadId + ", \"" + content + "\", " + ts + ", 0, " + authorId + ");";
+//insert string postId, threadId, content, updownvotes, authorId
+String makepost = "INSERT INTO post (postId, threadId, content, updownVotes, authorID) VALUES(0, " + threadId + ", \"" + content + "\", 0, " + authorId + ");";
+
 
 try{
 	query.executeUpdate(makepost); 
 }
 catch(Exception e){ 
 	//couldn't update 
+	out.println(makepost);
 	out.println("something is wrong with you sql query or something"); 
-	Thread.sleep(2000); //so that we can see that it failed before redirecting to the homepage
-	response.sendRedirect("index.jsp"); 
+	return; 
 }
 
 response.sendRedirect("thread.jsp"); 

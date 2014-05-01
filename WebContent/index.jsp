@@ -217,6 +217,7 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
+	out.println("<hr/>");
 }
 
 if(!oneThread) out.println("There are no lung cancer threads yet!");
