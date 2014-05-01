@@ -195,6 +195,8 @@ while(threadSet.next()){
 	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
 	String dateString = date.toString();
 	
+	//get threadId
+	int threadId = threadSet.getInt("threadId"); 
 	
 	//get thread votes
 	int threadvotes = -1; 
@@ -207,12 +209,12 @@ while(threadSet.next()){
 	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
-	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
+	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
 	out.println("<p class=\"author\">" + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
 	out.println("<p class=\"votes\">" + threadvotes + "</p>");
-	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
 }
@@ -252,6 +254,8 @@ while(threadSet.next()){
 	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
 	String dateString = date.toString();
 	
+	//get threadId
+	int threadId = threadSet.getInt("threadId"); 
 	
 	//get thread votes
 	int threadvotes = -1; 
@@ -264,12 +268,12 @@ while(threadSet.next()){
 	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
-	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
+	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
 	out.println("<p class=\"author\">" + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
 	out.println("<p class=\"votes\">" + threadvotes + "</p>");
-	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
 }
@@ -307,6 +311,8 @@ while(threadSet.next()){
 	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
 	String dateString = date.toString();
 	
+	//get threadId
+	int threadId = threadSet.getInt("threadId"); 
 	
 	//get thread votes
 	int threadvotes = -1; 
@@ -319,12 +325,12 @@ while(threadSet.next()){
 	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
-	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
+	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
 	out.println("<p class=\"author\">" + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
 	out.println("<p class=\"votes\">" + threadvotes + "</p>");
-	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
 }
@@ -363,6 +369,8 @@ while(threadSet.next()){
 	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
 	String dateString = date.toString();
 	
+	//get threadId
+	int threadId = threadSet.getInt("threadId"); 
 	
 	//get thread votes
 	int threadvotes = -1; 
@@ -375,12 +383,12 @@ while(threadSet.next()){
 	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
-	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
+	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
 	out.println("<p class=\"author\">" + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
 	out.println("<p class=\"votes\">" + threadvotes + "</p>");
-	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
 }
@@ -417,6 +425,8 @@ while(threadSet.next()){
 	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
 	String dateString = date.toString();
 	
+	//get threadId
+	int threadId = threadSet.getInt("threadId"); 
 	
 	//get thread votes
 	int threadvotes = -1; 
@@ -429,12 +439,12 @@ while(threadSet.next()){
 	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
-	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
+	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
 	out.println("<p class=\"author\">" + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
 	out.println("<p class=\"votes\">" + threadvotes + "</p>");
-	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
 }
@@ -471,6 +481,8 @@ while(threadSet.next()){
 	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
 	String dateString = date.toString();
 	
+	//get threadId
+	int threadId = threadSet.getInt("threadId"); 
 	
 	//get thread votes
 	int threadvotes = -1; 
@@ -483,12 +495,12 @@ while(threadSet.next()){
 	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
-	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
+	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\">" + threadtitle + "</p>");
 	out.println("<p class=\"author\">" + author + "</p>");  
 	out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
 	out.println("<p class=\"votes\">" + threadvotes + "</p>");
-	out.println("<input class=\"hidden\" name=\"threadtitle\" value=\"" + threadtitle + "\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
 }
