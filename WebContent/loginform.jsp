@@ -38,10 +38,10 @@ if(request.getParameter("username")!=null && request.getParameter("password") !=
      <br/>
    	<br />
      <input type="submit" name="login" class="button" id="login_btn" value="Log In" />
+     <br><p>Don't have an account?</p>
+     <a href=registerform.jsp><input type="submit" name="reg" class="button" id="reg_btn" value="Register Now" /></a>
    </fieldset>
  </form>
 </div>
-<a href="registerform.jsp">REGISTER HERE</a>
-
 </body>
 </html>

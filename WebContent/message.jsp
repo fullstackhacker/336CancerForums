@@ -4,7 +4,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.sql.*" %>
-<%@ page import="javax.naming.*" %> 
+<%@ page import="javax.naming.*" %>
 
 
 <%
@@ -27,26 +27,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style rel="stylesheet" type="text/css" href="global.css"></style>
-<style rel="stylesheet" type="text/css" href="profile.css"></style>
+<title>336 Beats Cancer | Messages</title>
+<jsp:include page="header.jsp" flush="true" />
 </head>
 <body>
 
-336 Beats Cancer 
-
-<%
-//get topics
-String topicquery = "SELECT name FROM topic;"; 
-ResultSet topicNames = query.executeQuery(topicquery); 
-
-//print out topic titles
-while(topicNames.next()){ 
-	out.println("<div id=\"" + topicNames.getString("name") + "\" class=\"tab\">"); 
-	out.println("<p class=\"tabheader\">" + topicNames.getString("name") + "</p>"); 
-	out.println("</div>"); 
-}
-
+<% 
+	this.username = (String)session.getAttribute("username"); //get the user's username 		
 %>
-<br>
+<form id="message" name="message" method="post" onsubmit="return validateForm()" action="message.jsp">
+<label type="text" name="register">Send a Message</label>
+<br><br/>
+	<input form="message" type="text" name="to" id="to" size="30" placeholder="Username to Send Message to" class="text-input" />
+	<br />
+	<input form="message" type="text" name="subject" id="subject" size="30" placeholder="Subject" class="text-input" />
+	<br />
+    <textarea form="message" type="text" name="message" id="message" placeholder="Message Body" class="text-input" />
+    <br />
+    <input type="submit" name="send" class="button" id="send" value="Send" />
+</form>
+
+
 </body>
 </html>

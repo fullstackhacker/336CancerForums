@@ -46,9 +46,9 @@ boolean IsDoc = ((String)session.getAttribute("IsDoc")).equals("yes"); //true or
 <div id="profile">
  <form name="profile method="post" onsubmit="return validateForm()" action="profile.jsp">
    <fieldset>
-     <label type="text" name="register">User Profile Information</label><br><br/>
+     <label type="text" name="register">User Profile Information</label><br/><br/>
      <label type="text" name="username">Username:</label>
-     <input type="text" name="username" size="30" <%out.print("placeholder=username")%> class="text-input" />
+     <input type="text" name="username" size="30" value="<%= username %>" class="text-input" />
      <br/>
      <label type="text" name="first">First Name:</label>
      <input type="text" name="firstname" size="30" <%out.print("placeholder=first")%> class="text-input">
@@ -60,9 +60,9 @@ boolean IsDoc = ((String)session.getAttribute("IsDoc")).equals("yes"); //true or
      <input type="email" name="email" size="30"  <%out.print("placeholder=email")%> class="text-input">
      <br/>
      <br/>
-     <label type="text" name="areyoua">You are a:</label></br>
-     <input type="radio" name="type" value="doc" <%if (IsDoc) out.print("checked="checked"")%> /> Doctor </br>
-	 <input type="radio" name="type" value="casual" <%if (!IsDoc) out.print("checked="checked"")%>/> Casual </br> 
+     <label type="text" name="areyoua">You are a:</label><br/>
+     <input type="radio" name="type" value="doc" <%if(IsDoc) out.print("checked=\"checked\""); %> > Doctor <br/>
+	 <input type="radio" name="type" value="casual" <%if(!IsDoc) out.print("checked=\"checked\""); %> > Casual <br/> 
 	 <br />
 	 <input type="password" name="password" id="password" size="30" placeholder="New Password" class="text-input" />
      <br/>
