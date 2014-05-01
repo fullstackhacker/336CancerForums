@@ -63,9 +63,24 @@ while(posts.next()){
 	//display post
 	out.println("<div class=\"post\">");
 	out.println("<p class=\"content\">" + content + "</p>"); 
-	out.println("<p class=\"author\">" + author + "</p>"); 
-	out.println("<p class=\"date\">" + date.toString() + "</p>");
-	out.println("<p class=\"votes\">" + votes + "</p>"); 
+	out.println("<p class=\"author\"> Author: " + author + "</p>"); 
+	out.println("<p class=\"date\"> Posted Date: " + date.toString() + "</p>");
+	out.println("<p class=\"votes\"> Votes:" + votes + "</p>");
+	
+	//upvoting form 
+	out.println("<form id=\"" + postId + "\" name=\"" + postId + "\" action=\"upvote.jsp\" method=\"post\""); 
+	out.println("<input class=\"hidden\" type=\"text\" name=\"postId\" value=\"" + postId + "\" />"); 
+	out.println("<input class=\"hidden\" type=\"text\" name=\"type\" value=\"post\""); 
+	out.println("<input type\"submit\" value=\"Up\" />"); 
+	out.println("</form>"); 
+	
+	//down voting form 
+	out.println("<form id=\"" + postId + "\" name=\"" + postId + "\" action=\"downvote.jsp\" method=\"post\""); 
+	out.println("<input class=\"hidden\" type=\"text\" name=\"postId\" value=\"" + postId + "\" />"); 
+	out.println("<input class=\"hidden\" type=\"text\" name=\"type\" value=\"post\""); 
+	out.println("<input type\"submit\" value=\"Up\" />"); 
+	out.println("</form>");
+	
 	out.println("</div>");
 	out.println("<hr/>"); //something to separate the lines temporarily
 }
