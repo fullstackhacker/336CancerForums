@@ -137,12 +137,15 @@ String email = (String)session.getAttribute("email");
 boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
 Integer votes = (Integer)session.getAttribute("votes");
 
+if(isDoc) out.println("isDoc"); 
+else out.println("!isDoc"); 
+
 //connecting to the database
 String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
 Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
 Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 Statement query = conn.createStatement(); //create the thing that will query the db
-
+Statement query2 = conn.createStatement(); 
 
 %>
 
@@ -179,7 +182,7 @@ ResultSet threadSet = query.executeQuery(threadCall);
 
 boolean oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getString("doconly").equals("0")){
+	if(!isDoc && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
@@ -187,20 +190,21 @@ while(threadSet.next()){
 	
 	//get thread title
 	String threadtitle = threadSet.getString("title");
-	
-	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("username"); 
-	
+		
 	//get thread creatation date
-	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
-	String dateString = date.toString(); 
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
+	String dateString = date.toString();
+	
 	
 	//get thread votes
 	int threadvotes = -1; 
 	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+	ResultSet authorname = query2.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
 	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
@@ -235,28 +239,29 @@ threadSet = query.executeQuery(threadCall);
 
 oneThread = false; 
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getString("doconly").equals("0")){
+	if(!isDoc && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
-	oneThread = true;  
+	oneThread = true;
 	
 	//get thread title
 	String threadtitle = threadSet.getString("title");
-	
-	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("username"); 
-	
+		
 	//get thread creatation date
-	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
-	String dateString = date.toString(); 
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
+	String dateString = date.toString();
+	
 	
 	//get thread votes
 	int threadvotes = -1; 
 	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+	ResultSet authorname = query2.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
 	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
@@ -289,26 +294,29 @@ threadSet = query.executeQuery(threadCall);
 
 oneThread = false; 
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getString("doconly").equals("0")){
+	if(!isDoc && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
+	oneThread = true;
+	
 	//get thread title
 	String threadtitle = threadSet.getString("title");
-	
-	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("username"); 
-	
+		
 	//get thread creatation date
-	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
-	String dateString = date.toString(); 
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
+	String dateString = date.toString();
+	
 	
 	//get thread votes
 	int threadvotes = -1; 
 	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+	ResultSet authorname = query2.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
 	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
@@ -342,28 +350,29 @@ threadSet = query.executeQuery(threadCall);
 
 oneThread = false; 
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getString("doconly").equals("0")){
+	if(!isDoc && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
-	oneThread = true; 
+	oneThread = true;
 	
 	//get thread title
 	String threadtitle = threadSet.getString("title");
-	
-	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("username"); 
-	
+		
 	//get thread creatation date
-	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
-	String dateString = date.toString(); 
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
+	String dateString = date.toString();
+	
 	
 	//get thread votes
 	int threadvotes = -1; 
 	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+	ResultSet authorname = query2.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
 	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
@@ -395,28 +404,29 @@ threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
 threadSet = query.executeQuery(threadCall); 
 oneThread = false; 
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getString("doconly").equals("0")){
+	if(!isDoc && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
-	oneThread = true; 
+	oneThread = true;
 	
 	//get thread title
 	String threadtitle = threadSet.getString("title");
-	
-	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("username"); 
-	
+		
 	//get thread creatation date
-	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
-	String dateString = date.toString(); 
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
+	String dateString = date.toString();
+	
 	
 	//get thread votes
 	int threadvotes = -1; 
 	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+	ResultSet authorname = query2.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
 	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
@@ -448,26 +458,29 @@ else out.println(" other There are no topics yet."); //error
 threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
 threadSet = query.executeQuery(threadCall); 
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getString("doconly").equals("0")){
+	if(!isDoc && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
+	oneThread = true;
+	
 	//get thread title
 	String threadtitle = threadSet.getString("title");
-	
-	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT username FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("username"); 
-	
+		
 	//get thread creatation date
-	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime()); 
-	String dateString = date.toString(); 
+	Date date = new Date(threadSet.getTimestamp("datetimeCreated").getTime());
+	String dateString = date.toString();
+	
 	
 	//get thread votes
 	int threadvotes = -1; 
 	threadvotes = threadSet.getInt("updownVotes"); 	
+	
+	//get thread author
+	String author = ""; 
+	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+	ResultSet authorname = query2.executeQuery(getAuthorState); 
+	if(authorname.next()) author = authorname.getString("userName"); 
 	
 	//print out the thread in its own div box 
 	out.println("<form name=\"" + threadtitle + "\" class=\"thread\" action=\"index.jsp\">");
@@ -485,11 +498,10 @@ if(!oneThread) out.println("There are no other cancer threads yet!");
 
 <!--  create thread  -->
 
-<form name="createthread" action="createthread.jsp" method="post">
+<form id="createthread" name="createthread" action="createthread.jsp" method="post">
 <input name="cthread_name" type="text" size="20" placeholder="Thread Name">
 <br/>
-<textarea name="cthread_content" form="createthread" rows="20" cols="30"> 
-Thread Description
+<textarea name="cthread_content" form="createthread" rows="20" cols="30">Thread Description
 </textarea>
 <br/>
 <select name="topic"> 
