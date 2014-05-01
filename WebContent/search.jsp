@@ -30,11 +30,173 @@ String topic = request.getParameter("topic");
 
 boolean isDoc  = session.getAttribute("isDoc") != null && session.getAttribute("isDoc").equals("yes");
 
-if(searchingType.equals("postBy")){
+if(searchingType.equals("postBy")){ //want posts by searchQuery
+	//get userId
+	String userIdString = "SELECT * FROM user WHERE user.userName = \"" + searchQuery + "\";";
+	ResultSet userIdSet = null; 
+	try{ 
+		userIdSet = query2.executeQuery(userIdString); 
+	}
+	catch(Exception e){ 
+		out.println(userIdString); 
+		out.println(e.getMessage());
+		return; 
+	}
+	//should only be one that matches
+	int userId = -1; 
+	if(userIdSet.next()){
+		userId = userIdSet.getInt("userId"); 
+	}
+	else{ //user doesn't exist
+		out.println("Invalid User Name");
+		response.sendRedirect("searchform.jsp");
+	}
+	
+	//get posts by the user now
+	String postByQuery = "SELECT * FROM post WHERE post.authorId =" + userId + ";";
+	ResultSet rs = null; 
+	try{ 
+		rs = query.executeQuery(postByQuery); 
+	}
+	catch(Exception e){ 
+		out.println(e.getMessage()); 
+		out.println(postByQuery); 
+		return; 
+	}
+	
+	boolean atleastOne = false; 
+	while(rs.next()){ 
+		atleastOne = true; 
+		
+		//get attributes
+		String content = rs.getString("content"); 
+		int postId = rs.getInt("postId"); 
+		Timestamp ts = rs.getTimestamp("datetimeCreated"); 
+		Date date = new Date(ts.getTime()); 
+		int votes = rs.getInt("updownVotes"); 
+		
+		//get authorsout.println("<div class=\"post\">");
+		String author = ""; 
+		String authorQ = "SELECT userName FROM user WHERE user.userId = " + rs.getInt("authorId"); 
+		ResultSet hasAuthor = query2.executeQuery(authorQ); 
+		hasAuthor.next(); 
+		author = hasAuthor.getString("userName");
+		
+		//display post
+		out.println("<div class=\"post\">");
+		out.println("<p class=\"content\">" + content + "</p>"); 
+		out.println("<p class=\"author\"> Author: " + author + "</p>"); 
+		out.println("<p class=\"date\"> Posted Date: " + date.toString() + "</p>");
+		out.println("<p class=\"votes\"> Votes:" + votes + "</p>");
+		
+		//upvoting form 
+		out.println("<form id=\"" + postId + "\" name=\"" + postId + "\" action=\"upvote.jsp\" method=\"post\" >"); 
+		out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + postId + "\" />"); 
+		out.println("<input class=\"hidden\" type=\"text\" name=\"type\" value=\"post\" />"); 
+		out.println("<input type=\"submit\" value=\"Up Vote\" />"); 
+		out.println("</form>"); 
+		
+		//down voting form 
+		out.println("<form id=\"" + postId + "\" name=\"" + postId + "\" action=\"downvote.jsp\" method=\"post\" >"); 
+		out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + postId + "\" />"); 
+		out.println("<input class=\"hidden\" type=\"text\" name=\"type\" value=\"post\" />"); 
+		out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
+		out.println("</form>");
+		
+		out.println("</div>");
+		out.println("<hr />");
+	}
+	
+	if(!atleastOne){
+		out.println("User doesn't have any posts!");
+		return;
+	}
+	
+	
 	
 }
 else if(searchingType.equals("threadBy")){
+	//get userId
+	String userIdString = "SELECT * FROM user WHERE user.userName = \"" + searchQuery + "\";";
+	ResultSet userIdSet = null; 
+	try{ 
+		userIdSet = query2.executeQuery(userIdString); 
+	}
+	catch(Exception e){ 
+		out.println(userIdString); 
+		out.println(e.getMessage());
+		return; 
+	}
+	//should only be one that matches
+	int userId = -1; 
+	if(userIdSet.next()){
+		userId = userIdSet.getInt("userId"); 
+	}
+	else{ //user doesn't exist
+		out.println("Invalid User Name");
+		response.sendRedirect("searchform.jsp");
+	}
 	
+	//get posts by the user now
+	String postByQuery = "SELECT * FROM thread WHERE thread.authorId =" + userId + ";";
+	ResultSet rs = null; 
+	try{ 
+		rs = query.executeQuery(postByQuery); 
+	}
+	catch(Exception e){ 
+		out.println(e.getMessage()); 
+		out.println(postByQuery); 
+		return; 
+	}
+	
+	boolean atleastOne = false;
+	
+	while(rs.next()){ 
+		//get thread title
+		String threadtitle = rs.getString("title");
+			
+		//get thread creatation date
+		Date date = new Date(rs.getTimestamp("datetimeCreated").getTime());
+		String dateString = date.toString();
+		
+		//get threadId
+		int threadId = rs.getInt("threadId"); 
+		
+		//get thread votes
+		int threadvotes = -1; 
+		threadvotes = rs.getInt("updownVotes"); 	
+		
+		//get thread author
+		String author = ""; 
+		String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + rs.getInt("threadId") + "\" AND user.userId = thread.authorId;";
+		ResultSet authorname = query2.executeQuery(getAuthorState); 
+		if(authorname.next()) author = authorname.getString("userName"); 
+		
+		//print out the thread in its own div box 
+		out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
+		out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
+		out.println("<p class=\"author\"> Author: " + author + "</p>");  
+		out.println("<p class=\"date\"> Created On: " + dateString +  "</p>"); 	
+		out.println("<p class=\"votes\"> Votes: " + threadvotes + "</p>");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
+		out.println("<input type=\"submit\" value=\"View Thread\" />");
+		out.println("</form>");
+		
+		//up vote form 
+		out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+		out.println("<input type=\"submit\" value=\"Up Vote\" />"); 
+		out.println("</form>");
+		
+		//down vote form
+		out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"downvote.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
+		out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
+		out.println("</form>");
+		out.println("<hr/>");
+	}
 }
 else{ 
 	String getData = "SELECT * FROM " + searchingType + ";"; 
@@ -171,7 +333,6 @@ else{
 				out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
 				out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 				out.println("</form>");
-				out.println("<hr/>");
 			}
 			else if(searchingType.equals("user")){ 
 				//get attributes
