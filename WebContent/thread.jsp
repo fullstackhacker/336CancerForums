@@ -25,6 +25,7 @@ Class.forName("com.mysql.jdbc.Driver"); //loading the driver
 Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 Statement query = conn.createStatement(); //create the thing that will query the db
 Statement query2 = conn.createStatement();
+
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -54,7 +55,7 @@ while(posts.next()){
 	Date date = new Date(ts.getTime()); 
 	int votes = posts.getInt("updownVotes"); 
 	
-	//get authors
+	//get authorsout.println("<div class=\"post\">");
 	String author = ""; 
 	String authorQ = "SELECT userName FROM user WHERE user.userId = " + posts.getInt("authorId"); 
 	ResultSet hasAuthor = query2.executeQuery(authorQ); 
