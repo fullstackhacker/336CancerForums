@@ -21,7 +21,7 @@ String table = request.getParameter("type");
 int id = Integer.parseInt(request.getParameter("id"));
 
 //get current votes 
-String getCurrVotes = "SELECT updownVotes FROM " + table + " WHERE " + table + "id = " + id + ";"; 
+String getCurrVotes = "SELECT * FROM " + table + " WHERE " + table + "id = " + id + ";"; 
 ResultSet voteSet = null;
 try{
 	voteSet = query.executeQuery(getCurrVotes); 
@@ -34,6 +34,7 @@ catch(Exception e){
 }
 voteSet.next(); 
 int currentVotes = voteSet.getInt("updownVotes"); 
+int authorid = voteSet.getInt("authorId");
 
 //increment
 currentVotes--; 
@@ -47,6 +48,29 @@ catch(Exception e){
 	out.println(updateCurrVotes); 
 	return; 
 }
+
+//get userVotes
+String getUser = "SELECT * FROM user WHERE user.userId = " + authorid + ";"; 
+ResultSet user = query.executeQuery(getUser); 
+
+user.next(); 
+int userVotes = user.getInt("updownVote"); 
+
+//increment 
+userVotes--; 
+
+//put back in table
+String updateUserV = "UPDATE user SET updownVote = " + userVotes + " WHERE user.userId = " + authorid + ";"; 
+
+try{ 
+	query.executeUpdate(updateUserV); 
+}
+catch(Exception e){ 
+	out.println(updateUserV); 
+	out.println(e.getMessage()); 
+	return;
+}
+
 
 if(table.equals("thread")) response.sendRedirect("index.jsp"); 
 else response.sendRedirect("thread.jsp"); 
