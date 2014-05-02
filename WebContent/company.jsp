@@ -17,31 +17,33 @@
 <link rel="stylesheet" type="text/css" href="global.css">
 <!-- jquery script -->
 <script src="jquery-2.1.0.min.js"></script>
+<script src="jquery.jqGrid.min.js"></script>
 <script type="text/javascript">
-jQuery(document).ready(function()
-	    {
+jQuery(document).ready(function() {
 
-	    jQuery("#list10").jqGrid({
+	    jQuery("#companyGrid").jqGrid({
+		    url:'companyGridData.jsp',
+		    datatype: "json",
+		    colNames:['Company Id','Name', 'Address'],
+		    colModel:[
+		              {name:'companyId',index:'companyId', width:55},
+		              {name:'name',index:'name', width:90},
+		              {name:'address',index:'address', width:100}],
+		    rowNum:10,
+		    rowList:[5,7,10],
+		    pager: '#companyPager',
+		    sortname: 'companyId',
+		    //viewrecords: true,
+		    //sortorder: "desc",
+		    multiselect: false,
+		    loadonce: true,
+		    caption: "Companies"
+	    });
 
-	        url:'companyGridData.jsp',
-	    colNames:['company Id','Name', 'Address'],
-	        colModel:[{name:'companyId',index:'companyId', width:55},{name:'name',index:'name', width:90},{name:'address',index:'address', width:100}],
-	    rowNum:10,
-	    rowList:[5,7,10],
-	    pager: '#pager10',
-	    sortname: 'companyId',
-	        datatype: 'json',
-	        viewrecords: true,
-	        sortorder: "desc",
-	    multiselect: false,
-	    loadonce: true,
-	    caption: "Companies"
-	        });
+	    //jQuery("#companyGrid").jqGrid('navGrid','#companyPager',{add:false,edit:false,del:false});
 
-	    jQuery("#list10").jqGrid('navGrid','#pager10',{add:false,edit:false,del:false});
-
-	     }//function
-	    );//ready 
+	}//function
+);//ready 
 </script>
 </head>
 <body>
@@ -62,14 +64,15 @@ String email = (String)session.getAttribute("email");
 boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
 Integer votes = (Integer)session.getAttribute("votes");
 
-if(isDoc) out.println("isDoc"); 
-else out.println("!isDoc"); 
-
 %>
+
+<br/>
 <table id="companyGrid"></table>
+<div id="companyPager"></div>
+<br/>
 
  <div id="company_form">
- <form name="companyCreate" method="post" onsubmit="return validateForm()" action="companyInsert.jsp">
+ <form name="companyCreate" method="post" action="companyInsert.jsp">
    <fieldset>
      <input type="text" name="companyName" id="companyName" size="30" placeholder="Company Name" class="text-input" /> 
      <br/>

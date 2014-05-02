@@ -19,27 +19,48 @@
 <script src="jquery-2.1.0.min.js"></script>
 </head>
 <body>
+ <jsp:include page="header.jsp" flush="true" />
+<%
+if(session.getAttribute("userId")==null){ //user is not logged in 
+	response.sendRedirect("loginform.jsp"); 
+}
+ 
+//user is logged in 
+
+//user attributes
+Integer userId = (Integer)session.getAttribute("userId"); 
+String username = (String)session.getAttribute("username"); 
+String firstname = (String)session.getAttribute("firstname"); 
+String lastname = (String)session.getAttribute("lastname"); 
+String email = (String)session.getAttribute("email");
+boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
+Integer votes = (Integer)session.getAttribute("votes");
+
+%>
 <div>
 <%
 String companyName;
 String companyAddress;
 companyName = request.getParameter("companyName");
 companyAddress = request.getParameter("companyAddress");
+String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
+Class.forName("com.mysql.jdbc.Driver"); //loading the driver
+Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db;
 try {
-	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
-	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
-	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 	Statement query = conn.createStatement(); //create the thing that will query the db
-	String insertStatement = "INSERT INTO company (name,address,approved) VALUES("+companyName+","+companyAddress+",1)";
+	String insertStatement = "INSERT INTO company (name,address,approved) VALUES(\""+companyName+"\",\""+companyAddress+"\",1)";
 	int i = query.executeUpdate(insertStatement);
-	out.println("<label Company data successfully inserted!</label");
-	out.println("<label Company name: " + companyName + "</label");
-	out.println("<label Company address: " + companyAddress + "</label");
+	out.println("<label> Company data successfully inserted!</label><br/>");
+	out.println("<label> Company name: " + companyName + "</label><br/>");
+	out.println("<label> Company address: " + companyAddress + "</label><br/>");
 }
 catch(Exception e) {
     System.out.print(e);
     e.printStackTrace();
-	out.println("<label Error </label");
+	out.println("<label> Error "+ e.toString() + "</label><br/>");
+}
+finally {
+	conn.close();
 }
 %>
 </div>
