@@ -32,7 +32,7 @@
 </head>
 <body>
 
-336 is Cancer 
+<img src=images/CancerBanner.png>
 <br />
 
 <%

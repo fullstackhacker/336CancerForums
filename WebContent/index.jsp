@@ -156,17 +156,11 @@ Statement query2 = conn.createStatement();
 
 
 %>
-<div id="userbox">
-	<button type="button" onclick="window.location='profile.jsp'"><%= username %></button>
-	<button type="button" onclick="window.location='messages.jsp'">Messages</button>
-	<button type="button" onclick="window.location='logout.jsp'">Logout</button>
-</div>
-
-<h1>Cancer Ends Here</h1>
 
 
  <jsp:include page="header.jsp" flush="true" />
 
+<div id="wrapper">
 <div id="lung_threads" class="threadbox"> 
 <%
 //get the topic id
@@ -210,7 +204,10 @@ while(threadSet.next()){
 	ResultSet authorname = query2.executeQuery(getAuthorState); 
 	if(authorname.next()) author = authorname.getString("userName"); 
 	
-	//print out the thread in its own div box 
+	//print out the thread in its own div box
+	out.println("<div class=\"forumThread\">");
+	
+	out.println("<div class=\"threadContent\">");
 	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
 	out.println("<p class=\"author\"> Author: " + author + "</p>");  
@@ -219,7 +216,9 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
-	
+	out.println("</div>");
+
+	out.println("<div class=\"threadContent\">");
 	//up vote form 
 	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
@@ -234,6 +233,10 @@ while(threadSet.next()){
 	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 	out.println("</form>");
 	out.println("<hr/>");
+	out.println("</div>");
+	
+	out.println("</div>");
+	
 }
 
 if(!oneThread) out.println("There are no lung cancer threads yet!");
@@ -624,5 +627,6 @@ if(isDoc){
 <input type="submit" value="Create Thread">
 </form>
 
+</div>
 </body>
 </html>
