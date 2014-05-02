@@ -26,11 +26,24 @@ Statement query2 = conn.createStatement();
 <%
 String searchQuery = request.getParameter("searchquery"); 
 String searchingType = request.getParameter("searchin"); 
-String topic = request.getParameter("topic"); 
+String topic = request.getParameter("topics"); 
+
+int topicId = -1; 
+if(!topic.equals("all")){ //get the topicId
+	String queryshit = "SELECT * FROM topic WHERE name = \"" + topic + "\";"; 
+	ResultSet queryShit = query.executeQuery(queryshit); 
+	queryShit.next(); 
+	topicId = queryShit.getInt("topicId"); 
+}
+String fuckingTopic = ""; 
+
+
 
 boolean isDoc  = session.getAttribute("isDoc") != null && session.getAttribute("isDoc").equals("yes");
 
 if(searchingType.equals("postBy")){ //want posts by searchQuery
+	fuckingTopic = " AND thread.threadId = post.threadId AND thread.topicId = " + topicId; 
+	
 	//get userId
 	String userIdString = "SELECT * FROM user WHERE user.userName = \"" + searchQuery + "\";";
 	ResultSet userIdSet = null; 
@@ -51,9 +64,9 @@ if(searchingType.equals("postBy")){ //want posts by searchQuery
 		out.println("Invalid User Name");
 		response.sendRedirect("searchform.jsp");
 	}
-	
+	//SELECT * FROM post, thead WHERE post.authorId = userId AND thread.threadId = post.threadId AND thread.topicId = topicId; 
 	//get posts by the user now
-	String postByQuery = "SELECT * FROM post WHERE post.authorId =" + userId + ";";
+	String postByQuery = "SELECT * FROM post, thread WHERE post.authorId =" + userId + fuckingTopic +";";
 	ResultSet rs = null; 
 	try{ 
 		rs = query.executeQuery(postByQuery); 
@@ -111,11 +124,12 @@ if(searchingType.equals("postBy")){ //want posts by searchQuery
 		out.println("User doesn't have any posts!");
 		return;
 	}
-	
-	
-	
 }
 else if(searchingType.equals("threadBy")){
+	if(topicId != -1){ //good for threads
+		fuckingTopic = " AND topicId = " + Integer.toString(topicId); 
+	}
+	
 	//get userId
 	String userIdString = "SELECT * FROM user WHERE user.userName = \"" + searchQuery + "\";";
 	ResultSet userIdSet = null; 
@@ -138,7 +152,7 @@ else if(searchingType.equals("threadBy")){
 	}
 	
 	//get posts by the user now
-	String postByQuery = "SELECT * FROM thread WHERE thread.authorId =" + userId + ";";
+	String postByQuery = "SELECT * FROM thread WHERE thread.authorId =" + userId + fuckingTopic +";";
 	ResultSet rs = null; 
 	try{ 
 		rs = query.executeQuery(postByQuery); 
