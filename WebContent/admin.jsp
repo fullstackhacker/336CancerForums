@@ -43,13 +43,20 @@ if(request.getParameter("submit") != null && request.getParameter("submit").equa
 }
 %>
 
+<!-- stylesheets -->
+<link rel="stylesheet" type="text/css" href="global.css">
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>CS336:Cancer Forum | Admin Console</title>
+<title>336 Beats Cancer | Admin Console</title>
+<div id="header">
+<jsp:include page="header.jsp" flush="true" />
+</div>
 </head>
 <body>
+<div id="wrapper">
 <%
 //connecting to the database
 String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
@@ -57,11 +64,14 @@ Class.forName("com.mysql.jdbc.Driver"); //loading the driver
 Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 Statement query = conn.createStatement(); //create the thing that will query the db
 %>
+<div id="center">
 <h1>Admin Console</h1>
+</div>
 
 <section id = "casuals"> 
 <form name = "casualtomod" action="makeMods.jsp" method="post">
-<select id="current_casuals" name="newMods" size="25" multiple>
+<p>List of Patients</p>
+<select id="current_casuals" name="newMods" size="20" multiple>
 <%
 //get all casuals
 String queryString = "SELECT * FROM user, casual WHERE user.userId = casual.userId AND NOT EXISTS (SELECT * FROM moderator WHERE moderator.userId = user.userId);";
@@ -73,13 +83,14 @@ while(casuals.next()){ //<option value="name"> name </option>
 %>
 </select>
 <br/>
-<input type="submit" value="Add Selected Casuals to Moderators">
+<input type="submit" value="Add Selected Patients to Moderators">
 </form>
 </section>
-
+<br/>
 <section id = "doctors">
 <form name = "doctortomod" action="makeMods.jsp" method="post">
-<select id="current_doctors" name="newMods" size="25" multiple>
+<p>List of Doctors</p>
+<select id="current_doctors" name="newMods" size="20" multiple>
 <%
 //get all doctors
 queryString = "SELECT * FROM user, doctor WHERE user.userId = doctor.userId AND doctor.verified = 1 AND NOT EXISTS (SELECT * FROM moderator WHERE moderator.userId = user.userId);";// add doctor is verified
@@ -94,10 +105,11 @@ while(doctors.next()){ //<option value="name"> name </option>
 <input type="submit" value="Add Selected Doctors to Moderators">
 </form>
 </section>
-
+<br>
 <section id = "mods">
 <form name="currentMods" id="currentMods" method="post" action="deletemods.jsp">
-<select id="current_mods" name="oldMods" size="25" multiple>
+<p>List of Moderators</p>
+<select id="current_mods" name="oldMods" size="20" multiple>
 <%
 //get all moderators
 queryString = "SELECT * FROM user, moderator WHERE user.userId = moderator.userId;";
@@ -112,5 +124,6 @@ while(moderators.next()){
 <input type="submit" value="Remove Selected from Moderatoring Staff">
 </form>
 </section>
+</div>
 </body>
 </html>

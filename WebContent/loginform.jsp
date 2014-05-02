@@ -29,6 +29,11 @@ if(request.getParameter("username")!=null && request.getParameter("password") !=
 }
 
 %>
+
+<div id="header">
+<img src="images/CancerBanner.png">
+</div>
+
 <div id="login_form">
  <form name="login" method="post" onsubmit="return validateForm()" action="loginform.jsp">
    <fieldset>

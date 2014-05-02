@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="regform.css">
-<title>CS336: Cancer Forums</title>
+<title>336 Beats Cancer | Register</title>
 </head>
 <body>
 
@@ -36,7 +36,6 @@ if(request.getParameter("username")==null){
 else {
 
 if(request.getParameter("username") != null && request.getParameter("username").isEmpty()){ 
-	out.println("set false cause username was not null and empty"); 
 	valid = false; 
 	this.usernameError = "User Name cannot be empty."; 
 }
@@ -45,7 +44,6 @@ else if(request.getParameter("username") != null && !request.getParameter("usern
 }
 
 if(request.getParameter("email") != null && request.getParameter("email").isEmpty()){ 
-	out.println("set false cause email was not null and empty"); 
 	valid = false; 
 	this.emailError  = "Email cannot be empty";
 }
@@ -55,7 +53,6 @@ else if(request.getParameter("email") != null && !request.getParameter("email").
 }
 
 if(request.getParameter("password") != null && request.getParameter("password").isEmpty()){ 
-	out.println("set false cause password was not null and empty"); 
 	valid = false;
 	this.passwordError = "Password cannot be empty."; 
 }
@@ -64,7 +61,6 @@ else if(request.getParameter(password) != null && !request.getParameter("passwor
 }
 
 if(request.getParameter("confirm password") != null && (request.getParameter("confirm password").isEmpty() || !request.getParameter("confirm password").equals(request.getParameter("password")))){
-	out.println("set false cause confirm password was not null and empty"); 
 	valid = false; 
 	this.cpasswordError = "Passwords must match";
 }
@@ -86,13 +82,11 @@ else if(request.getParameter("lastname") != null && !request.getParameter("lastn
 }
 
 	if(!(request.getParameter("type") != null && (request.getParameter("type").equals("doc") || request.getParameter("type").equals("casual")))){
-		out.println("set face cause type was not doc or casual" + request.getParameter("type"));
 		valid = false; 
 		this.usertypeError = "Must pick a user type";
 	}
 
 	if((request.getParameter("username") != null || request.getParameter("email") != null || request.getParameter("password") != null || request.getParameter("confirm password") != null) && (request.getParameter("type") == null)){
-		out.println("set false cause type was not picked and other stuff was filled in "); 
 		valid = false; 
 		this.usertypeError = "Must pick a user type"; 
 	}
@@ -117,7 +111,9 @@ else if(request.getParameter("lastname") != null && !request.getParameter("lastn
 // user database attributes: first name, last name, email, updownVote(NULL), password, userName
 
 %>
-
+<div id="header">
+<img src="images/CancerBanner.png">
+</div>
 <div id="register_form">
  <form name="register" method="post" onsubmit="return validateForm()" action="registerform.jsp">
    <fieldset>
