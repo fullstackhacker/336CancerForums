@@ -25,13 +25,14 @@ String value = request.getParameter("meat");
 //if thread we will need to get the first post 
 boolean isThread = table.equals("thread"); 
 String content = ""; 
-
+int postId = -1; 
 //get the first post
 if(isThread){ 
 	String firstPostQuery = "SELECT * FROM post WHERE thread.threadId = " + id + ";";
 	ResultSet firstPost = query.executeQuery(firstPostQuery); 
 	firstPost.next(); //first post will be the first one in this set
-	content = firstPost.getString("content"); 
+	content = firstPost.getString("content");
+	postId = firstPost.getInt("postId"); 
 }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -44,6 +45,7 @@ if(isThread){
 <body>
 <h1>Edit <%= table %></h1>
 <form id="edit" name="edit" action="edit.jsp" method="post">
+<input type="text" class="hidden" name="id" value="<%= id %>" />
 <%
 if(isThread){ //thread can change the first post or the thread title 
 	out.println("<input type=\"text\" name=\"newMeat\" value=\"" + value + "\" />"); 
@@ -51,6 +53,7 @@ if(isThread){ //thread can change the first post or the thread title
 	out.println("<textarea name=\"newContent\" form=\"edit\" value=\"" + content + "\" />"); 
 	out.println("<br/>"); 
 	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+	out.println("<input type=\"text\" class=\"hidden\" name=\"postId\" value=\"" + postId + "\" />");
 	out.println("<input type=\"submit\" value=\"Edit Thread\"> "); 
 }
 else{ //post only thing to change is the content
