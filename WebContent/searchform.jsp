@@ -30,6 +30,7 @@ Search:
 <input type="radio" name="searchin" value="thread"> Threads
 <br />
 <input type="radio" name="searchin" value="doctor"> Doctors
+<br />
 <input type="radio" name="searchin" value="postBy"> Find Posts by This User
 <br />
 <input type="radio" name="searchin" value="threadBy"> Find Threads by This User

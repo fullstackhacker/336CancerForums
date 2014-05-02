@@ -42,8 +42,10 @@ String fuckingTopic = "";
 boolean isDoc  = session.getAttribute("isDoc") != null && session.getAttribute("isDoc").equals("yes");
 
 if(searchingType.equals("postBy")){ //want posts by searchQuery
-	fuckingTopic = " AND thread.threadId = post.threadId AND thread.topicId = " + topicId; 
-	
+	if(topicId != -1){
+		fuckingTopic = " AND thread.threadId = post.threadId AND thread.topicId = " + topicId; 
+	}
+
 	//get userId
 	String userIdString = "SELECT * FROM user WHERE user.userName = \"" + searchQuery + "\";";
 	ResultSet userIdSet = null; 
