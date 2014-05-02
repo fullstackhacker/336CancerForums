@@ -21,12 +21,27 @@ p.tabheader{
 }
 
 #wrapper{
-	width: 900px;
+	width: 1000px;
 	margin: auto;
 	background-color:#E0B0FF;
 	
 }
 
 #userbox{
-	
+	text-align: right;
+}
+
+#header {
+text-align: center;
+}
+
+#login_form{
+	background-color: rgba(232, 190, 255, 0.7);
+	text-align: center;
+	width: 500px;
+}
+
+#register_form{
+	background-color: rgba(232, 190, 255, 0.7);
+	width: 400px;
 }

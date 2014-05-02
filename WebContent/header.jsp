@@ -37,12 +37,9 @@
 
 <div id="userbox">
 	Welcome back, <a href="profile.jsp"><%= username %></a>
-	<button type="button" onclick="window.location='messages.jsp'">Messages</button>
-	<button type="button" onclick="window.location='logout.jsp'">Logout</button>
+	<button type="button" onclick="window.location='message.jsp'">Messages</button>
+	<button type="button" onclick="window.location='logout.jsp'">Log Out</button>
 </div>
-<br />
 <img src=images/CancerBanner.png>
-<br />
-<br>
 </body>
 </html>

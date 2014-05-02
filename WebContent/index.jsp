@@ -160,9 +160,9 @@ Statement query2 = conn.createStatement();
 
 %>
 
-
- <jsp:include page="header.jsp" flush="true" />
-
+<div id="header">
+<jsp:include page="header.jsp" flush="true" />
+</div>
 <div id="wrapper">
 <%
 //get topics
