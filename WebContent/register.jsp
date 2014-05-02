@@ -33,7 +33,7 @@
 	this.password = (String)session.getAttribute("password"); 
 	this.fname = (String)session.getAttribute("firstname"); 
 	this.lname = (String)session.getAttribute("lastname"); 
-	this.isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("doc"); 
+	this.isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
 	
 	//connecting to the database
 	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
@@ -42,7 +42,7 @@
 	Statement query = conn.createStatement(); //create the thing that will query the db
 	
 	//userdatabase: userid, firstname, lastname, email, 0, password, userName
-	String queryString = "INSERT INTO user VALUES(0, '" + this.fname +"','" + this.lname + "','" + this.email + "', 0, '" + this.password + "','" + this.username + "')";
+	String queryString = "INSERT INTO user (userId, firstName, lastName, email, updownVote, password, userName) VALUES(0, '" + this.fname +"','" + this.lname + "','" + this.email + "', 0, '" + this.password + "','" + this.username + "')";
 	
 	query.executeUpdate(queryString); //insert into the database
 	
@@ -55,7 +55,7 @@
 	int userId = dot.getInt("userId"); 
 	
 	if(isDoc){ //insert into doctor table 
-		queryString = "INSERT INTO doctor VALUES(0,'" + userId + "',\"0\");";
+		queryString = "INSERT INTO doctor VALUES(0,'" + userId + "', 0);";
 		query.executeUpdate(queryString); 
 	}
 	else { //insert into casual table 
@@ -63,6 +63,8 @@
 		query.executeUpdate(queryString); 
 	}
 	out.println("REGISTERED SUCCESFULLY -->REDIRECT GOES HERE");
+	session.invalidate(); 
+	response.sendRedirect("index.jsp");
 %>
 </body>
 </html>

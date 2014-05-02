@@ -5,7 +5,11 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %> 
-
+<%
+if(!session.getAttribute("usertype").equals("mod")){ //only mods can access this page
+	response.sendRedirect("index.jsp"); 
+}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,15 +28,17 @@ Statement query = conn.createStatement(); //create the thing that will query the
 <form name="verify_doctor" action="verify_doctor.jsp" method="post">
 <select id="verify" name="doctor_list" size="25" multiple>
 <%
-String queerE = "SELECT * FROM user, doctor WHERE user.userId = doctor.userId AND doctor.verified = \"0\";"; 
+String queerE = "SELECT * FROM user, doctor WHERE user.userId = doctor.userId AND doctor.verified = 0;"; 
 ResultSet doctors = query.executeQuery(queerE); 
 
-while(doctors.next()){
-	out.println("option=\"" + doctors.getString("userName") + "\">" + doctors.getString("userName") + "</option>"); 
+while(doctors.next()){ // print out all the doctors that need to be verified
+	out.println("<option value=\"" + doctors.getString("userId") + "\">" + doctors.getString("userName") + "</option>");
 }
 
 %>
 </select>
+<br />
+<input type="submit" value="Verify" />
 </form>
 </body>
 </html>

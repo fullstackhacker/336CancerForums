@@ -72,22 +72,25 @@
 		//since users can be moderators and either a casual or a doctor gotta figure out the redirect on this
 		ResultSet modTest = query.executeQuery("SELECT * FROM moderator WHERE moderator.userId = '" + userId + "';");
 		if(modTest.next()){ //user is an moderator - assumes there is only one returned value
-			//response.sendRedirect("moderator.jsp"); 
-			//return; 
+			session.setAttribute("usertype", "mod"); 
+			response.sendRedirect("moderator.jsp"); 
+			return; 
 		}
 		
 		//find out if user is a doctor or casual 
 		ResultSet casualTest = query.executeQuery("SELECT * FROM casual WHERE casual.userId = '" + userId + "';");
 		if(casualTest.next()){ //user is a casual - assumes there is only one returned value
 			session.setAttribute("isDoc", "no");
+			session.setAttribute("usertype", "casual");
 			response.sendRedirect("index.jsp"); 
 			return; 
 		}
 		
 		ResultSet doctorTest = query.executeQuery("SELECT * FROM doctor WHERE doctor.userId = '" + userId + "';");
 		if(doctorTest.next()){ //user is a doctor - assumes there is only one returned value 
+			session.setAttribute("usertype", "doc"); 
 			session.setAttribute("isDoc", "yes"); 
-			out.println("user is a doctor"); 
+			response.sendRedirect("index.jsp");
 			return; 
 		}
 
@@ -95,6 +98,7 @@
 		
 		ResultSet adminTest = query.executeQuery("SELECT * FROM admin WHERE admin.userId = '" + userId + "';"); 
 		if(adminTest.next()){ //user is an admin - assumes there is only one returned value 	
+			session.setAttribute("usertype", "admin");
 			response.sendRedirect("admin.jsp");  
 			return; 
 		}
