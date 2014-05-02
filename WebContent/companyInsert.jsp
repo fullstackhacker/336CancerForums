@@ -19,7 +19,8 @@ try {
 	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
 	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 	Statement query = conn.createStatement(); //create the thing that will query the db
-	int i = query.executeUpdate("INSERT INTO company (name,address,approved) VALUES("+companyName+","+companyAddress+",1)");
+	String insertStatement = "INSERT INTO company (name,address,approved) VALUES("+companyName+","+companyAddress+",1)";
+	int i = query.executeUpdate(insertStatement);
 	out.println("Company data successfully inserted!");
 }
 catch(Exception e) {

@@ -13,6 +13,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Company Page</title>
+<!-- stylesheets -->
+<link rel="stylesheet" type="text/css" href="global.css">
+<!-- jquery script -->
 <script src="jquery-2.1.0.min.js"></script>
 </head>
 <body>
