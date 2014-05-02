@@ -1,11 +1,7 @@
 @CHARSET "UTF-8";
 
 body {
-background-color:#CC99CC;
-}
-
-.wrapper {
-background-color:#FFFFFF;
+background-color:#d99dff;
 }
 
 .hidden{
@@ -25,13 +21,12 @@ p.tabheader{
 #wrapper{
 	width: 900px;
 	margin: auto;
-	
+	background-color:#E0B0FF;
 	
 }
 
 .forumThread{
 	height: 100px;
-	float: left;
 	width: 800px;
 	
 }
