@@ -1,7 +1,9 @@
 @CHARSET "UTF-8";
 
 body {
-background-color:#d99dff;
+background-image: url("http://p1.pichost.me/i/15/1382144.jpg");
+background-size: cover;
+background-attachment: fixed;
 }
 
 .hidden{
@@ -25,12 +27,6 @@ p.tabheader{
 	
 }
 
-.forumThread{
-	height: 100px;
-	width: 800px;
+#userbox{
+	
 }
-
-.threadContent{
-	width: 100px;
-}
-

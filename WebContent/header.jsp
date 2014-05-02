@@ -43,20 +43,6 @@
 <br />
 <img src=images/CancerBanner.png>
 <br />
-
-<%
-//get topics
-String topicquery = "SELECT name FROM topic;"; 
-ResultSet topicNames = query.executeQuery(topicquery); 
-
-//print out topic titles
-while(topicNames.next()){ 
-	out.println("<div id=\"" + topicNames.getString("name") + "\" class=\"tab\">"); 
-	out.println("<p class=\"tabheader\">" + topicNames.getString("name") + "</p>"); 
-	out.println("</div>"); 
-}
-
-%>
 <br>
 </body>
 </html>

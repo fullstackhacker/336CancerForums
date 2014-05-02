@@ -164,6 +164,20 @@ Statement query2 = conn.createStatement();
  <jsp:include page="header.jsp" flush="true" />
 
 <div id="wrapper">
+<%
+//get topics
+String topicquery = "SELECT name FROM topic;"; 
+ResultSet topicNames = query.executeQuery(topicquery); 
+
+//print out topic titles
+while(topicNames.next()){ 
+	out.println("<div id=\"" + topicNames.getString("name") + "\" class=\"tab\">"); 
+	out.println("<p class=\"tabheader\">" + topicNames.getString("name") + "</p>"); 
+	out.println("</div>"); 
+}
+
+%>
+
 <div id="lung_threads" class="threadbox"> 
 <%
 //get the topic id
