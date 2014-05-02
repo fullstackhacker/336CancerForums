@@ -4,6 +4,10 @@ body {
 background-color:#CC99CC;
 }
 
+.wrapper {
+background-color:#FFFFFF;
+}
+
 .hidden{
 	display: none;	
 }

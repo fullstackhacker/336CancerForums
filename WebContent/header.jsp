@@ -20,6 +20,9 @@
 	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
 	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 	Statement query = conn.createStatement(); //create the thing that will query the db
+	
+	
+	String username = (String)session.getAttribute("username"); //get the user's username 
 
 %>
 
@@ -33,7 +36,7 @@
 <body>
 
 <div id="userbox">
-	<p>Welcome back, <a href="profile.jsp"><%= username %></a>
+	<p>Welcome back, <a href="profile.jsp"><%= username %></a></p>
 	<button type="button" onclick="window.location='messages.jsp'">Messages</button>
 	<button type="button" onclick="window.location='logout.jsp'">Logout</button>
 </div>
