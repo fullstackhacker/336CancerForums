@@ -48,6 +48,6 @@
 	<button type="button" onclick="window.location='message.jsp'">Messages</button>
 	<button type="button" onclick="window.location='logout.jsp'">Log Out</button>
 </div>
-<img src=images/CancerBanner.png>
+<a href="index.jsp"><img src=images/CancerBanner.png></a>
 </body>
 </html>

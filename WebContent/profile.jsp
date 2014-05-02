@@ -25,12 +25,7 @@ if(session.getAttribute("userId")==null){ //user is not logged in
 String username = (String)session.getAttribute("username"); //get the user's username
 String email = (String)session.getAttribute("email"); //get the user's email
 String firstname = (String)session.getAttribute("firstname"); //get the user's firstname
-String lastname = (String)session.getAttribute("lastname"); //get the user's firstname
-//see if user is a "special" user
-boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
-boolean atLeastMod = session.getAttribute("usertype") != null && ( ((String)session.getAttribute("usertype")).equals("mod") || ((String)session.getAttribute("usertype")).equals("admin") ); 
-boolean isAdmin = session.getAttribute("usertype") != null && ((String)session.getAttribute("usertype")).equals("admin"); 
-boolean isMod = session.getAttribute("usertype") != null &&  ((String)session.getAttribute("usertype")).equals("mod"); 
+String lastname = (String)session.getAttribute("lastname"); //get the user's firstname 
 
 %>
 
