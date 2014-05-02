@@ -17,6 +17,11 @@ else{
 	threadtitle = (String)session.getAttribute("currentThread");
 }
 
+//see if user is a "special" user
+boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
+boolean atLeastMod = session.getAttribute("usertype") != null && ( ((String)session.getAttribute("usertype")).equals("mod") || ((String)session.getAttribute("usertype")).equals("admin") ); 
+boolean isAdmin = session.getAttribute("usertype") != null && ((String)session.getAttribute("usertype")).equals("admin"); 
+boolean isMod = session.getAttribute("usertype") != null &&  ((String)session.getAttribute("usertype")).equals("mod"); 
 
 //connecting to the database
 String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
@@ -89,6 +94,26 @@ while(posts.next()){
 	out.println("<input class=\"hidden\" type=\"text\" name=\"type\" value=\"post\" />"); 
 	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 	out.println("</form>");
+	
+	if(atLeastMod){ //only a moderator or admin can delete or edit posts
+		//edit button
+		out.println("<form id=\"edit" + postId + "\" name=\"edit" + postId + "\" action=\"edit.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"post\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + postId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + content + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Edit\" >"); 
+		out.println("</form>"); 
+		
+		//delete button 
+		out.println("<form id=\"delete" + threadId + "\" name=\"delete" + threadId + "\" action=\"delete.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"post\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + postId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + content + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Delete\" >"); 
+		out.println("</form>"); 
+		
+	}
+	
 	
 	out.println("</div>");
 	out.println("<hr/>"); //something to separate the lines temporarily

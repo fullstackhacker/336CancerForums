@@ -238,8 +238,23 @@ while(threadSet.next()){
 	out.println("<hr/>");
 	out.println("</div>");
 	
-	//
-	
+	if(atLeastMod){ //only admin or moderator can edit or delete threads
+		//edit button
+		out.println("<form id=\"edit" + threadId + "\" name=\"edit" + threadId + "\" action=\"edit.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Edit\" >"); 
+		out.println("</form>"); 
+		
+		//delete button 
+		out.println("<form id=\"delete" + threadId + "\" name=\"delete" + threadId + "\" action=\"delete.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Delete\" >"); 
+		out.println("</form>"); 
+	}
 	out.println("</div>");
 	
 }
