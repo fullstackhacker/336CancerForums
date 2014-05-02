@@ -61,14 +61,14 @@ Statement query = conn.createStatement(); //create the thing that will query the
 
 <section id = "casuals"> 
 <form name = "casualtomod" action="makeMods.jsp" method="post">
-<select id="current_casuals" name="currentCasuals" size="25" multiple>
+<select id="current_casuals" name="newMods" size="25" multiple>
 <%
 //get all casuals
-String queryString = "SELECT * FROM user, casual WHERE user.userId = casual.userId;";
+String queryString = "SELECT * FROM user, casual WHERE user.userId = casual.userId AND NOT EXISTS (SELECT * FROM moderator WHERE moderator.userId = user.userId);";
 ResultSet casuals = query.executeQuery(queryString); 
 
 while(casuals.next()){ //<option value="name"> name </option>
-	out.println("<option value=\"" + casuals.getString("userName") + "\">" + casuals.getString("userName")  + "</option>" );
+	out.println("<option value=\"" + casuals.getString("userId") + "\">" + casuals.getString("userName")  + "</option>" );
 }
 %>
 </select>
@@ -79,14 +79,14 @@ while(casuals.next()){ //<option value="name"> name </option>
 
 <section id = "doctors">
 <form name = "doctortomod" action="makeMods.jsp" method="post">
-<select id="current_doctors" name="currentDoctors" size="25" multiple>
+<select id="current_doctors" name="newMods" size="25" multiple>
 <%
 //get all doctors
-queryString = "SELECT * FROM user, doctor WHERE user.userId = doctor.userId;";// add doctor is verified
+queryString = "SELECT * FROM user, doctor WHERE user.userId = doctor.userId AND doctor.verified = 1 AND NOT EXISTS (SELECT * FROM moderator WHERE moderator.userId = user.userId);";// add doctor is verified
 ResultSet doctors = query.executeQuery(queryString); 
 
 while(doctors.next()){ //<option value="name"> name </option>
-	out.println("<option value=\"" + doctors.getString("userName") + "\">" + doctors.getString("userName")  + "</option>" );
+	out.println("<option value=\"" + doctors.getString("userId") + "\">" + doctors.getString("userName")  + "</option>" );
 }
 %>
 </select>
@@ -96,15 +96,15 @@ while(doctors.next()){ //<option value="name"> name </option>
 </section>
 
 <section id = "mods">
-<form name="currentMods" action="admin.jsp">
-<select id="current_mods" size="25" multiple>
+<form name="currentMods" id="currentMods" method="post" action="deletemods.jsp">
+<select id="current_mods" name="oldMods" size="25" multiple>
 <%
 //get all moderators
 queryString = "SELECT * FROM user, moderator WHERE user.userId = moderator.userId;";
 ResultSet moderators = query.executeQuery(queryString);
 
 while(moderators.next()){ 
-	out.println("<option value=\"" + moderators.getString("userName") + "\">" + moderators.getString("userName") + "</option>" ); 
+	out.println("<option value=\"" + moderators.getString("userId") + "\">" + moderators.getString("userName") + "</option>" ); 
 }
 %>
 </select>

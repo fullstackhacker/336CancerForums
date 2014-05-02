@@ -15,29 +15,26 @@ Statement query = conn.createStatement(); //create the thing that will query the
 %>
 
 <%
-String[] newMods = request.getParameterValues("newMods");
-
-for(int x=0; x<newMods.length; x++){ 
-	String makeModer = "INSERT INTO moderator VALUES(0, " + newMods[x] + ");";
-	try{
-		query.executeUpdate(makeModer); 
+String[] oldModIds = request.getParameterValues("oldMods");
+for(int x=0; x<oldModIds.length; x++){ 
+	String removeMod = "DELETE FROM moderator WHERE moderator.userId = " + oldModIds[x] + ";"; 
+	try{ 
+		query.executeUpdate(removeMod); 
 	}
 	catch(Exception e){ 
-		out.println(makeModer); 
-		out.println(e.getMessage()); 
+		out.println(removeMod); 
+		out.println(e.getMessage());
 		return; 
 	}
 }
 
 response.sendRedirect("admin.jsp");
-
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
 </head>
 <body>
 
