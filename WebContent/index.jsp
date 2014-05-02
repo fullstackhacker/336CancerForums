@@ -139,9 +139,6 @@ String email = (String)session.getAttribute("email");
 boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
 Integer votes = (Integer)session.getAttribute("votes");
 
-if(isDoc) out.println("isDoc"); 
-else out.println("!isDoc"); 
-
 //connecting to the database
 String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
 Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
