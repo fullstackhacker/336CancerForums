@@ -22,6 +22,7 @@
 <input name="searchquery" type="text" placeholder="Search..." />
 <br /> 
 Search: 
+<br />
 <input type="radio" name="searchin" value="user"> Users 
 <br />
 <input type="radio" name="searchin" value="post"> Posts
@@ -33,6 +34,7 @@ Search:
 <br />
 <input type="radio" name="searchin" value="threadBy"> Find Threads by This User
 <br />
+Select a topic: 
 <select name="topics">
 	<option name="topic" value="all">All</option>
 	<option name="topic" value="lung">Lung</option>
@@ -42,6 +44,7 @@ Search:
 	<option	name="topic" value="bowel">Bowel</option>
 	<option name="topic" value="other">Other</option>
 </select>
+<br />
 <input type="submit" value="Seach" />
 </form>
 </body>
