@@ -136,8 +136,14 @@ String username = (String)session.getAttribute("username");
 String firstname = (String)session.getAttribute("firstname"); 
 String lastname = (String)session.getAttribute("lastname"); 
 String email = (String)session.getAttribute("email");
-boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
 Integer votes = (Integer)session.getAttribute("votes");
+
+//see if user is a "special" user
+boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
+boolean atLeastMod = session.getAttribute("usertype") != null && ( ((String)session.getAttribute("usertype")).equals("mod") || ((String)session.getAttribute("usertype")).equals("admin") ); 
+boolean isAdmin = session.getAttribute("usertype") != null && ((String)session.getAttribute("usertype")).equals("admin"); 
+boolean isMod = session.getAttribute("usertype") != null &&  ((String)session.getAttribute("usertype")).equals("mod"); 
+
 
 //connecting to the database
 String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
@@ -231,6 +237,8 @@ while(threadSet.next()){
 	out.println("</form>");
 	out.println("<hr/>");
 	out.println("</div>");
+	
+	//
 	
 	out.println("</div>");
 	

@@ -73,7 +73,7 @@
 		ResultSet modTest = query.executeQuery("SELECT * FROM moderator WHERE moderator.userId = '" + userId + "';");
 		if(modTest.next()){ //user is an moderator - assumes there is only one returned value
 			session.setAttribute("usertype", "mod"); 
-			response.sendRedirect("moderator.jsp"); 
+			response.sendRedirect("index.jsp"); 
 			return; 
 		}
 		
@@ -99,11 +99,11 @@
 		ResultSet adminTest = query.executeQuery("SELECT * FROM admin WHERE admin.userId = '" + userId + "';"); 
 		if(adminTest.next()){ //user is an admin - assumes there is only one returned value 	
 			session.setAttribute("usertype", "admin");
-			response.sendRedirect("admin.jsp");  
+			response.sendRedirect("index.jsp");  
 			return; 
 		}
 		
-		out.println("user is user"); 		
+			
 		
 	}
 	else{ //return the user back to the login page
