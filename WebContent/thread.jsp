@@ -16,7 +16,6 @@ if(request.getParameter("title") != null) {
 else{ 
 	threadtitle = (String)session.getAttribute("currentThread");
 }
- 
 
 
 //connecting to the database
@@ -28,15 +27,23 @@ Statement query2 = conn.createStatement();
 
 %>
 
+<%
+//get the title of thread 
+String threadtitleQ = "SELECT * FROM thread WHERE thread.threadId = " + threadtitle + ";";
+ResultSet threadTitle = query.executeQuery(threadtitleQ); 
+threadTitle.next(); //there should only be one 
+String threadName = threadTitle.getString("title"); 
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><%= "Cancer Forums | " + threadtitle %></title>
+<title><%= "Cancer Forums | " + threadName %></title>
 <link rel="stylesheet" type="text/css" href="global.css">
 </head>
 <body>
-<h1><%= threadtitle %></h1>
+<h1><%= threadName %></h1>
 
 
 <%
