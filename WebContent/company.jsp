@@ -17,6 +17,32 @@
 <link rel="stylesheet" type="text/css" href="global.css">
 <!-- jquery script -->
 <script src="jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function()
+	    {
+
+	    jQuery("#list10").jqGrid({
+
+	        url:'companyGridData.jsp',
+	    colNames:['company Id','Name', 'Address'],
+	        colModel:[{name:'companyId',index:'companyId', width:55},{name:'name',index:'name', width:90},{name:'address',index:'address', width:100}],
+	    rowNum:10,
+	    rowList:[5,7,10],
+	    pager: '#pager10',
+	    sortname: 'companyId',
+	        datatype: 'json',
+	        viewrecords: true,
+	        sortorder: "desc",
+	    multiselect: false,
+	    loadonce: true,
+	    caption: "Companies"
+	        });
+
+	    jQuery("#list10").jqGrid('navGrid','#pager10',{add:false,edit:false,del:false});
+
+	     }//function
+	    );//ready 
+</script>
 </head>
 <body>
  <jsp:include page="header.jsp" flush="true" />
@@ -40,6 +66,8 @@ if(isDoc) out.println("isDoc");
 else out.println("!isDoc"); 
 
 %>
+<table id="companyGrid"></table>
+
  <div id="company_form">
  <form name="companyCreate" method="post" onsubmit="return validateForm()" action="companyInsert.jsp">
    <fieldset>
