@@ -68,7 +68,10 @@ if(searchingType.equals("postBy")){ //want posts by searchQuery
 	}
 	//SELECT * FROM post, thead WHERE post.authorId = userId AND thread.threadId = post.threadId AND thread.topicId = topicId; 
 	//get posts by the user now
-	String postByQuery = "SELECT * FROM post, thread WHERE post.authorId =" + userId + fuckingTopic +";";
+	String tablefuck = ""; 
+	if(fuckingTopic.equals("")) tablefuck = "post"; 
+	else tablefuck = "post, thread"; 
+	String postByQuery = "SELECT * FROM " + tablefuck + " WHERE post.authorId =" + userId + fuckingTopic +";";
 	ResultSet rs = null; 
 	try{ 
 		rs = query.executeQuery(postByQuery); 
