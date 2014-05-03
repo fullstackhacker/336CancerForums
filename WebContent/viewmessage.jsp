@@ -19,6 +19,25 @@ Statement query = conn.createStatement(); //create the thing that will query the
 //get form parameters
 String messageId = request.getParameter("messageId"); 
 String messageTitle = request.getParameter("messageTitle"); 
+String fromUserName = request.getParameter("messageFrom");
+
+//get message details 
+//message: SELECT * FROM messages WHERE messageId = messageId; 
+String messageQuery = "SELECT * FROM messages WHERE messageId = " + messageId + ";";
+ResultSet messages = query.executeQuery(messageQuery); 
+messages.next(); //should be one
+
+//get contents and shit 
+int fromId = messages.getInt("userFromId"); 
+int seen = messages.getInt("userToSeen"); 
+Date date = new Date(messages.getTimestamp("datetimeCreated").getTime());
+String content = messages.getString("content"); 
+
+if(seen == 0){ //mark as viewed
+	//UPDATE messages SET userToSeen = 1 WHERE messageId = messageId; 
+	String updateSeen = "UPDATE messages SET userToSeen = 1 WHERE messageId = " + messageId + ";";
+	query.executeUpdate(updateSeen); 
+}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -28,5 +47,9 @@ String messageTitle = request.getParameter("messageTitle");
 </head>
 <body>
 <h1><%= messageTitle %></h1>
+<p class="message_content">Content: <%= content %></p>
+<p class="message_from">From: <%= fromUserName %></p>
+<p class="message_date">Date: <%= date.toString() %></p>
+
 </body>
 </html>

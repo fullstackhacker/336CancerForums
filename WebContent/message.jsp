@@ -109,6 +109,7 @@ while(messages.next()){
 	out.println(" From: " + fromUserName + "</p>");
 	out.println("<input class=\"hidden\" type=\"text\" name=\"messageId\" value=\"" + messageId + "\" />");
 	out.println("<input class=\"hidden\" type=\"text\" name=\"messageTitle\" value=\"" + title + "\" />");
+	out.println("<input class=\"hidden\" type=\"text\" name=\"messageFrom\" value=\"" + fromUserName + "\" />");
 	out.println("<input type=\"submit\" value=\"View Message\" />"); 
 	out.println("</form>"); 
 	
