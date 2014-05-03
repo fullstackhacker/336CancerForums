@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.util.Date" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %>
@@ -41,10 +42,80 @@ if(session.getAttribute("userId")==null){ //user is not logged in
 </head>
 <body>
 
-<% 
-	String username = (String)session.getAttribute("username"); //get the user's username 		
+<%
+//get session information 
+String userName = (String)session.getAttribute("username"); //get the user's username
+Integer userId = (Integer)session.getAttribute("userId"); //get the user's id
+String firstName = (String)session.getAttribute("firstname"); //don't think i'll need this 
+String lastName = (String)session.getAttribute("lastname");  //dont think i'll need this
 %>
 
+
+<h1>Messages Inbox:</h1>
+<%
+//get new messages: SELECT * FROM messages WHERE userToId = userId; 
+String getNewMessagesQuery = "SELECT * FROM messages WHERE userToId = " + userId + ";";
+ResultSet messages = null; 
+try{ 
+	messages = query.executeQuery(getNewMessagesQuery);
+}
+catch(Exception e){
+	out.println(getNewMessagesQuery); 
+	return; 
+}
+
+if(messages == null){ 
+	//shouldn't happen 
+}
+
+boolean hasMessage = false; 
+while(messages.next()){ 
+	hasMessage = true; 
+	
+	//get message contents
+	int messageId = messages.getInt("messageId"); 
+	int fromId = messages.getInt("userFromId"); 
+	int seen = messages.getInt("userToSeen"); 
+	Date date = new Date(messages.getTimestamp("datetimeCreated").getTime());
+	String content = messages.getString("content"); 
+	String title = messages.getString("title");
+	
+	//get fromUserName
+	//user: SELECT * FROM user WHERE userId = fromId; 
+	String fromUserQuery = "SELECT * FROM user WHERE userId = " + fromId + ";";
+	ResultSet fromUserSet = null; 
+	try{ 
+		fromUserSet = query.executeQuery(fromUserQuery); 
+	}
+	catch(Exception e){ 
+		out.println(fromUserQuery); 
+		return; 
+	}
+	fromUserSet.next(); // should be on 
+	String fromUserName = fromUserSet.getString("userName");  
+	
+	//differentiate between seen and unseen messages
+	String displayText = ""; 
+	if(seen == 0){//not seen 
+		displayText = "<p class=\"unseen\"> Title:  " + title ; 
+	}
+	else{
+		displayText = "<p class=\"seen\"> Title: " + title ;
+	}
+	
+	//display message
+	out.println("<form id=\"message\" name=\"message=\" method=\"post\" action=\"viewmessage.jsp\">");
+	out.println(displayText);
+	out.println(" From: " + fromUserName + "</p>");
+	out.println("<input class=\"hidden\" type=\"text\" name=\"messageId\" value=\"" + messageId + "\" />");
+	out.println("<input class=\"hidden\" type=\"text\" name=\"messageTitle\" value=\"" + title + "\" />");
+	out.println("<input type=\"submit\" value=\"View Message\" />"); 
+	out.println("</form>"); 
+	
+}
+
+if(!hasMessage) out.println("You have no messages"); 
+%>
 <div id="wrapper">
 <form id="message" name="message" method="post" onsubmit="return validateForm()" action="message.jsp">
 <label type="text" name="register">Send a Message</label>

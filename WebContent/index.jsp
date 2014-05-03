@@ -274,7 +274,6 @@ while(threadSet.next()){
 }
 
 if(!oneThread) out.println("There are no lung cancer threads yet!");
-
 %>
 
 </div>
