@@ -55,6 +55,7 @@
 		session.setAttribute("emailError", "Invalid username"); 
 		session.setAttribute("passwordError", "Invalid password");
 		response.sendRedirect("index.jsp"); 
+		return; 
 	}
 	
 	if(this.password.equals(testP)){
@@ -103,6 +104,9 @@
 			return; 
 		}
 		
+		
+		//if it makes it to here user is part of nothing mate!
+		out.println("You are not registered as a type of user! Please contact an admin about your problem!");
 			
 		
 	}

@@ -33,7 +33,7 @@ if(!oldType.equals(newType)){  //user is changing types
 }
 String column = ""; 
 String doctor = ""; 
-if(oldType.equals("doc")){
+if(newType.equals("doctor")){
 	column = "doctor"; 
 	doctor = ", 0";
 }
