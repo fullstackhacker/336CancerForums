@@ -121,6 +121,12 @@ if(searchingType.equals("postBy")){ //want posts by searchQuery
 		out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 		out.println("</form>");
 		
+		//view profile
+		out.println("<form id=\"" + rs.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userprofile.jsp\" >");
+		out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + rs.getInt("authorId") + "\" />");
+		out.println("<input type=\"submit\" value=\"View Profile\" />");
+		out.println("</form>"); 
+		
 		out.println("</div>");
 		out.println("<hr />");
 	}
@@ -214,6 +220,13 @@ else if(searchingType.equals("threadBy")){
 		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
 		out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 		out.println("</form>");
+		
+		//view author
+		out.println("<form id=\"" + rs.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userprofile.jsp\" >");
+		out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + rs.getInt("authorId") + "\" />");
+		out.println("<input type=\"submit\" value=\"View Profile\" />");
+		out.println("</form>"); 
+		
 		out.println("<hr/>");
 	}
 }
