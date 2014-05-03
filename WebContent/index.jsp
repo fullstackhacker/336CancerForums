@@ -154,11 +154,7 @@ Statement query2 = conn.createStatement();
 
 %>
 
-<% 
-//check if the user has an unread messages
 
-
-%>
 
 <div id="header">
 <jsp:include page="header.jsp" flush="true" />

@@ -26,6 +26,7 @@ if(session.getAttribute("userId")==null){ //user is not logged in
 	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
 	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 	Statement query = conn.createStatement(); //create the thing that will query the db
+	Statement query2 = conn.createStatement();
 
 %>
 <!-- stylesheets -->
@@ -85,9 +86,10 @@ while(messages.next()){
 	String fromUserQuery = "SELECT * FROM user WHERE userId = " + fromId + ";";
 	ResultSet fromUserSet = null; 
 	try{ 
-		fromUserSet = query.executeQuery(fromUserQuery); 
+		fromUserSet = query2.executeQuery(fromUserQuery); 
 	}
 	catch(Exception e){ 
+		out.print(e.getMessage());
 		out.println(fromUserQuery); 
 		return; 
 	}
@@ -118,7 +120,7 @@ while(messages.next()){
 if(!hasMessage) out.println("You have no messages"); 
 %>
 <div id="wrapper">
-<form id="message" name="message" method="post" onsubmit="return validateForm()" action="sendmessage.jsp">
+<form id="message" name="message" method="post"  action="sendmessage.jsp">
 <label type="text" name="register">Send a Message</label>
 <br>
 	<input form="message" type="text" name="to" id="to" size="30" placeholder="Send Message to:" class="text-input" />

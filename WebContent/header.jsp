@@ -7,6 +7,7 @@
 <%@ page import="javax.naming.*" %> 
 
 
+
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -17,10 +18,15 @@
 	String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
 	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
 	Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
-	Statement query = conn.createStatement(); //create the thing that will query the db
+	Statement query = conn.createStatement(); //create the thing that will query the db	
 	
-	
-	String username = (String)session.getAttribute("username"); //get the user's username 
+	//user attributes
+	Integer userId = (Integer)session.getAttribute("userId"); 
+	String username = (String)session.getAttribute("username"); 
+	String firstname = (String)session.getAttribute("firstname"); 
+	String lastname = (String)session.getAttribute("lastname"); 
+	String email = (String)session.getAttribute("email");
+	Integer votes = (Integer)session.getAttribute("votes");
 	
 	//see if user is a "special" user
 	boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
@@ -30,6 +36,21 @@
 
 %>
 
+<% 
+//check if the user has an unread messages
+//SELECT * FROM messages WHERE userToId = userId AND userToSeen = 0;
+String fuckMessages = "SELECT * FROM messages WHERE userToId = " + userId + " AND userToSeen = 0;";
+ResultSet getPaper = query.executeQuery(fuckMessages); 
+String messageButtonString = ""; 
+if(!getPaper.next()) messageButtonString = "Messages";
+else{ //count new messages
+	String countMessages = "SELECT COUNT(*) AS newmessages FROM messages WHERE userToId = " + userId + " AND userToSeen = 0;"; 
+	ResultSet faggot = query.executeQuery(countMessages);
+	faggot.next(); 
+	messageButtonString = "Messages (" + faggot.getInt("newmessages") + ")";
+}
+
+%>
 
 
 
