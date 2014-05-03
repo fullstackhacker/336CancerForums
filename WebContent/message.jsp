@@ -42,7 +42,7 @@ if(session.getAttribute("userId")==null){ //user is not logged in
 </div>
 </head>
 <body>
-
+<div id="wrapper">
 <%
 //get session information 
 String userName = (String)session.getAttribute("username"); //get the user's username
@@ -119,7 +119,6 @@ while(messages.next()){
 
 if(!hasMessage) out.println("You have no messages"); 
 %>
-<div id="wrapper">
 <form id="message" name="message" method="post"  action="sendmessage.jsp">
 <label type="text" name="register">Send a Message</label>
 <br>

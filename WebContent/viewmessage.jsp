@@ -39,16 +39,27 @@ if(seen == 0){ //mark as viewed
 	query.executeUpdate(updateSeen); 
 }
 %>
+
+<!-- stylesheets -->
+<link rel="stylesheet" type="text/css" href="global.css">
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>336 Cancer Forum | View Message</title>
+<title>336 Beats Cancer | View Message</title>
 </head>
 <body>
+
+<div id="header">
+<jsp:include page="header.jsp" flush="true" />
+</div>
+
+<div id="wrapper">
 <h1><%= messageTitle %></h1>
 <p class="message_content">Content: <%= content %></p>
 <p class="message_from">From: <%= fromUserName %></p>
 <p class="message_date">Date: <%= date.toString() %></p>
+</div>
 </body>
 </html>
