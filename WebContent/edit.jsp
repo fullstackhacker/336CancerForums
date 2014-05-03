@@ -55,9 +55,8 @@ if(isThread){
 	}
 }
 //idk where to send them at this point
-out.println("Updated " + table);
-Thread.sleep(3000); 
-response.sendRedirect("index.jsp"); 
+if(isThread) response.sendRedirect("index.jsp"); 
+else response.sendRedirect("thread.jsp"); 
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

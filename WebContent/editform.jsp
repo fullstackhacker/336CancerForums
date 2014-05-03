@@ -54,7 +54,7 @@ if(isThread){
 if(isThread){ //thread can change the first post or the thread title 
 	out.println("<input type=\"text\" name=\"newMeat\" value=\"" + value + "\" />"); 
 	out.println("<br/>"); 
-	out.println("<textarea name=\"newContent\" form=\"edit\" row=\"35\" cols=\"50\" />" + content); 
+	out.println("<textarea name=\"newContent\" form=\"edit\" rows=\"35\" cols=\"50\" />" + content); 
 	out.println("</textarea>"); 
 	out.println("<br/>"); 
 	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
@@ -62,10 +62,11 @@ if(isThread){ //thread can change the first post or the thread title
 	out.println("<input type=\"submit\" value=\"Edit Thread\"> "); 
 }
 else{ //post only thing to change is the content
-	out.println("<textarea name=\"newMeat\" form=\"edit\" value=\"" + value + "\" />"); 
+	out.println("<textarea name=\"newMeat\" form=\"edit\" rows=\"35\" cols=\"50\" >" + value);	
+	out.println("</textarea>");
 	out.println("<br />"); 
 	out.println("<input type=\"text\" name=\"type\" class=\"hidden\" value=\"post\" />");
-	out.println("<input type=\"submit\" value=\"Edit Post\""); 
+	out.println("<input type=\"submit\" value=\"Edit Post\" />"); 
 }
 %>
 </form>
