@@ -36,6 +36,25 @@
 
 %>
 
+<% //getting ad type(based on topic id)
+String adTypeQuery = "select topicId from ((SELECT topic.topicId, count(post.postId) as postCount from post, thread, topic WHERE post.threadId = thread.threadId and thread.topicId = topic.topicId and post.authorId = " + userId.toString() +" GROUP BY topic.topicId) as T) HAVING postCount = MAX(postCount);";
+ResultSet adTypers = query.executeQuery(adTypeQuery);
+int adTypeNum = adTypers.getInt("topicId");
+String adCountQuery = "SELECT count(*) as count from advertisement WHERE approved = 1 and adType = " + Integer.toString(adTypeNum);
+ResultSet adCountrs = query.executeQuery(adCountQuery);
+int adCountNum = adCountrs.getInt("count");
+String adQuery = "SELECT imageLink from advertisement WHERE approved = 1 and adType = " + Integer.toString(adTypeNum);
+ResultSet adRs = query.executeQuery(adQuery);
+Random rV = new Random();
+int adSelector = 1;
+if(adCountNum > 1) {
+	adSelector = (Math.abs(rV.nextInt())%adCountNum)+1;
+}
+adRs.absolute(adSelector);
+String adLink = adRs.getString("imageLink");
+
+%>
+
 <% 
 //check if the user has an unread messages
 //SELECT * FROM messages WHERE userToId = userId AND userToSeen = 0;
@@ -70,5 +89,6 @@ else{ //count new messages
 	<button type="button" onclick="window.location='logout.jsp'">Log Out</button>
 </div>
 <a href="index.jsp"><img src=images/CancerBanner.png></a>
+<img src=<%=adLink %>>
 </body>
 </html>
