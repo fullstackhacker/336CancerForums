@@ -91,6 +91,6 @@ else{ //count new messages
 	<button type="button" onclick="window.location='logout.jsp'">Log Out</button>
 </div>
 <a href="index.jsp"><img src=images/CancerBanner.png></a>
-<!-- <img src=<%=adLink %>> -->
+<!-- <img src=<%//=adLink %>> -->
 </body>
 </html>
