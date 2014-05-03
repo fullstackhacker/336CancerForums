@@ -27,12 +27,16 @@ boolean isThread = table.equals("thread");
 String content = ""; 
 int postId = -1; 
 //get the first post
-if(isThread){ 
-	String firstPostQuery = "SELECT * FROM post WHERE thread.threadId = " + id + ";";
+if(isThread){
+	//out.println("isthread"); 
+	String firstPostQuery = "SELECT * FROM post WHERE post.threadId = " + id + ";";
+	//out.println(firstPostQuery); 
 	ResultSet firstPost = query.executeQuery(firstPostQuery); 
 	firstPost.next(); //first post will be the first one in this set
 	content = firstPost.getString("content");
 	postId = firstPost.getInt("postId"); 
+	//out.println(content); 
+	//out.println(postId); 
 }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -50,7 +54,8 @@ if(isThread){
 if(isThread){ //thread can change the first post or the thread title 
 	out.println("<input type=\"text\" name=\"newMeat\" value=\"" + value + "\" />"); 
 	out.println("<br/>"); 
-	out.println("<textarea name=\"newContent\" form=\"edit\" value=\"" + content + "\" />"); 
+	out.println("<textarea name=\"newContent\" form=\"edit\" row=\"35\" cols=\"50\" />" + content); 
+	out.println("</textarea>"); 
 	out.println("<br/>"); 
 	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"postId\" value=\"" + postId + "\" />");

@@ -33,7 +33,7 @@ String column = isThread ? "title" : "content";
 //post: UPDATE post SET content = value WHERE postId = id
 //thread: UPDATE thread SET title = value WHERE threadId = id 
 //thread: UPDATE post SET content = newContent WHERE postId = postId
-String updateQuery = "UPDATE " + table + "SET " + column + " = " + value + " WHERE " + table +"id = " + id + ";";
+String updateQuery = "UPDATE " + table + " SET " + column + " = \"" + value + "\" WHERE " + table +"id = \"" + id + "\";";
 try{ 
 	query.executeUpdate(updateQuery); 
 }
@@ -44,12 +44,12 @@ catch(Exception e){
 }
 
 if(isThread){ 
-	String firstPostUpdate = "UPDATE post SET content = " + newContent + " WHERE postId = " + postId + ";";
+	String firstPostUpdate = "UPDATE post SET content = \"" + newContent + "\" WHERE postId = " + postId + ";";
 	try{ 
 		query.executeUpdate(firstPostUpdate); 
 	}
 	catch(Exception e){ 
-		out.println(e.getMessage()); 
+		//out.println(e.getMessage()); 
 		out.println(firstPostUpdate); 
 		return;
 	}

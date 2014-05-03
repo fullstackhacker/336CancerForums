@@ -249,15 +249,15 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
 	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 	out.println("</form>");
-	out.println("<hr/>");
+	
 	out.println("</div>");
 	
 	if(atLeastMod){ //only admin or moderator can edit or delete threads
 		//edit button
-		out.println("<form id=\"edit" + threadId + "\" name=\"edit" + threadId + "\" action=\"edit.jsp\" method=\"post\" >");
+		out.println("<form id=\"edit" + threadId + "\" name=\"edit" + threadId + "\" action=\"editform.jsp\" method=\"post\" >");
 		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
 		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
-		out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
 		out.println("<input type=\"submit\" value=\"Edit\" >"); 
 		out.println("</form>"); 
 		
@@ -270,7 +270,7 @@ while(threadSet.next()){
 		out.println("</form>"); 
 	}
 	out.println("</div>");
-	
+	out.println("<hr/>");
 }
 
 if(!oneThread) out.println("There are no lung cancer threads yet!");

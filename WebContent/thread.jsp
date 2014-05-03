@@ -97,10 +97,10 @@ while(posts.next()){
 	
 	if(atLeastMod){ //only a moderator or admin can delete or edit posts
 		//edit button
-		out.println("<form id=\"edit" + postId + "\" name=\"edit" + postId + "\" action=\"edit.jsp\" method=\"post\" >");
+		out.println("<form id=\"edit" + postId + "\" name=\"edit" + postId + "\" action=\"editform.jsp\" method=\"post\" >");
 		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"post\" />");
 		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + postId + "\" /> ");
-		out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + content + "\" />"); 
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + content + "\" />"); 
 		out.println("<input type=\"submit\" value=\"Edit\" >"); 
 		out.println("</form>"); 
 		
