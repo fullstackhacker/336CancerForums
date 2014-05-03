@@ -37,6 +37,7 @@
 %>
 
 <% //getting ad type(based on topic id)
+/*
 String adTypeQuery = "select topicId from ((SELECT topic.topicId, count(post.postId) as postCount from post, thread, topic WHERE post.threadId = thread.threadId and thread.topicId = topic.topicId and post.authorId = " + userId.toString() +" GROUP BY topic.topicId) as T) HAVING postCount = MAX(postCount);";
 ResultSet adTypers = query.executeQuery(adTypeQuery);
 int adTypeNum = adTypers.getInt("topicId");
@@ -52,6 +53,7 @@ if(adCountNum > 1) {
 }
 adRs.absolute(adSelector);
 String adLink = adRs.getString("imageLink");
+*/
 
 %>
 
@@ -89,6 +91,6 @@ else{ //count new messages
 	<button type="button" onclick="window.location='logout.jsp'">Log Out</button>
 </div>
 <a href="index.jsp"><img src=images/CancerBanner.png></a>
-<img src=<%=adLink %>>
+<!-- <img src=<%=adLink %>> -->
 </body>
 </html>
