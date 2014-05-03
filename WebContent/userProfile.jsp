@@ -20,19 +20,42 @@ Statement query2 = conn.createStatement();
 //get userId from where we will get all the other info
 int userId = Integer.parseInt(request.getParameter("id"));
 
+//user details that we need to fill in!!:
 String firstName; 
 String lastName; 
 String email; 
 String userName; 
+
+String getInfo = "SELECT * FROM user WHERE userId = " + userId + ";";
+ResultSet userInfo = null;
+try{ 
+	userInfo = query.executeQuery(getInfo); 
+}
+catch(Exception e){
+	out.println(getInfo);
+	return; 
+}
+ userInfo.next(); //should only be one
+ 
+//got user info at this point
+firstName = userInfo.getString("firstName");
+lastName = userInfo.getString("lastName"); 
+email = userInfo.getString("email"); 
+userName = userInfo.getString("userName");
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>336CancerForums | <%= userName %></title>
+<link rel="stylesheet" type="text/css" href="global.css">
 </head>
 <body>
-
+<!-- display user profile --> 
+<p> User Name: <%= userName %> </p>
+<p> First Name: <%= firstName %> </p>
+<p> Last Name: <%= lastName %> </p>
+<p> Email: <%= email %> </p>
 </body>
 </html>

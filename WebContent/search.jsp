@@ -309,7 +309,7 @@ else{
 				//view user form
 				out.println("<form id=\"" + rs.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userprofile.jsp\" >");
 				out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + rs.getInt("authorId") + "\" />");
-				out.println("<input type=\"submit\" value=\"View Profile\""); 
+				out.println("<input type=\"submit\" value=\"View Profile\" />");
 				out.println("</form>"); 
 				out.println("</div>");
 			}
@@ -361,7 +361,7 @@ else{
 			else if(searchingType.equals("user")){ 
 				//get attributes
 				out.println("<form id=\"" + rs.getString("userName") + "\" name=\"" + rs.getString("userName") + "\" method=\"post\" action=\"userProfile.jsp\" >");
-				out.println("<input class=\"hidden\" name=\"username\" value=\"" + rs.getString("userName") + "\" />");
+				out.println("<input class=\"hidden\" name=\"id\" value=\"" + rs.getString("userId") + "\" />");
 				out.println("<p class=\"username\">" + rs.getString("userName") + "</p>");
 				out.println("<input type=\"submit\" value=\"View Profile\" />"); 
 				out.println("</form>"); 
