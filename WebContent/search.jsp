@@ -306,6 +306,11 @@ else{
 				out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 				out.println("</form>");
 				
+				//view user form
+				out.println("<form id=\"" + rs.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userprofile.jsp\" >");
+				out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + rs.getInt("authorId") + "\" />");
+				out.println("<input type=\"submit\" value=\"View Profile\""); 
+				out.println("</form>"); 
 				out.println("</div>");
 			}
 			else if(searchingType.equals("thread")){
