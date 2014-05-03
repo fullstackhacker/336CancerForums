@@ -26,9 +26,12 @@ String gettingUserToId = "SELECT * FROM user WHERE userName = \"" + userTo + "\"
 ResultSet userIdSet = query.executeQuery(gettingUserToId); 
 userIdSet.next(); 
 int userToId = userIdSet.getInt("userId"); 
-
+String insertQuery;
+if(true){
 //INSERT INTO messages (messageId, userFromId, userToId, userToSeen, content, title) VALUES (0, userId, userTo, 0, content, title);
-String insertQuery = "INSERT INTO messages (messageId, userFromId, userToId, userToSeen, content, title) VALUES (0, " + (Integer)session.getAttribute("userId") + ", " + userToId + ", 0, \"" + content + "\", \"" + title + "\");";
+insertQuery = "INSERT INTO messages (messageId, userFromId, userToId, userToSeen, content, title) VALUES (0, " + (Integer)session.getAttribute("userId") + ", " + userToId + ", 0, \"" + content + "\", \"" + title + "\");";
+return;
+}
 try{
 	query.executeUpdate(insertQuery); 
 }
