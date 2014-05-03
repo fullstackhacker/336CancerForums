@@ -50,6 +50,5 @@ if(seen == 0){ //mark as viewed
 <p class="message_content">Content: <%= content %></p>
 <p class="message_from">From: <%= fromUserName %></p>
 <p class="message_date">Date: <%= date.toString() %></p>
-
 </body>
 </html>

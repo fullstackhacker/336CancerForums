@@ -118,7 +118,7 @@ while(messages.next()){
 if(!hasMessage) out.println("You have no messages"); 
 %>
 <div id="wrapper">
-<form id="message" name="message" method="post" onsubmit="return validateForm()" action="message.jsp">
+<form id="message" name="message" method="post" onsubmit="return validateForm()" action="sendmessage.jsp">
 <label type="text" name="register">Send a Message</label>
 <br>
 	<input form="message" type="text" name="to" id="to" size="30" placeholder="Send Message to:" class="text-input" />
