@@ -21,17 +21,26 @@ String title = request.getParameter("subject");
 String content = request.getParameter("message"); 
 String userTo = request.getParameter("to"); 
 
+if(title == null){
+	out.println(title); 
+	out.println(content);
+	out.println(userTo);
+	return;
+}
 //getUserToid
 String gettingUserToId = "SELECT * FROM user WHERE userName = \"" + userTo + "\""; 
 ResultSet userIdSet = query.executeQuery(gettingUserToId); 
 userIdSet.next(); 
 int userToId = userIdSet.getInt("userId"); 
+
+//getFromUserid 
+int userFrom = (Integer)session.getAttribute("userId");
+if(userFrom == 0) return;
+
+//faggot
 String insertQuery;
-if(true){
 //INSERT INTO messages (messageId, userFromId, userToId, userToSeen, content, title) VALUES (0, userId, userTo, 0, content, title);
 insertQuery = "INSERT INTO messages (messageId, userFromId, userToId, userToSeen, content, title) VALUES (0, " + (Integer)session.getAttribute("userId") + ", " + userToId + ", 0, \"" + content + "\", \"" + title + "\");";
-return;
-}
 try{
 	query.executeUpdate(insertQuery); 
 }

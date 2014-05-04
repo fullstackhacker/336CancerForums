@@ -119,14 +119,14 @@ while(messages.next()){
 
 if(!hasMessage) out.println("You have no messages"); 
 %>
-<form id="message" name="message" method="post"  action="sendmessage.jsp">
+<form id="messageform" name="messageform" method="post" action="sendmessage.jsp">
 <label type="text" name="register">Send a Message</label>
-<br>
-	<input form="message" type="text" name="to" id="to" size="30" placeholder="Send Message to:" class="text-input" />
+<br />
+	<input form="messageform" type="text" name="to" id="to" placeholder="Send Message to:" class="text-input" />
 	<br />
-	<input form="message" type="text" name="subject" id="subject" size="30" placeholder="Subject" maxlength="30" class="text-input" />
+	<input form="messageform" type="text" name="subject" id="subject" placeholder="Subject" maxlength="30" class="text-input" />
 	<br />
-    <textarea form="message" type="text" name="message" size="30" id="message" placeholder="Message Body" class="text-input" /></textarea>
+    <textarea form="messageform" type="text" name="message" cols="50" rows="30" id="message" placeholder="Message Body" class="text-input" /></textarea>
     <br />
     <input type="submit" name="send" class="button" id="send" value="Send" />
 </form>
