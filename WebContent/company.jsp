@@ -15,9 +15,11 @@
 <title>Company Page</title>
 <!-- stylesheets -->
 <link rel="stylesheet" type="text/css" href="global.css">
+<link rel="stylesheet" type="text/css" media="screen" href="jquery.jqGrid-4.6.0/css/ui.jqgrid.css" />
 <!-- jquery script -->
 <script src="jquery-2.1.0.min.js"></script>
-<script src="jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="jquery.jqGrid-4.6.0/js/i18n/grid.locale-en.js"></script>
+<script type="text/javascript" src="jquery.jqGrid-4.6.0/js/jquery.jqGrid.min.js"></script>
 <script type="text/javascript">
 jQuery(document).ready(function() {
 
@@ -39,15 +41,13 @@ jQuery(document).ready(function() {
 		    loadonce: true,
 		    caption: "Companies"
 	    });
-
-	    //jQuery("#companyGrid").jqGrid('navGrid','#companyPager',{add:false,edit:false,del:false});
-
+	    jQuery("#companyGrid").jqGrid('navGrid','#companyPager',{add:false,edit:false,del:false});
 	}//function
 );//ready 
 </script>
 </head>
 <body>
- <jsp:include page="header.jsp" flush="true" />
+<jsp:include page="header.jsp" flush="true" />
 <%
 if(session.getAttribute("userId")==null){ //user is not logged in 
 	response.sendRedirect("loginform.jsp"); 
@@ -67,8 +67,10 @@ Integer votes = (Integer)session.getAttribute("votes");
 %>
 
 <br/>
-<table id="companyGrid"></table>
-<div id="companyPager"></div>
+<div id="jqGrid">
+	<table id="companyGrid"></table>
+	<div id="companyPager"></div>
+</div>
 <br/>
 
  <div id="company_form">

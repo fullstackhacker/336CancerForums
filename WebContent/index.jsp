@@ -659,3 +659,4 @@ if(isDoc){
 </div>
 </body>
 </html>
+<% conn.close(); %>

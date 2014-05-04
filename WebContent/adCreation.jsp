@@ -17,6 +17,16 @@ Select a file to upload: <br />
 <form action="uploadAd.jsp" method="post" enctype="multipart/form-data">
 <input type="file" name="file" size="50" />
 <br />
+<select>
+<option value=1>lung</option>
+<option value=2>stomach</option>
+<option value=3>bowel</option>
+<option value=4>prostate</option>
+<option value=5>breast</option>
+<option value=6>other</option>
+</select>
+<br />
 <input type="submit" value="Upload File" />
+</form>
 </body>
 </html>

@@ -4,8 +4,10 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %>
-<%@page import="org.json.simple.JSONObject"%>
-<%@page import="org.json.simple.JSONArray"%>
+<%-- <%@page import="org.json.simple.JSONObject"%> --%>
+<%-- <%@page import="org.json.simple.JSONArray"%> --%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="net.sf.json.*" %>
 
 <%
         String rows=request.getParameter("rows");
@@ -41,16 +43,15 @@
 	
 	        rs = query.executeQuery("SELECT companyId,name,address FROM company limit "+limitstart+","+rows);  
 	
-	
-	        JSONObject responcedata = new JSONObject();
-	        JSONArray cellarray = new JSONArray();
-	
-	         responcedata.put("total",totalrow);
-	        responcedata.put("page",cpage);
-	        responcedata.put("records",count);
-	
-	        JSONArray cell=new JSONArray();
-	        JSONObject cellobj=new JSONObject();
+	        net.sf.json.JSONObject responsedata = new net.sf.json.JSONObject();
+	        net.sf.json.JSONArray cellarray = new net.sf.json.JSONArray();
+	        
+	        responsedata.put("total",totalrow);
+	        responsedata.put("page",cpage);
+	        responsedata.put("records",count);
+
+	        net.sf.json.JSONArray cell=new net.sf.json.JSONArray();
+	        net.sf.json.JSONObject cellobj=new net.sf.json.JSONObject();
 	
 	        int i=1;
 	       while(rs.next())
@@ -65,14 +66,14 @@
 	        cellarray.add(cellobj);
 	        i++;
 	       }
-	        responcedata.put("rows",cellarray);
-	        out.println(responcedata);
+	        responsedata.put("rows",cellarray);
+	        out.println(responsedata);
         }
         catch(Exception e) {
-        	
+        	System.out.print(e.toString());
+        	out.println(e.toString());
         }
         finally {
         	conn.close();
         }
-
 %>
