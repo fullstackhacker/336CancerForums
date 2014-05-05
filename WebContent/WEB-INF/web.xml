@@ -9,4 +9,11 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+  	<description>File Upload Link</description>
+  	<param-name>file-upload</param-name>
+  	<param-value>
+  		/usr/local/tomcat-archive/apache-tomcat-6.0.24/webapps/336CancerForums/images/
+  	</param-value>
+  </context-param>
 </web-app>
