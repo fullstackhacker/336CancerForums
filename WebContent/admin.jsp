@@ -125,5 +125,7 @@ while(moderators.next()){
 </form>
 </section>
 </div>
+
+<% conn.close();%>
 </body>
 </html>

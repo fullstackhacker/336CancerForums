@@ -17,6 +17,11 @@ else{
 	threadtitle = (String)session.getAttribute("currentThread");
 }
 
+String orderBy = ""; 
+if(request.getParameter("orderBy") != null){ 
+	orderBy = " ORDER BY " + request.getParameter("orderBy") + " DESC";  
+}
+
 //see if user is a "special" user
 boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
 boolean atLeastMod = session.getAttribute("usertype") != null && ( ((String)session.getAttribute("usertype")).equals("mod") || ((String)session.getAttribute("usertype")).equals("admin") ); 
@@ -49,14 +54,22 @@ String threadName = threadTitle.getString("title");
 </head>
 <body>
 <h1><%= threadName %></h1>
-
-
+<form id="ordering" name="ordering" method="post" action="thread.jsp" >
+Order By:
+<select name="orderBy">
+	<option value="updownVotes">Votes</option>
+	<option value="authorId">Author</option>
+	<option value="datetimeCreated">Time</option>
+</select>
+<input type="submit" value="Re-Order" />
+</form>
+<hr />
 <%
 //got the threadId
 int threadId = Integer.parseInt(threadtitle);
 
 //get the posts
-String getPostString = "SELECT * FROM post WHERE post.threadId = " + threadId + ";";
+String getPostString = "SELECT * FROM post WHERE post.threadId = " + threadId + orderBy + ";";
 ResultSet posts = query.executeQuery(getPostString);
 
 while(posts.next()){ 
@@ -133,5 +146,7 @@ while(posts.next()){
 
 
 <button type="button" onclick="window.location.href='index.jsp'">Back</button>
+
+<%conn.close(); %>
 </body>
 </html>

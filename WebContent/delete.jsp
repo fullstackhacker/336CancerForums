@@ -47,7 +47,12 @@ catch(Exception e){
 }
 
 
-if(request.getParameter("topic").equals("thread")) response.sendRedirect("index.jsp"); 
+if(table.equals("thread")){
+	response.sendRedirect("index.jsp");
+	return;
+}
+
+conn.close();
 response.sendRedirect("thread.jsp");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

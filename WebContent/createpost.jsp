@@ -45,6 +45,8 @@ catch(Exception e){
 	return; 
 }
 
+conn.close(); 
+
 response.sendRedirect("thread.jsp"); 
 %>
 </body>

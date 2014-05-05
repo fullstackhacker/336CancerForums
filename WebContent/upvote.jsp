@@ -71,7 +71,7 @@ catch(Exception e){
 	return;
 }
 
-
+conn.close();
 if(table.equals("thread")) response.sendRedirect("index.jsp"); 
 else response.sendRedirect("thread.jsp"); 
 %>

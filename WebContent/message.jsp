@@ -132,5 +132,6 @@ if(!hasMessage) out.println("You have no messages");
 </form>
 
 </div>
+<% conn.close(); %>
 </body>
 </html>

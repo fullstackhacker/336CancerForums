@@ -152,6 +152,12 @@ Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //
 Statement query = conn.createStatement(); //create the thing that will query the db
 Statement query2 = conn.createStatement(); 
 
+
+//checking the orderBy type 
+String orderBy = ""; 
+if(request.getParameter("orderBy") != null){ 
+	orderBy = " ORDER BY " + request.getParameter("orderBy") + " DESC"; 
+}
 %>
 
 
@@ -173,7 +179,15 @@ while(topicNames.next()){
 }
 
 %>
-
+<form id="ordering" name="ordering" method="post" action="index.jsp" >
+Order By:
+<select name="orderBy">
+	<option value="updownVotes">Votes</option>
+	<option value="authorId">Author</option>
+	<option value="datetimeCreated">Time</option>
+</select>
+<input type="submit" value="Re-Order" />
+</form>
 <div id="lung_threads" class="threadbox"> 
 <%
 //get the topic id
@@ -186,7 +200,7 @@ if(topicId == -1) out.println("Lung There are no topics yet."); //error
 
 
 //get the threads in the topic
-String threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+String threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
 ResultSet threadSet = query.executeQuery(threadCall); 
 
 boolean oneThread = false; //tells us if there is at least one thread in the topic
@@ -285,7 +299,7 @@ else out.println("stomach There are no topics yet."); //error
 
 
 //get the threads in the topic
-threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
 threadSet = query.executeQuery(threadCall); 
 
 oneThread = false; 
@@ -357,7 +371,7 @@ else out.println("prostate There are no topics yet."); //error
 
 
 //get the threads in the topic
-threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
 threadSet = query.executeQuery(threadCall); 
 
 oneThread = false; 
@@ -430,7 +444,7 @@ else out.println("bowel There are no topics yet."); //error
 
 
 //get the threads in the topic
-threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
 threadSet = query.executeQuery(threadCall); 
 
 oneThread = false; 
@@ -502,7 +516,7 @@ else out.println("breast There are no topics yet."); //error
 
 
 //get the threads in the topic
-threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
 threadSet = query.executeQuery(threadCall); 
 oneThread = false; 
 while(threadSet.next()){ 
@@ -574,7 +588,7 @@ else out.println(" other There are no topics yet."); //error
 
 
 //get the threads in the topic
-threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\";";
+threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
 threadSet = query.executeQuery(threadCall); 
 while(threadSet.next()){ 
 	if(!isDoc && threadSet.getInt("doconly") == 1){

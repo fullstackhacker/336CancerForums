@@ -36,9 +36,12 @@ while(doctors.next()){ // print out all the doctors that need to be verified
 }
 
 %>
+
 </select>
 <br />
 <input type="submit" value="Verify" />
 </form>
+
+<% conn.close(); %>
 </body>
 </html>

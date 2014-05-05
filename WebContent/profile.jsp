@@ -93,5 +93,6 @@ boolean isMod = session.getAttribute("usertype") != null &&  ((String)session.ge
  </div>
  
 </div>
+<% conn.close(); %>
 </body>
 </html>

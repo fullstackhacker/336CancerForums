@@ -62,4 +62,5 @@ if(seen == 0){ //mark as viewed
 <p class="message_date">Date: <%= date.toString() %></p>
 </div>
 </body>
+<% conn.close(); %>
 </html>

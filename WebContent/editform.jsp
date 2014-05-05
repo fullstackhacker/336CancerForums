@@ -68,7 +68,9 @@ else{ //post only thing to change is the content
 	out.println("<input type=\"text\" name=\"type\" class=\"hidden\" value=\"post\" />");
 	out.println("<input type=\"submit\" value=\"Edit Post\" />"); 
 }
+
 %>
 </form>
+<% conn.close();%>
 </body>
 </html>

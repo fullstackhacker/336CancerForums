@@ -387,6 +387,8 @@ else{
 	}
 }
 
+
+conn.close();
 %>
 
 

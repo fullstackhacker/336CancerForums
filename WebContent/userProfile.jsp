@@ -57,5 +57,7 @@ userName = userInfo.getString("userName");
 <p> First Name: <%= firstName %> </p>
 <p> Last Name: <%= lastName %> </p>
 <p> Email: <%= email %> </p>
+
+<% conn.close(); %>
 </body>
 </html>

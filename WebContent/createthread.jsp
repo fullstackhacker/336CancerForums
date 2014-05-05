@@ -46,8 +46,8 @@ catch(Exception e){ //couldn't add the thread cause something was wrong with you
 	out.println("UNABLE TO CREATE THREAD"); 
 	out.println(e.getMessage());
 	Thread.sleep(2000); 
-	return; 
-	//response.sendRedirect("index.jsp");
+	response.sendRedirect("index.jsp");
+	return;
 }
 
 
@@ -73,6 +73,8 @@ catch(SQLException e){
 	return; 
 	//response.sendRedirect("index.jsp");
 }
+
+conn.close();
 
 response.sendRedirect("index.jsp");
 

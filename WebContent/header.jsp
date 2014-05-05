@@ -60,15 +60,15 @@ String adLink = adRs.getString("imageLink");
 <% 
 //check if the user has an unread messages
 //SELECT * FROM messages WHERE userToId = userId AND userToSeen = 0;
-String fuckMessages = "SELECT * FROM messages WHERE userToId = " + userId + " AND userToSeen = 0;";
-ResultSet getPaper = query.executeQuery(fuckMessages); 
+String getMessages = "SELECT * FROM messages WHERE userToId = " + userId + " AND userToSeen = 0;";
+ResultSet getPaper = query.executeQuery(getMessages); 
 String messageButtonString = ""; 
 if(!getPaper.next()) messageButtonString = "Messages";
 else{ //count new messages
 	String countMessages = "SELECT COUNT(*) AS newmessages FROM messages WHERE userToId = " + userId + " AND userToSeen = 0;"; 
-	ResultSet faggot = query.executeQuery(countMessages);
-	faggot.next(); 
-	messageButtonString = "Messages (" + faggot.getInt("newmessages") + ")";
+	ResultSet counter = query.executeQuery(countMessages);
+	counter.next(); 
+	messageButtonString = "Messages (" + counter.getInt("newmessages") + ")";
 }
 
 %>

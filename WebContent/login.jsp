@@ -120,6 +120,9 @@
 		//response.setHeader("Location", loginpage); 
 	}
 
+conn.close();
+	
+	
 %> 
 </body>
 </html>

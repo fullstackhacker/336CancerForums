@@ -54,6 +54,8 @@ if(isThread){
 		return;
 	}
 }
+conn.close();
+
 //idk where to send them at this point
 if(isThread) response.sendRedirect("index.jsp"); 
 else response.sendRedirect("thread.jsp"); 

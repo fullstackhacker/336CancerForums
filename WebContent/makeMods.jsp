@@ -29,6 +29,8 @@ for(int x=0; x<newMods.length; x++){
 	}
 }
 
+conn.close(); 
+
 response.sendRedirect("admin.jsp");
 
 %>

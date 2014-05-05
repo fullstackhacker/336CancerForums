@@ -111,6 +111,8 @@ if(passwordReset){
 	//password updated and we can redirect the user
 }
 
+conn.close();
+
 response.sendRedirect("profile.jsp");
 %>
 
