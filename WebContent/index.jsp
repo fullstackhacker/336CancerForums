@@ -156,7 +156,7 @@ Statement query2 = conn.createStatement();
 //checking the orderBy type 
 String orderBy = ""; 
 if(request.getParameter("orderBy") != null){ 
-	orderBy = " ORDER BY " + request.getParameter("orderBy") + " DESC"; 
+	orderBy = " ORDER BY " + request.getParameter("orderBy"); 
 }
 %>
 
@@ -182,8 +182,8 @@ while(topicNames.next()){
 <form id="ordering" name="ordering" method="post" action="index.jsp" >
 Order By:
 <select name="orderBy">
-	<option value="updownVotes">Votes</option>
-	<option value="authorId">Author</option>
+	<option value="updownVotes DESC">Votes</option>
+	<option value="user.userName ASC">Author</option>
 	<option value="datetimeCreated">Time</option>
 </select>
 <input type="submit" value="Re-Order" />
@@ -200,8 +200,16 @@ if(topicId == -1) out.println("Lung There are no topics yet."); //error
 
 
 //get the threads in the topic
-String threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
-ResultSet threadSet = query.executeQuery(threadCall); 
+String threadCall = "SELECT * FROM thread, user WHERE thread.topicId = \"" + topicId + "\"" + " AND thread.authorId = user.userId" + orderBy + ";";
+ResultSet threadSet = null;
+
+try{ 
+	threadSet = query.executeQuery(threadCall); 
+}
+catch(Exception  e){ 
+	out.println(threadCall); 
+	return; 
+}
 
 boolean oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
@@ -226,11 +234,8 @@ while(threadSet.next()){
 	threadvotes = threadSet.getInt("updownVotes"); 	
 	
 	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query2.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("userName"); 
-	
+	String author = threadSet.getString("userName");
+
 	//print out the thread in its own div box
 	out.println("<div class=\"forumThread\">");
 	
@@ -299,10 +304,18 @@ else out.println("stomach There are no topics yet."); //error
 
 
 //get the threads in the topic
-threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
-threadSet = query.executeQuery(threadCall); 
+threadCall = "SELECT * FROM thread, user WHERE thread.topicId = \"" + topicId + "\"" + " AND thread.authorId = user.userId" + orderBy + ";";
+threadSet = null;
 
-oneThread = false; 
+try{ 
+	threadSet = query.executeQuery(threadCall); 
+}
+catch(Exception  e){ 
+	out.println(threadCall); 
+	return; 
+}
+
+oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
 	if(!isDoc && threadSet.getInt("doconly") == 1){
 		continue; 
@@ -325,12 +338,12 @@ while(threadSet.next()){
 	threadvotes = threadSet.getInt("updownVotes"); 	
 	
 	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query2.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("userName"); 
+	String author = threadSet.getString("userName");
+
+	//print out the thread in its own div box
+	out.println("<div class=\"forumThread\">");
 	
-	//print out the thread in its own div box 
+	out.println("<div class=\"threadContent\">");
 	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
 	out.println("<p class=\"author\"> Author: " + author + "</p>");  
@@ -339,7 +352,9 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
-	
+	out.println("</div>");
+
+	out.println("<div class=\"threadContent\">");
 	//up vote form 
 	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
@@ -353,6 +368,27 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
 	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 	out.println("</form>");
+	
+	out.println("</div>");
+	
+	if(atLeastMod){ //only admin or moderator can edit or delete threads
+		//edit button
+		out.println("<form id=\"edit" + threadId + "\" name=\"edit" + threadId + "\" action=\"editform.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Edit\" >"); 
+		out.println("</form>"); 
+		
+		//delete button 
+		out.println("<form id=\"delete" + threadId + "\" name=\"delete" + threadId + "\" action=\"delete.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Delete\" >"); 
+		out.println("</form>"); 
+	}
+	out.println("</div>");
 	out.println("<hr/>");
 }
 
@@ -371,10 +407,18 @@ else out.println("prostate There are no topics yet."); //error
 
 
 //get the threads in the topic
-threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
-threadSet = query.executeQuery(threadCall); 
+threadCall = "SELECT * FROM thread, user WHERE thread.topicId = \"" + topicId + "\"" + " AND thread.authorId = user.userId" + orderBy + ";";
+threadSet = null;
 
-oneThread = false; 
+try{ 
+	threadSet = query.executeQuery(threadCall); 
+}
+catch(Exception  e){ 
+	out.println(threadCall); 
+	return; 
+}
+
+oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
 	if(!isDoc && threadSet.getInt("doconly") == 1){
 		continue; 
@@ -397,12 +441,12 @@ while(threadSet.next()){
 	threadvotes = threadSet.getInt("updownVotes"); 	
 	
 	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query2.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("userName"); 
+	String author = threadSet.getString("userName");
+
+	//print out the thread in its own div box
+	out.println("<div class=\"forumThread\">");
 	
-	//print out the thread in its own div box 
+	out.println("<div class=\"threadContent\">");
 	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
 	out.println("<p class=\"author\"> Author: " + author + "</p>");  
@@ -411,7 +455,9 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
-	
+	out.println("</div>");
+
+	out.println("<div class=\"threadContent\">");
 	//up vote form 
 	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
@@ -425,6 +471,27 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
 	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 	out.println("</form>");
+	
+	out.println("</div>");
+	
+	if(atLeastMod){ //only admin or moderator can edit or delete threads
+		//edit button
+		out.println("<form id=\"edit" + threadId + "\" name=\"edit" + threadId + "\" action=\"editform.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Edit\" >"); 
+		out.println("</form>"); 
+		
+		//delete button 
+		out.println("<form id=\"delete" + threadId + "\" name=\"delete" + threadId + "\" action=\"delete.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Delete\" >"); 
+		out.println("</form>"); 
+	}
+	out.println("</div>");
 	out.println("<hr/>");
 }
 
@@ -444,10 +511,18 @@ else out.println("bowel There are no topics yet."); //error
 
 
 //get the threads in the topic
-threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
-threadSet = query.executeQuery(threadCall); 
+threadCall = "SELECT * FROM thread, user WHERE thread.topicId = \"" + topicId + "\"" + " AND thread.authorId = user.userId" + orderBy + ";";
+threadSet = null;
 
-oneThread = false; 
+try{ 
+	threadSet = query.executeQuery(threadCall); 
+}
+catch(Exception  e){ 
+	out.println(threadCall); 
+	return; 
+}
+
+oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
 	if(!isDoc && threadSet.getInt("doconly") == 1){
 		continue; 
@@ -470,12 +545,12 @@ while(threadSet.next()){
 	threadvotes = threadSet.getInt("updownVotes"); 	
 	
 	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query2.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("userName"); 
+	String author = threadSet.getString("userName");
+
+	//print out the thread in its own div box
+	out.println("<div class=\"forumThread\">");
 	
-	//print out the thread in its own div box 
+	out.println("<div class=\"threadContent\">");
 	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
 	out.println("<p class=\"author\"> Author: " + author + "</p>");  
@@ -484,7 +559,9 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
-	
+	out.println("</div>");
+
+	out.println("<div class=\"threadContent\">");
 	//up vote form 
 	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
@@ -498,6 +575,27 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
 	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 	out.println("</form>");
+	
+	out.println("</div>");
+	
+	if(atLeastMod){ //only admin or moderator can edit or delete threads
+		//edit button
+		out.println("<form id=\"edit" + threadId + "\" name=\"edit" + threadId + "\" action=\"editform.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Edit\" >"); 
+		out.println("</form>"); 
+		
+		//delete button 
+		out.println("<form id=\"delete" + threadId + "\" name=\"delete" + threadId + "\" action=\"delete.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Delete\" >"); 
+		out.println("</form>"); 
+	}
+	out.println("</div>");
 	out.println("<hr/>");
 }
 
@@ -516,9 +614,18 @@ else out.println("breast There are no topics yet."); //error
 
 
 //get the threads in the topic
-threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
-threadSet = query.executeQuery(threadCall); 
-oneThread = false; 
+threadCall = "SELECT * FROM thread, user WHERE thread.topicId = \"" + topicId + "\"" + " AND thread.authorId = user.userId" + orderBy + ";";
+threadSet = null;
+
+try{ 
+	threadSet = query.executeQuery(threadCall); 
+}
+catch(Exception  e){ 
+	out.println(threadCall); 
+	return; 
+}
+
+oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
 	if(!isDoc && threadSet.getInt("doconly") == 1){
 		continue; 
@@ -541,12 +648,12 @@ while(threadSet.next()){
 	threadvotes = threadSet.getInt("updownVotes"); 	
 	
 	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query2.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("userName"); 
+	String author = threadSet.getString("userName");
+
+	//print out the thread in its own div box
+	out.println("<div class=\"forumThread\">");
 	
-	//print out the thread in its own div box 
+	out.println("<div class=\"threadContent\">");
 	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
 	out.println("<p class=\"author\"> Author: " + author + "</p>");  
@@ -555,7 +662,9 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
-	
+	out.println("</div>");
+
+	out.println("<div class=\"threadContent\">");
 	//up vote form 
 	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
@@ -569,6 +678,27 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
 	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 	out.println("</form>");
+	
+	out.println("</div>");
+	
+	if(atLeastMod){ //only admin or moderator can edit or delete threads
+		//edit button
+		out.println("<form id=\"edit" + threadId + "\" name=\"edit" + threadId + "\" action=\"editform.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Edit\" >"); 
+		out.println("</form>"); 
+		
+		//delete button 
+		out.println("<form id=\"delete" + threadId + "\" name=\"delete" + threadId + "\" action=\"delete.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Delete\" >"); 
+		out.println("</form>"); 
+	}
+	out.println("</div>");
 	out.println("<hr/>");
 }
 
@@ -588,8 +718,18 @@ else out.println(" other There are no topics yet."); //error
 
 
 //get the threads in the topic
-threadCall = "SELECT * FROM thread WHERE thread.topicId = \"" + topicId + "\"" + orderBy + ";";
-threadSet = query.executeQuery(threadCall); 
+threadCall = "SELECT * FROM thread, user WHERE thread.topicId = \"" + topicId + "\"" + " AND thread.authorId = user.userId" + orderBy + ";";
+threadSet = null;
+
+try{ 
+	threadSet = query.executeQuery(threadCall); 
+}
+catch(Exception  e){ 
+	out.println(threadCall); 
+	return; 
+}
+
+oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
 	if(!isDoc && threadSet.getInt("doconly") == 1){
 		continue; 
@@ -612,12 +752,12 @@ while(threadSet.next()){
 	threadvotes = threadSet.getInt("updownVotes"); 	
 	
 	//get thread author
-	String author = ""; 
-	String getAuthorState = "SELECT userName FROM user, thread WHERE threadId = \"" + threadSet.getInt("threadId") + "\" AND user.userId = thread.authorId;";
-	ResultSet authorname = query2.executeQuery(getAuthorState); 
-	if(authorname.next()) author = authorname.getString("userName"); 
+	String author = threadSet.getString("userName");
+
+	//print out the thread in its own div box
+	out.println("<div class=\"forumThread\">");
 	
-	//print out the thread in its own div box 
+	out.println("<div class=\"threadContent\">");
 	out.println("<form id=\"" + threadId + "\" name=\"" + threadtitle + "\" class=\"thread\" action=\"thread.jsp\">");
 	out.println("<p class=\"threadtitle\" Title:>" + threadtitle + "</p>");
 	out.println("<p class=\"author\"> Author: " + author + "</p>");  
@@ -626,7 +766,9 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"title\" value=\"" + threadId + "\" />");
 	out.println("<input type=\"submit\" value=\"View Thread\" />");
 	out.println("</form>");
-	
+	out.println("</div>");
+
+	out.println("<div class=\"threadContent\">");
 	//up vote form 
 	out.println("<form id=\"up" + threadId + "\" name=\"up" + threadId + "\" action=\"upvote.jsp\" method=\"post\" >");
 	out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" />"); 
@@ -640,6 +782,27 @@ while(threadSet.next()){
 	out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />"); 
 	out.println("<input type=\"submit\" value=\"Down Vote\" />"); 
 	out.println("</form>");
+	
+	out.println("</div>");
+	
+	if(atLeastMod){ //only admin or moderator can edit or delete threads
+		//edit button
+		out.println("<form id=\"edit" + threadId + "\" name=\"edit" + threadId + "\" action=\"editform.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Edit\" >"); 
+		out.println("</form>"); 
+		
+		//delete button 
+		out.println("<form id=\"delete" + threadId + "\" name=\"delete" + threadId + "\" action=\"delete.jsp\" method=\"post\" >");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"type\" value=\"thread\" />");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"id\" value=\"" + threadId + "\" /> ");
+		out.println("<input type=\"text\" class=\"hidden\" name=\"meat\" value=\"" + threadtitle + "\" />"); 
+		out.println("<input type=\"submit\" value=\"Delete\" >"); 
+		out.println("</form>"); 
+	}
+	out.println("</div>");
 	out.println("<hr/>");
 }
 if(!oneThread) out.println("There are no other cancer threads yet!");

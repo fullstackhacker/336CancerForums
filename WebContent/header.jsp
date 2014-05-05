@@ -90,6 +90,8 @@ conn.close();
 <div id="userbox">
 	Welcome back, <a href="profile.jsp"><%= username %></a>
 	<%if(isAdmin)out.println("<button type=\"button\" onclick=\"window.location='admin.jsp'\">Admin Console</button>"); %>
+	<%if(atLeastMod)out.println("<button type=\"button\" onclick=\"window.location='moderator.jsp'\">Moderator Console</button>"); %>
+	<button type="button" onclick="window.location='searchform.jsp'">Search</button>
 	<button type="button" onclick="window.location='message.jsp'">Messages</button>
 	<button type="button" onclick="window.location='logout.jsp'">Log Out</button>
 </div>

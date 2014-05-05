@@ -19,8 +19,9 @@ else{
 
 String orderBy = ""; 
 if(request.getParameter("orderBy") != null){ 
-	orderBy = " ORDER BY " + request.getParameter("orderBy") + " DESC";  
+	orderBy = " ORDER BY " + request.getParameter("orderBy");  
 }
+
 
 //see if user is a "special" user
 boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
@@ -38,7 +39,8 @@ Statement query2 = conn.createStatement();
 %>
 
 <%
-//get the title of thread 
+//get the title of thread  --- varialbe threadittle is ireally the ID
+
 String threadtitleQ = "SELECT * FROM thread WHERE thread.threadId = " + threadtitle + ";";
 ResultSet threadTitle = query.executeQuery(threadtitleQ); 
 threadTitle.next(); //there should only be one 
@@ -53,12 +55,16 @@ String threadName = threadTitle.getString("title");
 <link rel="stylesheet" type="text/css" href="global.css">
 </head>
 <body>
+<div id="header">
+<jsp:include page="header.jsp" flush="true" />
+</div>
+
 <h1><%= threadName %></h1>
 <form id="ordering" name="ordering" method="post" action="thread.jsp" >
 Order By:
 <select name="orderBy">
-	<option value="updownVotes">Votes</option>
-	<option value="authorId">Author</option>
+	<option value="updownVotes DESC">Votes</option>
+	<option value="user.userName ASC">Author</option>
 	<option value="datetimeCreated">Time</option>
 </select>
 <input type="submit" value="Re-Order" />
@@ -69,8 +75,16 @@ Order By:
 int threadId = Integer.parseInt(threadtitle);
 
 //get the posts
-String getPostString = "SELECT * FROM post WHERE post.threadId = " + threadId + orderBy + ";";
-ResultSet posts = query.executeQuery(getPostString);
+String getPostString = "SELECT * FROM post, user WHERE post.threadId = " + threadId + " AND post.authorId = user.userId" + orderBy + ";";
+ResultSet posts = null; 
+
+try{
+	posts = query.executeQuery(getPostString);
+}
+catch(Exception e){ 
+	out.println(getPostString); 
+	return;
+}
 
 while(posts.next()){ 
 	//get attributes
@@ -79,13 +93,16 @@ while(posts.next()){
 	Timestamp ts = posts.getTimestamp("datetimeCreated"); 
 	Date date = new Date(ts.getTime()); 
 	int votes = posts.getInt("updownVotes"); 
+	String author = posts.getString("userName");
 	
 	//get authorsout.println("<div class=\"post\">");
-	String author = ""; 
+	
+	/* 
 	String authorQ = "SELECT userName FROM user WHERE user.userId = " + posts.getInt("authorId"); 
 	ResultSet hasAuthor = query2.executeQuery(authorQ); 
 	hasAuthor.next(); 
 	author = hasAuthor.getString("userName");
+	*/
 	
 	//display post
 	out.println("<div class=\"post\">");
