@@ -23,6 +23,9 @@ Statement query2 = conn.createStatement();
 <link rel="stylesheet" type="text/css" href="global.css">
 </head>
 <body>
+<div id="header">
+<jsp:include page="header.jsp" flush="true" />
+</div>
 <%
 String searchQuery = request.getParameter("searchquery"); 
 String searchingType = request.getParameter("searchin"); 

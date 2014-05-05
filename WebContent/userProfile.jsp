@@ -52,6 +52,9 @@ userName = userInfo.getString("userName");
 <link rel="stylesheet" type="text/css" href="global.css">
 </head>
 <body>
+<div id="header">
+<jsp:include page="header.jsp" flush="true" />
+</div>
 <!-- display user profile --> 
 <p> User Name: <%= userName %> </p>
 <p> First Name: <%= firstName %> </p>

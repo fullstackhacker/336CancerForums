@@ -32,7 +32,7 @@ Integer authorId = (Integer)session.getAttribute("userId");
 Timestamp ts = new Timestamp(System.currentTimeMillis()); 
 
 //insert string postId, threadId, content, updownvotes, authorId
-String makepost = "INSERT INTO post (postId, threadId, content, updownVotes, authorID) VALUES(0, " + threadId + ", \"" + content + "\", 0, " + authorId + ");";
+String makepost = "INSERT INTO post (postId, threadId, content, updownVotes, authorID) VALUES (0, " + threadId + ", \"" + content + "\", 0, " + authorId + ");";
 
 
 try{

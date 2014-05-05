@@ -16,6 +16,9 @@
 </head>
 <link rel="stylesheet" type="text/css" href="global.css">
 <body>
+<div id="header">
+<jsp:include page="header.jsp" flush="true" />
+</div>
 <h1>Search</h1>
 
 <form id="search" name="search" method="post" action="search.jsp">

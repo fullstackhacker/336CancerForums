@@ -17,6 +17,10 @@ if(!session.getAttribute("usertype").equals("mod") || !session.getAttribute("use
 <title>CS336: Cancer Forum | Moderator Console</title>
 </head>
 <body>
+<div id="header">
+<jsp:include page="header.jsp" flush="true" />
+</div>
+
 <%
 //connecting to the database
 String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
