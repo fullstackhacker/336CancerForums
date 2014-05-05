@@ -35,7 +35,7 @@ int doconly = request.getParameter("doconly") != null && request.getParameter("d
 Timestamp ts = new Timestamp(System.currentTimeMillis()); 
 
 //add to thread 
-//thread; threadId, topicId, title, datetimeCreated, updownVotes,  authorId
+//thread; threadId, topicId, title, datetimeCreated, updownVotes,  authorId, doconly
 //INSERT INTO thread (threadId, topicId, title, updownVotes, authorId, doconly) VALUES (0, 1, "I Got it", 0, 11, 1);
 String addThreadQ = "INSERT INTO thread (threadId, topicId, title, updownVotes, authorId, doconly) VALUES (0," + topicId + ", \"" + threadtitle + "\"," + "0, " + (Integer)session.getAttribute("userId") + ", " + doconly + ");";
 

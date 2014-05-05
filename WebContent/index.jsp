@@ -213,7 +213,7 @@ catch(Exception  e){
 
 boolean oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getInt("doconly") == 1){
+	if((!(isDoc || atLeastMod))  && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
@@ -317,7 +317,7 @@ catch(Exception  e){
 
 oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getInt("doconly") == 1){
+	if((!(isDoc || atLeastMod)) && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
@@ -420,7 +420,7 @@ catch(Exception  e){
 
 oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getInt("doconly") == 1){
+	if((!(isDoc || atLeastMod)) && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
@@ -524,7 +524,7 @@ catch(Exception  e){
 
 oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getInt("doconly") == 1){
+	if((!(isDoc || atLeastMod)) && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
@@ -627,7 +627,7 @@ catch(Exception  e){
 
 oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getInt("doconly") == 1){
+	if((!(isDoc || atLeastMod)) && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
@@ -731,7 +731,7 @@ catch(Exception  e){
 
 oneThread = false; //tells us if there is at least one thread in the topic
 while(threadSet.next()){ 
-	if(!isDoc && threadSet.getInt("doconly") == 1){
+	if((!(isDoc || atLeastMod)) && threadSet.getInt("doconly") == 1){
 		continue; 
 	}
 	
@@ -826,7 +826,7 @@ if(!oneThread) out.println("There are no other cancer threads yet!");
 </select>
 <%
 if(isDoc){  
-	out.println("<input type=\"checkbox\" name=\"doconly\" value=\"doconly\">Doctor Thread Only?"); 
+	out.println("<input type=\"checkbox\" name=\"doconly\" >Doctor Thread Only?"); 
 }
 %>
 <br/>
