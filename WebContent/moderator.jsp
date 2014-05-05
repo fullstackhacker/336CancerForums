@@ -6,7 +6,7 @@
 <%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %> 
 <%
-if(!session.getAttribute("usertype").equals("mod") || !session.getAttribute("usertype").equals("admin")){ //only mods can access this page
+if(!(session.getAttribute("usertype").equals("mod") || session.getAttribute("usertype").equals("admin"))){ //only mods and admin can access this page
 	response.sendRedirect("index.jsp"); 
 }
 %>

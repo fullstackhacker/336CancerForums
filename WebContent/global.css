@@ -20,6 +20,14 @@ p{
 	background: black; 
 }
 
+.unseen{
+	font-weight:bold;	
+}
+
+.buttonform{
+	display: inline;
+}
+
 p.tabheader{
 	display: inline;
 	margin: 5%;

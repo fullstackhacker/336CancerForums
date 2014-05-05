@@ -106,7 +106,7 @@ while(messages.next()){
 	}
 	
 	//display message
-	out.println("<form id=\"message\" name=\"message=\" method=\"post\" action=\"viewmessage.jsp\">");
+	out.println("<form class=\"buttonform\" id=\"message\" name=\"message=\" method=\"post\" action=\"viewmessage.jsp\">");
 	out.println(displayText);
 	out.println(" From: " + fromUserName + "</p>");
 	out.println("<input class=\"hidden\" type=\"text\" name=\"messageId\" value=\"" + messageId + "\" />");
@@ -115,10 +115,17 @@ while(messages.next()){
 	out.println("<input type=\"submit\" value=\"View Message\" />"); 
 	out.println("</form>"); 
 	
+	//delete
+	out.println("<form class=\"buttonform\" id=\"deletemessage\" name=\"deletemessage=\" method=\"post\" action=\"deletemessage.jsp\" >");
+	out.println("<input class=\"hidden\" name=\"messageId\" value=\"" + messageId + "\" />");
+	out.println("<input type=\"submit\" value=\"Delete\" />");
+	out.println("</form>");
+	
 }
 
 if(!hasMessage) out.println("You have no messages"); 
 %>
+<br />
 <form id="messageform" name="messageform" method="post" action="sendmessage.jsp">
 <label type="text" name="register">Send a Message</label>
 <br />
