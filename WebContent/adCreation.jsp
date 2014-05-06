@@ -33,7 +33,7 @@ Select a file to upload: <br />
 <form id="uploadform" action="uploadfile.jsp" method="post" enctype="multipart/form-data">
 <input type="file" name="file" size="50" />
 <br />
-<select form="uploadform" name="type">
+<select form="uploadform" name="topictype">
 <option value="1">lung</option>
 <option value="2">stomach</option>
 <option value="3">bowel</option>

@@ -21,6 +21,10 @@ Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //
 Statement query = conn.createStatement(); //create the thing that will query the db
 %>
 <%
+//get parameters
+
+int type = -1, companyId = -1;
+
 	String fileName = "noimage.jpg";
    File file ;
    int maxFileSize = 5000 * 1024;
@@ -75,12 +79,30 @@ Statement query = conn.createStatement(); //create the thing that will query the
             	fi.write( file ) ;
             	
             	out.println("Uploaded Filename: " + filePath + fileName + "<br>");
-            	
-
            	 }
+            else{ // our other two things 
+            	if(fi.getFieldName().equals("companyId")){ 
+            		companyId = Integer.parseInt(fi.getString());
+            	}
+            	if(fi.getFieldName().equals("topictype")){ 
+            		type = Integer.parseInt(fi.getString()); 
+            	}
+            }
          }
-         out.println("</body>");
-         out.println("</html>");
+         
+         //end of while loop lets insert our shit in to the table
+         String adInsertString = "INSERT INTO advertisement (adId, approved, imageLink, adType, companyId) VALUES (0, 0, \"" + fileName + "\", " + type + ", " + companyId + ");";
+     	try{
+     		query.executeUpdate(adInsertString);
+     	}
+     	catch(Exception e){
+     		out.println(e.getMessage());
+     		out.println(adInsertString); 
+     		response.sendRedirect("index.jsp");
+     		return; 
+     	}
+     	response.sendRedirect("adCreation.jsp");  
+     	return;
       }catch(Exception ex) {
          System.out.println(ex);
       }
@@ -95,21 +117,5 @@ Statement query = conn.createStatement(); //create the thing that will query the
       out.println("</html>");
    }
    
-	//write filename into the table 
-	//get some form parameters
-	int type = Integer.parseInt(request.getParameter("type"));
-	int companyId = Integer.parseInt(request.getParameter("companyId")); 
-	//advertisement: "INSERT INTO advertisement (adId, approved, imageLink, adType, companyId) VALUES (0, 0, fileName, type, ??);
-	String adInsertString = "INSERT INTO advertisement (adId, approved, imageLink, adType, companyId) VALUES (0, 0, \"" + fileName + "\", " + type + ", " + companyId + ");";
-	try{
-		query.executeUpdate(adInsertString);
-	}
-	catch(Exception e){
-		out.println(e.getMessage());
-		out.println(adInsertString); 
-		response.sendRedirect("index.jsp");
-		return; 
-	}
-	response.sendRedirect("adCreation.jsp"); 
-	return; 
+
 %>
