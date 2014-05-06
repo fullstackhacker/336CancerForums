@@ -93,11 +93,11 @@ catch(Exception e){
 	out.println(e.getMessage());
 	return;
 }
-
-while(verifiedCompanies.next()){
-	out.println("<option value=\"" + verifiedCompanies.getInt("companyId") + "\"> " + verifiedCompanies.getString("name") + " </option>");
+if(verifiedCompanies != null){
+	while(verifiedCompanies.next()){
+		out.println("<option value=\"" + verifiedCompanies.getInt("companyId") + "\"> " + verifiedCompanies.getString("name") + " </option>");
+	}
 }
-
 %>
 </select>
 </form>
