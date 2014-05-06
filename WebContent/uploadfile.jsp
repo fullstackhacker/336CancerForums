@@ -1,11 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
 <%@ page import="javax.servlet.http.*" %>
 <%@ page import="org.apache.commons.fileupload.*" %>
 <%@ page import="org.apache.commons.fileupload.disk.*" %>
 <%@ page import="org.apache.commons.fileupload.servlet.*" %>
 <%@ page import="org.apache.commons.io.output.*" %>
+<%@ page import="java.io.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="javax.sql.*" %>
+<%@ page import="javax.naming.*" %>
 
 <%
+//connecting to the database
+String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
+Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
+Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
+Statement query = conn.createStatement(); //create the thing that will query the db
+%>
+<%
+	String fileName = "noimage.jpg";
    File file ;
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
@@ -37,29 +53,31 @@
          out.println("<head>");
          out.println("<title>JSP File upload</title>");  
          out.println("</head>");
-         out.println("<body>");
+         out.println("<body>"); 
          while ( i.hasNext () ) 
          {
             FileItem fi = (FileItem)i.next();
             if ( !fi.isFormField () )	
             {
-            // Get the uploaded file parameters
-            String fieldName = fi.getFieldName();
-            String fileName = fi.getName();
-            boolean isInMemory = fi.isInMemory();
-            long sizeInBytes = fi.getSize();
-            // Write the file
-            if( fileName.lastIndexOf("\\") >= 0 ){
-            file = new File( filePath + 
-            fileName.substring( fileName.lastIndexOf("\\"))) ;
-            }else{
-            file = new File( filePath + 
-            fileName.substring(fileName.lastIndexOf("\\")+1)) ;
-            }
-            fi.write( file ) ;
-            out.println("Uploaded Filename: " + filePath + 
-            fileName + "<br>");
-            }
+           	 	// Get the uploaded file parameters
+           	 	String fieldName = fi.getFieldName();
+            	fileName = fi.getName();
+            	boolean isInMemory = fi.isInMemory();
+            	long sizeInBytes = fi.getSize();
+            	// Write the file
+            	if( fileName.lastIndexOf("\\") >= 0 ){
+            		file = new File( filePath + 
+            		fileName.substring( fileName.lastIndexOf("\\"))) ;
+           		}else{
+            		file = new File( filePath + 
+            		fileName.substring(fileName.lastIndexOf("\\")+1)) ;
+            	}
+            	fi.write( file ) ;
+            	
+            	out.println("Uploaded Filename: " + filePath + fileName + "<br>");
+            	
+
+           	 }
          }
          out.println("</body>");
          out.println("</html>");
@@ -76,4 +94,22 @@
       out.println("</body>");
       out.println("</html>");
    }
+   
+	//write filename into the table 
+	//get some form parameters
+	int type = Integer.parseInt(request.getParameter("type"));
+	int companyId = Integer.parseInt(request.getParameter("companyId")); 
+	//advertisement: "INSERT INTO advertisement (adId, approved, imageLink, adType, companyId) VALUES (0, 0, fileName, type, ??);
+	String adInsertString = "INSERT INTO advertisement (adId, approved, imageLink, adType, companyId) VALUES (0, 0, \"" + fileName + "\", " + type + ", " + companyId + ");";
+	try{
+		query.executeUpdate(adInsertString);
+	}
+	catch(Exception e){
+		out.println(e.getMessage());
+		out.println(adInsertString); 
+		response.sendRedirect("index.jsp");
+		return; 
+	}
+	response.sendRedirect("adCreation.jsp"); 
+	return; 
 %>

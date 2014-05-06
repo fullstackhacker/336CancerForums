@@ -9,13 +9,16 @@
 </head>
 <body>
 <%
-String imagesFolder = "/usr/local/tomcat-archive/apache-tomcat-6.0.24/webapps/336CancerForums/images";
+String imagesFolder = "/usr/local/tomcat-archive/apache-tomcat-6.0.24/webapps/336CancerForums/images/";
 File dir = new File(imagesFolder); 
 
 String list[] = dir.list(); 
 
 for(int i = 0; i<list.length; i++){ 
+	String filename = "images/" + list[i]; 
 	out.println("image: --> " + list[i]); 
+	out.println("<img src=\"" + filename + "\" alt=\"ERROR LOADING IMAGE\">");
+	out.println("<br />"); 
 }
 
 %>
