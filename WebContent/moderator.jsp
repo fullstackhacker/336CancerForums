@@ -115,14 +115,14 @@ try{
 catch(Exception e){ 
 	out.println(getUnapprovedAds); 
 	out.println(e.getMessage()); 
-	return; 
 }
-
-while(unapprovedAds.next()){ 
-	out.println("<div class=\"adverify\">");
-	out.println("<img src=\"images/" + unapprovedAds.getString("imageLink") + "\" alt=\"missing link\">");
-	out.println("<input type=\"checkbox\" name=\"approvedad\" value=\"" + unapprovedAds.getInt("adId") + "\" />");
-	out.println("</div>");
+if(unapprovedAds != null){
+	while(unapprovedAds.next()){ 
+		out.println("<div class=\"adverify\">");
+		out.println("<img src=\"images/" + unapprovedAds.getString("imageLink") + "\" alt=\"missing link\">");
+		out.println("<input type=\"checkbox\" name=\"approvedad\" value=\"" + unapprovedAds.getInt("adId") + "\" />");
+		out.println("</div>");
+	}
 }
 
 conn.close();
