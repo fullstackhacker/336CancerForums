@@ -129,13 +129,14 @@ else{
 	maxTopicId = maxtopicId.getInt("topicId"); 
 
 //have the topic id now pick an ad from the database
-String getAd = "SELECT COUNT(*) AS count FROM advertisement WHERE advertisement.adType = " + maxTopicId + ";";
+String getAd = "SELECT COUNT(*) AS count FROM advertisement WHERE advertisement.adType = " + maxTopicId + " AND advertisement.approved = 1;";
 ResultSet ads = query.executeQuery(getAd);
-ads.next(); 
+if(!ads.next()) imageLink = "images/CancerBanner.png";
+else{
 int numads = ads.getInt("count"); 
 int rndm = new Random().nextInt(numads); 
 
-String getAds = "SELECT * FROM advertisement WHERE advertisement.adType = " + maxTopicId + ";";
+String getAds = "SELECT * FROM advertisement WHERE advertisement.adType = " + maxTopicId + " AND advertisement.approved = 1;";
 ads = query.executeQuery(getAds); 
 
 //got the number of ads
@@ -145,6 +146,7 @@ for(int i=1; i<rndm; i++){
 	ads.next(); 
 }
 imageLink = "images/" + ads.getString("imageLink");
+}
 }
 %>
 
