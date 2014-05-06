@@ -92,6 +92,10 @@ else if(request.getParameter("lastname") != null && !request.getParameter("lastn
 	}
 }
 	if(valid){
+		this.username = "";
+		this.email = "";
+		this.fname = "";
+		this.lname = "";
 		session.setAttribute("username", request.getParameter("username")); 
 		session.setAttribute("email", request.getParameter("email")); 
 		session.setAttribute("password", request.getParameter("password")); 

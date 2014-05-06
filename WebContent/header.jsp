@@ -147,7 +147,7 @@ for(int i=1; i<rndm; i++){
 }
 imageLink = "images/" + ads.getString("imageLink");
 }
-}
+} 	
 %>
 
 <% 

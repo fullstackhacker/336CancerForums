@@ -23,7 +23,7 @@
 	    	Class.forName("com.mysql.jdbc.Driver"); //loading the driver 
 	    	conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 	    	query = conn.createStatement(); //create the thing that will query the db
-	    	String selectStatement = "select customer.userId, user.userName, transaction.total from transaction, customer, user where customer.customerId = transaction.customerId and user.userId = customer.userId";
+	    	String selectStatement = " select customer.userId, user.userName, sum(transaction.total) as total from transaction, customer, user where customer.customerId = transaction.customerId and user.userId = customer.userId group by customer.userId;";
 	    	rs = query.executeQuery(selectStatement);
 	
 	        int count=0;

@@ -125,7 +125,7 @@ if(searchingType.equals("postBy")){ //want posts by searchQuery
 		out.println("</form>");
 		
 		//view profile
-		out.println("<form id=\"" + rs.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userprofile.jsp\" >");
+		out.println("<form id=\"" + rs.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userProfile.jsp\" >");
 		out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + rs.getInt("authorId") + "\" />");
 		out.println("<input type=\"submit\" value=\"View Profile\" />");
 		out.println("</form>"); 

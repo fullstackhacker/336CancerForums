@@ -144,6 +144,12 @@ while(posts.next()){
 		
 	}
 	
+	//view profile
+	out.println("<form id=\"" + posts.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userProfile.jsp\" >");
+	out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + posts.getInt("authorId") + "\" />");
+	out.println("<input type=\"submit\" value=\"View Profile\" />");
+	out.println("</form>"); 
+	
 	
 	out.println("</div>");
 	out.println("<hr/>"); //something to separate the lines temporarily

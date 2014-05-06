@@ -65,6 +65,7 @@
 	out.println("REGISTERED SUCCESFULLY -->REDIRECT GOES HERE");
 	session.invalidate(); 
 	conn.close();
+	
 	response.sendRedirect("index.jsp");
 %>
 </body>

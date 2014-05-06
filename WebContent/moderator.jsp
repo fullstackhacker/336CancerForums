@@ -50,6 +50,7 @@ while(doctors.next()){ // print out all the doctors that need to be verified
 <br />
 <input type="submit" value="Verify" />
 </form>
+<<<<<<< HEAD
 
 <br />
 <form id="verifycompanies" name="verifycompanies" action="verifycompanies.jsp" method="post" >
@@ -74,6 +75,8 @@ while(unverifiedCompanies.next()){
 }
 %>
 </select>
+=======
+>>>>>>> c966d0e... fixed the fixed regi register and some other shit
 <br />
 <input type="submit" value="verify" />
 </form>
@@ -128,5 +131,6 @@ while(unapprovedAds.next()){
 conn.close();
 %>
 </form>
+</div>
 </body>
 </html>

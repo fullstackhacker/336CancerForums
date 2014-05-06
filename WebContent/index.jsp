@@ -284,6 +284,14 @@ while(threadSet.next()){
 		out.println("<input type=\"submit\" value=\"Delete\" >"); 
 		out.println("</form>"); 
 	}
+	
+	//view profile
+	out.println("<form id=\"" + threadSet.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userProfile.jsp\" >");
+	out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + threadSet.getInt("authorId") + "\" />");
+	out.println("<input type=\"submit\" value=\"View Profile\" />");
+	out.println("</form>"); 
+	
+	
 	out.println("</div>");
 	out.println("<hr/>");
 }
@@ -388,6 +396,13 @@ while(threadSet.next()){
 		out.println("<input type=\"submit\" value=\"Delete\" >"); 
 		out.println("</form>"); 
 	}
+	
+	//view profile
+	out.println("<form id=\"" + threadSet.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userProfile.jsp\" >");
+	out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + threadSet.getInt("authorId") + "\" />");
+	out.println("<input type=\"submit\" value=\"View Profile\" />");
+	out.println("</form>"); 
+	
 	out.println("</div>");
 	out.println("<hr/>");
 }
@@ -491,6 +506,13 @@ while(threadSet.next()){
 		out.println("<input type=\"submit\" value=\"Delete\" >"); 
 		out.println("</form>"); 
 	}
+	
+	//view profile
+	out.println("<form id=\"" + threadSet.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userProfile.jsp\" >");
+	out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + threadSet.getInt("authorId") + "\" />");
+	out.println("<input type=\"submit\" value=\"View Profile\" />");
+	out.println("</form>"); 
+	
 	out.println("</div>");
 	out.println("<hr/>");
 }
@@ -595,6 +617,13 @@ while(threadSet.next()){
 		out.println("<input type=\"submit\" value=\"Delete\" >"); 
 		out.println("</form>"); 
 	}
+	
+	//view profile
+	out.println("<form id=\"" + threadSet.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userProfile.jsp\" >");
+	out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + threadSet.getInt("authorId") + "\" />");
+	out.println("<input type=\"submit\" value=\"View Profile\" />");
+	out.println("</form>"); 
+	
 	out.println("</div>");
 	out.println("<hr/>");
 }
@@ -698,6 +727,13 @@ while(threadSet.next()){
 		out.println("<input type=\"submit\" value=\"Delete\" >"); 
 		out.println("</form>"); 
 	}
+	
+	//view profile
+	out.println("<form id=\"" + threadSet.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userProfile.jsp\" >");
+	out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + threadSet.getInt("authorId") + "\" />");
+	out.println("<input type=\"submit\" value=\"View Profile\" />");
+	out.println("</form>"); 
+	
 	out.println("</div>");
 	out.println("<hr/>");
 }
@@ -802,6 +838,13 @@ while(threadSet.next()){
 		out.println("<input type=\"submit\" value=\"Delete\" >"); 
 		out.println("</form>"); 
 	}
+	
+	//view profile
+	out.println("<form id=\"" + threadSet.getInt("authorId") + "\" name=\"viewprofile\" method=\"post\" action=\"userProfile.jsp\" >");
+	out.println("<input class=\"hidden\" type=\"text\" name=\"id\" value=\"" + threadSet.getInt("authorId") + "\" />");
+	out.println("<input type=\"submit\" value=\"View Profile\" />");
+	out.println("</form>"); 
+	
 	out.println("</div>");
 	out.println("<hr/>");
 }
