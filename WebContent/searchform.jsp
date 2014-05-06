@@ -19,6 +19,7 @@
 <div id="header">
 <jsp:include page="header.jsp" flush="true" />
 </div>
+<div id="wrapper">
 <h1>Search</h1>
 
 <form id="search" name="search" method="post" action="search.jsp">
@@ -51,5 +52,6 @@ Select a topic:
 <br />
 <input type="submit" value="Seach" />
 </form>
+</div>
 </body>
 </html>

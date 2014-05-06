@@ -17,8 +17,10 @@
 <script src="jquery-2.1.0.min.js"></script>
 </head>
 <body>
+<div id="header">
 <jsp:include page="header.jsp" flush="true" />
-
+</div>
+<div id="wrapper">
 <%
 if(session.getAttribute("userId")==null){ //user is not logged in 
 	response.sendRedirect("loginform.jsp"); 
@@ -83,6 +85,6 @@ finally {
    </fieldset>
  </form>
 </div>
-
+</div>
 </body>
 </html>

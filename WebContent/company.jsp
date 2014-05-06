@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Company Page</title>
+<title>336 Beats Cancer | Company Page</title>
 <!-- stylesheets -->
 <link rel="stylesheet" type="text/css" href="global.css">
 <link rel="stylesheet" type="text/css" media="screen" href="jquery.jqGrid-4.6.0/css/ui.jqgrid.css" />
@@ -47,7 +47,10 @@ jQuery(document).ready(function() {
 </script>
 </head>
 <body>
+<div id="header">
 <jsp:include page="header.jsp" flush="true" />
+</div>
+<div id="wrapper">
 <%
 if(session.getAttribute("userId")==null){ //user is not logged in 
 	response.sendRedirect("loginform.jsp"); 
@@ -85,6 +88,6 @@ Integer votes = (Integer)session.getAttribute("votes");
    </fieldset>
  </form>
 </div>
-
+</div>
 </body>
 </html>
