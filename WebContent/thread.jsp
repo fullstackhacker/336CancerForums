@@ -51,14 +51,14 @@ String threadName = threadTitle.getString("title");
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><%= "Cancer Forums | " + threadName %></title>
+<title><%= "336 Beats Cancer | " + threadName %></title>
 <link rel="stylesheet" type="text/css" href="global.css">
 </head>
 <body>
 <div id="header">
 <jsp:include page="header.jsp" flush="true" />
 </div>
-
+<div id="wrapper">
 <h1><%= threadName %></h1>
 <form id="ordering" name="ordering" method="post" action="thread.jsp" >
 Order By:
@@ -165,5 +165,6 @@ while(posts.next()){
 <button type="button" onclick="window.location.href='index.jsp'">Back</button>
 
 <%conn.close(); %>
+</div>
 </body>
 </html>

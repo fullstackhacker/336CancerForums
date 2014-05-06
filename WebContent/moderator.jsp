@@ -18,13 +18,13 @@ if(request.getParameter("companyId") != null){
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>CS336: Cancer Forum | Moderator Console</title>
+<title>336 Beats Cancer | Moderator Console</title>
 </head>
 <body>
 <div id="header">
 <jsp:include page="header.jsp" flush="true" />
 </div>
-
+<div id="wrapper">
 <%
 //connecting to the database
 String mysqldb = "jdbc:mysql://cs336-3.cs.rutgers.edu:3306/cancerforum"; //connection string 
@@ -32,7 +32,9 @@ Class.forName("com.mysql.jdbc.Driver"); //loading the driver
 Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 Statement query = conn.createStatement(); //create the thing that will query the db
 %>
-<% out.println("Moderator Console"); %>
+<h2>Moderator Console<h2>
+<br />
+Doctor's that need verification:
 <form name="verify_doctor" action="verify_doctor.jsp" method="post">
 <select id="verify" name="doctor_list" size="25" multiple>
 <%
@@ -122,6 +124,8 @@ while(unapprovedAds.next()){
 	out.println("<input type=\"checkbox\" name=\"approvedad\" value=\"" + unapprovedAds.getInt("adId") + "\" />");
 	out.println("</div>");
 }
+
+conn.close();
 %>
 </form>
 </body>

@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 body {
-background-image: url("http://p1.pichost.me/i/15/1382144.jpg");
+background-image: "images/background.jpg";
 background-size: cover;
 background-attachment: fixed;
 }
