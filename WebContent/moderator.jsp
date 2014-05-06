@@ -32,7 +32,7 @@ Class.forName("com.mysql.jdbc.Driver"); //loading the driver
 Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //connect to db
 Statement query = conn.createStatement(); //create the thing that will query the db
 %>
-<h2>Moderator Console<h2>
+<h2>Moderator Console</h2>
 <br />
 Doctor's that need verification:
 <form name="verify_doctor" action="verify_doctor.jsp" method="post">
@@ -50,8 +50,6 @@ while(doctors.next()){ // print out all the doctors that need to be verified
 <br />
 <input type="submit" value="Verify" />
 </form>
-<<<<<<< HEAD
-
 <br />
 <form id="verifycompanies" name="verifycompanies" action="verifycompanies.jsp" method="post" >
 <select id="verify" name="companylist" size="25" multiple>
@@ -75,8 +73,6 @@ while(unverifiedCompanies.next()){
 }
 %>
 </select>
-=======
->>>>>>> c966d0e... fixed the fixed regi register and some other shit
 <br />
 <input type="submit" value="verify" />
 </form>
@@ -104,9 +100,10 @@ while(verifiedCompanies.next()){
 
 %>
 </select>
+</form>
 
 <!-- approve ads form -->
-<form id="approveads" name="approveads" action="approveads" method="post">
+<form id="approveads" name="approveads" action="approveads.jsp" method="post">
 <%
 //get all the unverified ads and display them with checkboxes
 String getUnapprovedAds = ""; 
@@ -130,6 +127,7 @@ while(unapprovedAds.next()){
 
 conn.close();
 %>
+<input type="submit" value="Verify Ads" />
 </form>
 </div>
 </body>
