@@ -28,11 +28,11 @@ jQuery(document).ready(function() {
 		    datatype: "json",
 		    colNames:['Order Id','Date Ordered', 'Donation', "Customer Id", "Company Id"],
 		    colModel:[
-		              {name:'orderId',index:'orderId', width:55},
+		              {name:'orderId',index:'orderId', width:90},
 		              {name:'datetimeOrdered',index:'datetimeOrdered', width:90},
 		              {name:'total',index:'total', width:90},
 		              {name:'customerId',index:'customerId', width:90},
-		              {name:'companyId',index:'companyId', width:100}],
+		              {name:'companyId',index:'companyId', width:90}],
 		    rowNum:10,
 		    rowList:[5,7,10],
 		    pager: '#salesPager',
@@ -44,6 +44,58 @@ jQuery(document).ready(function() {
 		    caption: "Sales"
 	    });
 	    jQuery("#salesGrid").jqGrid('navGrid','#salesPager',{add:false,edit:false,del:false});
+	}//function
+);//ready 
+</script>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+
+	    jQuery("#donationsGrid").jqGrid({
+		    url:'donationPerCompany.jsp',
+		    datatype: "json",
+		    colNames:['Company Id','Donation Total','Company Name'],
+		    colModel:[
+		              {name:'companyId',index:'companyId', width:90},
+		              {name:'donationTotal',index:'donationTotal', width:120},
+		              {name:'name',index:'name', width:120}],
+		    rowNum:10,
+		    rowList:[5,7,10],
+		    pager: '#donationsPager',
+		    sortname: 'companyId',
+		    //viewrecords: true,
+		    //sortorder: "desc",
+		    multiselect: false,
+		    loadonce: true,
+		    caption: "Donations"
+	    });
+	    jQuery("#donationsGrid").jqGrid('navGrid','#donationsPager',{add:false,edit:false,del:false});
+	}//function
+);//ready 
+</script>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+
+	    jQuery("#userGrid").jqGrid({
+		    url:'userDonation.jsp',
+		    datatype: "json",
+		    colNames:['User Id','User Name', 'Donation'],
+		    colModel:[
+		              {name:'userId',index:'userId', width:55},
+		              {name:'userName',index:'userName', width:90},
+		              {name:'total',index:'total', width:90}],
+		    rowNum:10,
+		    rowList:[5,7,10],
+		    pager: '#userPager',
+		    sortname: 'userId',
+		    //viewrecords: true,
+		    //sortorder: "desc",
+		    multiselect: false,
+		    loadonce: true,
+		    caption: "User Donations"
+	    });
+	    jQuery("#userGrid").jqGrid('navGrid','#userPager',{add:false,edit:false,del:false});
 	}//function
 );//ready 
 </script>
@@ -69,9 +121,23 @@ Integer votes = (Integer)session.getAttribute("votes");
 %>
 
 <br/>
-<div id="jqGrid">
+<div id="salesjqGrid">
 	<table id="salesGrid"></table>
 	<div id="salesPager"></div>
+</div>
+<br/>
+
+<br/>
+<div id="donationjqGrid">
+	<table id="donationsGrid"></table>
+	<div id="donationsPager"></div>
+</div>
+<br/>
+
+<br/>
+<div id="userjqGrid">
+	<table id="userGrid"></table>
+	<div id="userPager"></div>
 </div>
 <br/>
 
