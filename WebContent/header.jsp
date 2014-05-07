@@ -142,7 +142,7 @@ ads = query.executeQuery(getAds);
 //got the number of ads
 //get random ad
 ads.next();
-for(int i=1; i<rndm; i++){
+for(int i=1; i<=rndm; i++){
 	ads.next(); 
 }
 imageLink = "images/" + ads.getString("imageLink");
@@ -188,10 +188,8 @@ conn.close();
 	<button type="button" onclick="window.location='message.jsp'">Messages</button>
 	<button type="button" onclick="window.location='logout.jsp'">Log Out</button>
 </div>
-<img src="<%=imageLink %>" alt="advertisementOHGOODY">
-<br />
+<a href="donation.jsp"><img src="<%=imageLink %>" alt="advertisementOHGOODY"></a>
 <a href="index.jsp"><img src=images/CancerBanner.png></a>
-<br />
 
 </body>
 </html>
