@@ -80,9 +80,11 @@ while(unverifiedCompanies.next()){
 </form>
 
 <br />
+<form name="companyads" action="moderator.jsp" method="post">
 <!-- Pick company to approve ads from  -->
 Pick the company that you want to approve ads for:
-<select name="companies" onchange="window.location.href='moderator.jsp?companyId=' + document.getElementId('companies').value">
+
+<select name="companies" >
 <%
 //get VERIFIED companies
 String getVerifiedCompanies = "SELECT * FROM company WHERE approved=1";
@@ -102,6 +104,7 @@ if(verifiedCompanies != null){
 }
 %>
 </select>
+<input type="submit" value="Verify Ads for This Company" />
 </form>
 
 <!-- approve ads form -->
