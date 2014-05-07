@@ -866,6 +866,7 @@ if(!oneThread) out.println("There are no other cancer threads yet!");
 	<option name="prostate" value="prostate">Prostate</option>
 	<option name="bowel" value="bowel">Bowel</option>
 	<option name="breast" value="breast">Breast</option>
+	<option name="other" value="other">Other</option>
 </select>
 <%
 if(isDoc){  

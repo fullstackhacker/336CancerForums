@@ -27,17 +27,19 @@
 <br /> 
 Search: 
 <br />
-<input type="radio" name="searchin" value="user"> Users 
+<input type="radio" name="searchin" value="user" /> Users 
 <br />
-<input type="radio" name="searchin" value="post"> Posts
+<input type="radio" name="searchin" value="post" /> Posts
 <br />
-<input type="radio" name="searchin" value="thread"> Threads
+<input type="radio" name="searchin" value="thread" /> Threads
 <br />
-<input type="radio" name="searchin" value="doctor"> Doctors
+<input type="radio" name="searchin" value="doctor" /> Doctors
 <br />
-<input type="radio" name="searchin" value="postBy"> Find Posts by This User
+<input type="radio" name="searchin" value="messages" /> Messages
 <br />
-<input type="radio" name="searchin" value="threadBy"> Find Threads by This User
+<input type="radio" name="searchin" value="postBy" /> Find Posts by This User
+<br />
+<input type="radio" name="searchin" value="threadBy" /> Find Threads by This User
 <br />
 Select a topic: 
 <select name="topics">

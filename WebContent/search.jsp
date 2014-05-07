@@ -41,6 +41,7 @@ if(!topic.equals("all")){ //get the topicId
 }
 String fuckingTopic = ""; 
 
+String forMessage = searchingType.equals("messages") ? " WHERE messages.userToId = " + ((Integer)session.getAttribute("userId")).toString() + " " : "";
 
 
 boolean isDoc  = session.getAttribute("isDoc") != null && session.getAttribute("isDoc").equals("yes");
@@ -235,7 +236,7 @@ else if(searchingType.equals("threadBy")){
 	}
 }
 else{ 
-	String getData = "SELECT * FROM " + searchingType + ";"; 
+	String getData = "SELECT * FROM " + searchingType + forMessage + ";"; 
 	ResultSet rs = null;  
 	try{ 
 		rs = query.executeQuery(getData);
@@ -244,6 +245,7 @@ else{
 		out.println(e.getMessage()); 
 		out.println(" ");
 		out.println(getData);
+		response.sendRedirect("searchform.jsp");
 		return; 
 	}
 	boolean atleastOne = false; 
@@ -257,7 +259,7 @@ else{
 		atleastOne = true; 
 		
 		// get columnName : userName for users, content for post, and title for thread
-		String column = ""; 
+		String column = ""; String column2 = ""; // column2 only for messages
 		if(searchingType.equals("user")){ 
 			column = "userName"; 
 		}
@@ -267,8 +269,15 @@ else{
 		else if(searchingType.equals("thread")){
 			column = "title"; 
 		}
+		else if(searchingType.equals("messages")){
+			column = "content";
+			column2 = "title"; 
+		}
 		
 		String info = rs.getString(column); 
+		if(searchingType.equals("messages")){
+			info += rs.getString(column2); 
+		}
 		
 		if(info == null){
 			out.println("searchQuery: " + searchQuery); 
@@ -382,6 +391,55 @@ else{
 				out.println("<p class=\"username\">" + rs.getString("userName") + "</p>");
 				out.println("<input type=\"submit\" value=\"View Profile\" />"); 
 				out.println("</form>"); 
+			}
+			else if(searchingType.equals("messages")){
+				//get message contents
+				int messageId = rs.getInt("messageId"); 
+				int fromId = rs.getInt("userFromId"); 
+				int seen = rs.getInt("userToSeen"); 
+				Date date = new Date(rs.getTimestamp("datetimeCreated").getTime());
+				String content = rs.getString("content"); 
+				String title = rs.getString("title");
+				
+				//get fromUserName
+				//user: SELECT * FROM user WHERE userId = fromId; 
+				String fromUserQuery = "SELECT * FROM user WHERE userId = " + fromId + ";";
+				ResultSet fromUserSet = null; 
+				try{ 
+					fromUserSet = query2.executeQuery(fromUserQuery); 
+				}
+				catch(Exception e){ 
+					out.print(e.getMessage());
+					out.println(fromUserQuery); 
+					return; 
+				}
+				fromUserSet.next(); // should be on 
+				String fromUserName = fromUserSet.getString("userName");  
+				
+				//differentiate between seen and unseen messages
+				String displayText = ""; 
+				if(seen == 0){//not seen 
+					displayText = "<p class=\"unseen\"> Title:  " + title ; 
+				}
+				else{
+					displayText = "<p class=\"seen\"> Title: " + title ;
+				}
+				
+				//display message
+				out.println("<form class=\"buttonform\" id=\"message\" name=\"message=\" method=\"post\" action=\"viewmessage.jsp\">");
+				out.println(displayText);
+				out.println(" From: " + fromUserName + "</p>");
+				out.println("<input class=\"hidden\" type=\"text\" name=\"messageId\" value=\"" + messageId + "\" />");
+				out.println("<input class=\"hidden\" type=\"text\" name=\"messageTitle\" value=\"" + title + "\" />");
+				out.println("<input class=\"hidden\" type=\"text\" name=\"messageFrom\" value=\"" + fromUserName + "\" />");
+				out.println("<input type=\"submit\" value=\"View Message\" />"); 
+				out.println("</form>"); 
+				
+				//delete
+				out.println("<form class=\"buttonform\" id=\"deletemessage\" name=\"deletemessage=\" method=\"post\" action=\"deletemessage.jsp\" >");
+				out.println("<input class=\"hidden\" name=\"messageId\" value=\"" + messageId + "\" />");
+				out.println("<input type=\"submit\" value=\"Delete\" />");
+				out.println("</form>");
 			}
 			else{ 
 				//shouldn't get here 
