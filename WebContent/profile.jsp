@@ -33,6 +33,7 @@ String username = (String)session.getAttribute("username"); //get the user's use
 String email = (String)session.getAttribute("email"); //get the user's email
 String firstname = (String)session.getAttribute("firstname"); //get the user's firstname
 String lastname = (String)session.getAttribute("lastname"); //get the user's firstname 
+String votes = ((Integer)session.getAttribute("votes")).toString(); //get the user's votes
 
 //see if user is a "special" user
 boolean isDoc = session.getAttribute("isDoc") != null && ((String)session.getAttribute("isDoc")).equals("yes"); 
@@ -73,6 +74,7 @@ boolean isMod = session.getAttribute("usertype") != null &&  ((String)session.ge
      <br/>
      <label type="text" name="emailname">Email:</label>
      <input type="email" name="email" size="30"  value="<%= email %>" class="text-input">
+     <p>Votes: <%= votes %> </p>
      <br/>
      <br/> 
      <label type="text" name="areyoua">You are a:</label><br/>

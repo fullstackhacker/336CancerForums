@@ -35,6 +35,7 @@ Connection conn = DriverManager.getConnection(mysqldb, "csuser", "csd64f12"); //
 Statement query = conn.createStatement(); //create the thing that will query the db
 %>
 <h2>Moderator Console</h2>
+<button type="button" onclick="window.location.href='adCreation.jsp'">Add an Ad for a Company</button><button type="button" onclick="window.location.href='company.jsp'">View and Add Companies</button><button type="button" onclick="window.location.href='salesView.jsp'">Sales</button>
 <br />
 Doctors that need verification:
 <form name="verify_doctor" action="verify_doctor.jsp" method="post">
