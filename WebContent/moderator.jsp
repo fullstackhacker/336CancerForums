@@ -17,6 +17,8 @@ if(request.getParameter("companyId") != null){
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<!-- stylesheets -->
+<link rel="stylesheet" type="text/css" href="global.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>336 Beats Cancer | Moderator Console</title>
 </head>
@@ -34,7 +36,7 @@ Statement query = conn.createStatement(); //create the thing that will query the
 %>
 <h2>Moderator Console</h2>
 <br />
-Doctor's that need verification:
+Doctors that need verification:
 <form name="verify_doctor" action="verify_doctor.jsp" method="post">
 <select id="verify" name="doctor_list" size="25" multiple>
 <%
@@ -83,7 +85,7 @@ Pick the company that you want to approve ads for:
 <select name="companies" onchange="window.location.href='moderator.jsp?companyId=' + document.getElementId('companies').value">
 <%
 //get VERIFIED companies
-String getVerifiedCompanies = "";
+String getVerifiedCompanies = "SELECT * FROM company WHERE approved=1";
 ResultSet verifiedCompanies = null;
 try{ 
 	verifiedCompanies = query.executeQuery(getVerifiedCompanies); 
@@ -106,7 +108,7 @@ if(verifiedCompanies != null){
 <form id="approveads" name="approveads" action="approveads.jsp" method="post">
 <%
 //get all the unverified ads and display them with checkboxes
-String getUnapprovedAds = ""; 
+String getUnapprovedAds = "SELECT * FROM advertisement WHERE approved=0;"; 
 ResultSet unapprovedAds = null; 
 
 try{ 

@@ -19,8 +19,8 @@ Statement query = conn.createStatement(); //create the thing that will query the
 String[] adsIdApproved = request.getParameterValues("approvedad"); //all the ads that were approved
 
 for(int x = 0; x < adsIdApproved.length; x++){ // go through the adIds that were approved
-	//update the ads to say that they're approved:: 1 means approved, 0 means unapproved
-	String approveAdUpdate = ""; 
+	//update the ads to say that they're approved.1 means approved, 0 means unapproved
+	String approveAdUpdate = "UPDATE advertisement SET approved=1 WHERE adId = " + adsIdApproved[x] + ";";
 	
 	try{
 		query.executeUpdate(approveAdUpdate); //executes the update
@@ -35,7 +35,7 @@ for(int x = 0; x < adsIdApproved.length; x++){ // go through the adIds that were
 //updated all the ads here
 
 response.sendRedirect("moderator.jsp"); //redirect back to moderator
-return; //so we dont write anymore headers (bad stuff happens)
+ //so we dont write anymore headers (bad stuff happens)
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
