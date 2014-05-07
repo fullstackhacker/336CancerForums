@@ -26,6 +26,7 @@ Statement query2 = conn.createStatement();
 <div id="header">
 <jsp:include page="header.jsp" flush="true" />
 </div>
+<div id="wrapper">
 <%
 String searchQuery = request.getParameter("searchquery"); 
 String searchingType = request.getParameter("searchin"); 
@@ -394,6 +395,6 @@ else{
 conn.close();
 %>
 
-
+</div>
 </body>
 </html>

@@ -55,6 +55,7 @@ userName = userInfo.getString("userName");
 <div id="header">
 <jsp:include page="header.jsp" flush="true" />
 </div>
+<div id="wrapper">
 <!-- display user profile --> 
 <p> User Name: <%= userName %> </p>
 <p> First Name: <%= firstName %> </p>
@@ -62,5 +63,6 @@ userName = userInfo.getString("userName");
 <p> Email: <%= email %> </p>
 
 <% conn.close(); %>
+</div>
 </body>
 </html>
