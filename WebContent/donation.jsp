@@ -12,7 +12,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Donation to company</title>
+<title>336 Beats Cancer | Make a Donation</title>
+<!-- stylesheets -->
+<link rel="stylesheet" type="text/css" href="global.css">
 <!-- jquery script -->
 <script src="jquery-2.1.0.min.js"></script>
 </head>
