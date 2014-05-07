@@ -5,9 +5,9 @@ A Cancer Forum
 
 Developers
 ----------
-* Kevin Hsieh - Part 4. SALES
-* Megan Murray - Part
-* Mushaheed Kapadia - Part 
+* Kevin Hsieh 
+* Megan Murray
+* Mushaheed Kapadia 
 
 Page Contributers:
 ------------------
