@@ -21,10 +21,11 @@ Statement query2 = conn.createStatement();
 int userId = Integer.parseInt(request.getParameter("id"));
 
 //user details that we need to fill in!!:
-String firstName; 
-String lastName; 
-String email; 
-String userName; 
+String firstName = ""; 
+String lastName = ""; 
+String email = ""; 
+String userName = ""; 
+String votes = ""; 
 
 String getInfo = "SELECT * FROM user WHERE userId = " + userId + ";";
 ResultSet userInfo = null;
@@ -42,6 +43,7 @@ firstName = userInfo.getString("firstName");
 lastName = userInfo.getString("lastName"); 
 email = userInfo.getString("email"); 
 userName = userInfo.getString("userName");
+votes = Integer.toString(userInfo.getInt("updownVotes")); 
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -61,7 +63,7 @@ userName = userInfo.getString("userName");
 <p> First Name: <%= firstName %> </p>
 <p> Last Name: <%= lastName %> </p>
 <p> Email: <%= email %> </p>
-
+<p> Votes: <%= votes %> </p>
 <% conn.close(); %>
 </div>
 </body>
