@@ -142,7 +142,7 @@ ads = query.executeQuery(getAds);
 //got the number of ads
 //get random ad
 ads.next();
-for(int i=1; i<=rndm; i++){
+for(int i=1; i<rndm; i++){
 	ads.next(); 
 }
 imageLink = "images/" + ads.getString("imageLink");
